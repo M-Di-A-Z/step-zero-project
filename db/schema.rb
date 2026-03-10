@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_120030) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_153037) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "business_data", force: :cascade do |t|
-    t.string "business"
+    t.jsonb "business"
     t.bigint "business_idea_id", null: false
-    t.string "competitors"
+    t.jsonb "competitors"
     t.datetime "created_at", null: false
-    t.string "execution"
-    t.string "market_size"
+    t.jsonb "execution"
+    t.jsonb "market_size"
+    t.jsonb "overview"
     t.datetime "updated_at", null: false
     t.index ["business_idea_id"], name: "index_business_data_on_business_idea_id"
   end
@@ -28,8 +29,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_120030) do
   create_table "business_ideas", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
-    t.string "report"
+    t.text "details"
+    t.integer "idea_score"
     t.string "status"
+    t.text "summary"
     t.string "title"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
