@@ -1,0 +1,11 @@
+<%= simple_form_for [chat, message], html: { class: "chat-form" } do |f| %>
+  <div class="chat-input-card">
+    <%= f.input :content, label: false, placeholder: "Got an idea?",
+        wrapper_html: { class: "chat-input-wrapper" },
+        input_html: { class: "chat-textarea", rows: 1, placeholder: "",
+          data: { controller: "submit-on-enter placeholder-typer", action: "keydown->submit-on-enter#handleKeydown" } } %>
+    <div class="chat-input-card-footer">
+      <button type="submit" class="chat-send-btn"><span>Submit</span></button>
+    </div>
+  </div>
+<% end %>
