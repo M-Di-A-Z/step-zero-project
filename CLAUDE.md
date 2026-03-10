@@ -21,8 +21,7 @@
 - title (string)            # from AI
 - summary (text)            # from AI
 - idea_score (integer)      # from AI — queryable
-- features (text)           # from clarifying questions
-- target_market (text)      # from clarifying questions
+- details (text)           # from clarifying questions with AI
 - status (string)           # pending / researching / complete
 - user_id (foreign key)
 
