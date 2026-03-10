@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
-  resources :business_ideas, only: [:create, :index, :show, :destroy]
-  resources :chats, only: [:create, :show ] do
-    resources :messages, only: [:create]
+  resources :business_ideas, only: [:new, :create, :index, :show, :destroy] do
+    resource :chats, only: [:new, :create]
     resources :business_datas, only: [:create]
+  end
+
+  resources :chats, only: [:show ] do
+    resources :messages, only: [:create]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
