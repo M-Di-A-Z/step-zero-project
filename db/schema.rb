@@ -10,9 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_094902) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_120030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "buisness_ideas", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.string "report"
+    t.string "status"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_buisness_ideas_on_user_id"
+  end
+
+  create_table "business_data", force: :cascade do |t|
+    t.string "business"
+    t.bigint "business_idea_id", null: false
+    t.string "competitors"
+    t.datetime "created_at", null: false
+    t.string "execution"
+    t.string "market_size"
+    t.datetime "updated_at", null: false
+    t.index ["business_idea_id"], name: "index_business_data_on_business_idea_id"
+  end
+
+  create_table "business_ideas", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.string "report"
+    t.string "status"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_business_ideas_on_user_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.bigint "business_idea_id", null: false
+    t.datetime "created_at", null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["business_idea_id"], name: "index_chats_on_business_idea_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "chat_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.string "role"
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -25,4 +75,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_094902) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "buisness_ideas", "users"
+  add_foreign_key "business_data", "business_ideas"
+  add_foreign_key "business_ideas", "users"
+  add_foreign_key "chats", "business_ideas"
+  add_foreign_key "messages", "chats"
 end
