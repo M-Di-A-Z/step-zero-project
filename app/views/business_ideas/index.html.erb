@@ -45,9 +45,10 @@
               </div>
               <span class="project-card__progress-label">
                 <% case idea.status
-                   when "pending" then %>Research pending
-                <% when "researching" then %>Researching…
-                <% when "complete" then %>Analysis complete
+                   when 0 then %>Research pending
+                <% when 1 then %>Researching…
+                <% when 2 then %>Analysis complete
+                <% when 3 then %>Analysis aborted
                 <% end %>
               </span>
             </div>

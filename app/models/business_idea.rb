@@ -10,8 +10,9 @@ class BusinessIdea < ApplicationRecord
 
 
   # autre methodes
-  enum :status, [:in_progress, :pending, :complete, :aborted]
-  BusinessIdea.status = "in progress"
+
+  enum :status, {in_progress: 1,  pending: 0, complete: 2, aborted: 3}
+
 
   # creer un enum (=> enumerateur), qui est une liste figee predeterminee dans laquelle le user va puiser le statut qu'il faut
   # enum :status, { pending: 0, in_progress: 1, completed: 2 } ou enum :status, [:pending, :in_progress, :completed]
