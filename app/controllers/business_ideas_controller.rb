@@ -5,31 +5,33 @@ class BusinessIdeasController < ApplicationController
 
   def create
     @business_idea = BusinessIdea.new(business_idea_params)
-    @business_idea.chat = @chat
-    @business_idea.save
-    # redirect-to business_idea_path(@chat)
-  end
-
-  def index
-    @business_idea = BusinessIdea.all
-  end
-
-  def show
-    @business_idea = BusinessIdea.find(params[:id])
-  end
-
-  def destroy
-    @business_idea = BusinessIdea.find(params[:id])
-    @chat = @business_idea.chat
-    if @business_idea.destroy
-      redirect_to business_idea_path
+    @business_idea.user = current_user
+    @business_idea.status = "pending"
+    if @business_idea.save
+      chat = Chat.create!(business_idea: @business_idea)
+      redirect_to chat_path(chat)
     else
-      render "business_idea/show"
+      render :new, status: :unprocessable_entity
     end
   end
 
+  def index
+    @business_ideas = current_user.business_ideas
+  end
+
+  def show
+    @business_idea = current_user.business_ideas.find(params[:id])
+  end
+
+  def destroy
+    @business_idea = current_user.business_ideas.find(params[:id])
+    @business_idea.destroy
+    redirect_to business_ideas_path
+  end
+
   private
+
   def business_idea_params
-    params.require(:user_id).permit(:title, :content, status:, report:)
+    params.require(:business_idea).permit(:content)
   end
 end

@@ -1,0 +1,164 @@
+// ── Overview dashboard ──────────────────────────────────────────────
+
+.overview-page {
+  min-height: 100vh;
+  background: #FAF7F0;
+  padding: 60px 80px;
+  font-family: "Georgia", serif;
+}
+
+// Title
+.overview-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 60px;
+
+  &__highlight {
+    color: $yellow;
+    font-style: italic;
+  }
+}
+
+// Cards row
+.overview-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 80px;
+}
+
+.overview-card {
+  padding: 8px 0;
+
+  &__label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #aaa;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+  }
+
+  &__label--center {
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  &__heading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 10px 0 8px;
+  }
+
+  &__context {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    font-family: sans-serif;
+    font-style: normal;
+  }
+
+  &__context--center {
+    text-align: center;
+  }
+}
+
+// Pill
+.overview-pill {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: #EDE8D8;
+  color: #555;
+  font-size: 0.85rem;
+  font-family: sans-serif;
+}
+
+// Dash bar (competitive intensity)
+.overview-dash-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 2px;
+  align-items: center;
+
+  &__dash {
+    display: block;
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+
+    &--filled {
+      background: #1a1a1a;
+    }
+
+    &--empty {
+      background: #d0ccc4;
+    }
+  }
+}
+
+// Semi-circle gauge
+.overview-card--gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.overview-gauge {
+  position: relative;
+  width: 160px;
+
+  &__svg {
+    width: 100%;
+    display: block;
+  }
+
+  &__value {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    white-space: nowrap;
+  }
+}
+
+// Tab bar
+.overview-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+
+.overview-tab {
+  padding: 80px 20px 20px;
+  border: 1px solid #ccc;
+  width: 96px;
+  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-family: sans-serif;
+  transition: border-color 0.2s;
+
+  &--active {
+    border-color: $yellow;
+    color: $yellow;
+  }
+
+  &:hover:not(.overview-tab--active) {
+    border-color: #888;
+  }
+}

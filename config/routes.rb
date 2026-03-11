@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
   resources :business_ideas, only: [:new, :create, :index, :show, :destroy] do
-    resource :chats, only: [:new, :create]
     resources :business_datas, only: [:create]
   end
 
