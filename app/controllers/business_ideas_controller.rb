@@ -30,8 +30,6 @@ class BusinessIdeasController < ApplicationController
 
   private
   def business_idea_params
-    params.require(:user_id) permit(:title, :content, status:, report:)
-  end
-
+    params.require(:user_id).permit(:title, :content, status:, report:)
   end
 end
