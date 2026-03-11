@@ -23,7 +23,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body><%= render "shared/navbar" %>
+  <body class="<%= content_for(:body_class) %>"><%= render "shared/navbar" %>
 <%= render "shared/flashes" %>
 
     <%= yield %>
