@@ -1,7 +1,7 @@
 // Home page
 
 .home-body {
-  background: transparent !important;
+  background: #ffffff !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow-x: hidden;
@@ -14,9 +14,19 @@
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image: url(asset-path("trame.svg"));
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+.home-gradient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .home-page {
