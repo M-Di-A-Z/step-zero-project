@@ -1,0 +1,60 @@
+<% content_for(:body_class) { "home-body" } %>
+<div class="home-bg" style="background-image: url('<%= asset_path("background.jpg") %>');"></div>
+<div class="projects-page">
+  <div class="projects-header">
+    <h1 class="projects-header__title">My Projects</h1>
+    <%= link_to root_path, class: "projects-new-btn" do %>
+      <span>New idea</span>
+      <svg width="13px" height="10px" viewBox="0 0 13 10">
+        <path d="M1,5 L11,5"></path>
+        <polyline points="8 1 12 5 8 9"></polyline>
+      </svg>
+    <% end %>
+  </div>
+
+  <% if @business_ideas.empty? %>
+    <div class="projects-empty">
+      <p class="projects-empty__text">No ideas yet. Start with your first one.</p>
+      <%= link_to "Check an idea →", root_path, class: "projects-empty__link" %>
+    </div>
+  <% else %>
+    <div class="projects-grid">
+      <% @business_ideas.each do |idea| %>
+        <%= link_to idea.status == "complete" ? business_idea_path(idea) : "#", class: "project-card" do %>
+          <div class="project-card__top">
+            <span class="project-card__status project-card__status--<%= idea.status %>">
+              <%= idea.status.capitalize %>
+            </span>
+            <% if idea.idea_score.present? %>
+              <span class="project-card__score"><%= idea.idea_score %><span class="project-card__score-max">/100</span></span>
+            <% end %>
+          </div>
+
+          <h2 class="project-card__title">
+            <%= idea.title.present? ? idea.title : idea.content.truncate(60) %>
+          </h2>
+
+          <% if idea.summary.present? %>
+            <p class="project-card__summary"><%= idea.summary.truncate(120) %></p>
+          <% end %>
+
+          <div class="project-card__bottom">
+            <div class="project-card__progress">
+              <div class="project-card__progress-track">
+                <div class="project-card__progress-fill project-card__progress-fill--<%= idea.status %>"></div>
+              </div>
+              <span class="project-card__progress-label">
+                <% case idea.status
+                   when "pending" then %>Research pending
+                <% when "researching" then %>Researching…
+                <% when "complete" then %>Analysis complete
+                <% end %>
+              </span>
+            </div>
+            <span class="project-card__arrow">→</span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,79 @@
+<% overview = data.overview.is_a?(String) ? JSON.parse(data.overview) : data.overview %>
+
+<% feasibility_dots = case overview["project_feasibility"]&.downcase
+   when "low" then 2
+   when "medium" then 3
+   when "high" then 5
+   else 3
+   end %>
+
+<div class="project-show">
+
+  <!-- Header: title + summary left, rating right -->
+  <div class="project-show__header">
+    <div class="project-show__header-left">
+      <h1 class="project-show__title">
+        The project <em class="project-show__title-highlight"><%= idea.title %></em>
+      </h1>
+      <p class="project-show__summary"><%= idea.summary %></p>
+    </div>
+
+    <div class="project-show__rating">
+      <div class="project-show__gauge">
+        <svg viewBox="0 0 130 80" class="project-show__gauge-svg">
+          <path d="M15,72 A55,55 0 0,1 115,72" fill="none" stroke="#e0ddd6" stroke-width="12" stroke-linecap="round"/>
+          <path d="M15,72 A55,55 0 0,1 115,72" fill="none" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round"
+                stroke-dasharray="173"
+                stroke-dashoffset="<%= 173 - (173 * idea.idea_score / 100.0).round %>"/>
+        </svg>
+        <div class="project-show__gauge-value"><%= idea.idea_score %>%</div>
+      </div>
+      <p class="project-show__rating-label">Rating</p>
+    </div>
+  </div>
+
+  <!-- 3 data cards -->
+  <div class="project-show__cards">
+
+    <!-- Card 1: Market Stage -->
+    <div class="project-show__card">
+      <p class="project-show__card-label">MARKET STAGE</p>
+      <span class="project-show__pill project-show__pill--green"><%= overview["market_stage_pill"] %></span>
+      <h2 class="project-show__card-heading"><%= overview["market_stage_label"] %></h2>
+      <p class="project-show__card-context"><%= overview["market_stage_context"] %></p>
+    </div>
+
+    <!-- Card 2: Competitivity -->
+    <div class="project-show__card">
+      <p class="project-show__card-label">COMPETITIVITY</p>
+      <div class="project-show__dash-bar">
+        <% 5.times do |i| %>
+          <span class="project-show__dash <%= i < overview["competitive_intensity_dots"] ? 'project-show__dash--filled' : 'project-show__dash--empty' %>"></span>
+        <% end %>
+      </div>
+      <h2 class="project-show__card-heading"><%= overview["competitive_intensity_label"] %></h2>
+      <p class="project-show__card-context"><%= overview["competitive_intensity_context"] %></p>
+    </div>
+
+    <!-- Card 3: Project Feasibility -->
+    <div class="project-show__card">
+      <p class="project-show__card-label">PROJECT FEASIBILITY</p>
+      <div class="project-show__dot-bar">
+        <% 6.times do |i| %>
+          <span class="project-show__dot <%= i < feasibility_dots ? 'project-show__dot--filled' : 'project-show__dot--empty' %>"></span>
+        <% end %>
+      </div>
+      <h2 class="project-show__card-heading"><%= overview["project_feasibility"] %></h2>
+      <p class="project-show__card-context"><%= overview["project_feasibility_context"] %></p>
+    </div>
+
+  </div>
+
+  <!-- Generate Plan button -->
+  <div class="project-show__generate">
+    <button class="project-show__generate-btn">
+      <span class="project-show__generate-icon">✦</span> Generate Plan
+    </button>
+  </div>
+
+</div>
