@@ -1,164 +1,238 @@
-// ── Overview dashboard ──────────────────────────────────────────────
+// ── Project Show Page ────────────────────────────────────────────────
 
-.overview-page {
+.project-show {
   min-height: 100vh;
-  background: #FAF7F0;
-  padding: 60px 80px;
+  background-color: #FAF7F0;
+  background-image: url("background.jpg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  padding: 40px 48px 80px;
   font-family: "Georgia", serif;
 }
 
-// Title
-.overview-title {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  text-align: center;
-  margin-bottom: 60px;
+// ── Header ───────────────────────────────────────────────────────────
 
-  &__highlight {
-    color: $yellow;
+.project-show__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.project-show__header-left {
+  flex: 1;
+}
+
+.project-show__title {
+  font-size: 5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.05;
+  margin-bottom: 20px;
+
+  &-highlight {
+    color: #f5a623;
     font-style: italic;
   }
 }
 
-// Cards row
-.overview-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 80px;
-}
-
-.overview-card {
-  padding: 8px 0;
-
-  &__label {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    color: #aaa;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    font-family: sans-serif;
-  }
-
-  &__label--center {
-    text-align: center;
-    margin-top: 8px;
-  }
-
-  &__heading {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 10px 0 8px;
-  }
-
-  &__context {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.5;
-    font-family: sans-serif;
-    font-style: normal;
-  }
-
-  &__context--center {
-    text-align: center;
-  }
-}
-
-// Pill
-.overview-pill {
-  display: inline-block;
-  padding: 4px 14px;
-  border-radius: 20px;
-  background: #EDE8D8;
+.project-show__summary {
+  font-size: 1.05rem;
   color: #555;
-  font-size: 0.85rem;
+  line-height: 1.6;
   font-family: sans-serif;
+  max-width: 640px;
 }
 
-// Dash bar (competitive intensity)
-.overview-dash-bar {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 2px;
-  align-items: center;
+// ── Rating gauge ─────────────────────────────────────────────────────
 
-  &__dash {
-    display: block;
-    width: 36px;
-    height: 4px;
-    border-radius: 2px;
-
-    &--filled {
-      background: #1a1a1a;
-    }
-
-    &--empty {
-      background: #d0ccc4;
-    }
-  }
-}
-
-// Semi-circle gauge
-.overview-card--gauge {
+.project-show__rating {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  flex-shrink: 0;
 }
 
-.overview-gauge {
+.project-show__gauge {
   position: relative;
-  width: 160px;
+  width: 200px;
+}
 
-  &__svg {
-    width: 100%;
-    display: block;
+.project-show__gauge-svg {
+  width: 100%;
+  display: block;
+}
+
+.project-show__gauge-value {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  white-space: nowrap;
+  font-family: "Georgia", serif;
+}
+
+.project-show__rating-label {
+  margin-top: 8px;
+  font-size: 1rem;
+  color: #888;
+  font-family: sans-serif;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+// ── Cards row ────────────────────────────────────────────────────────
+
+.project-show__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.project-show__card {
+  padding: 32px 36px;
+  border: 1px solid #E0D9CE;
+  border-radius: 4px;
+}
+
+.project-show__card-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #aaa;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-family: sans-serif;
+}
+
+.project-show__card-heading {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 16px 0 12px;
+  line-height: 1.1;
+}
+
+.project-show__card-context {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+  font-family: sans-serif;
+}
+
+// ── Pill ─────────────────────────────────────────────────────────────
+
+.project-show__pill {
+  display: inline-block;
+  padding: 8px 22px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: sans-serif;
+
+  &--green {
+    background: #d6f5e3;
+    color: #2a7a4a;
   }
 
-  &__value {
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    white-space: nowrap;
+  &--yellow {
+    background: #fff3cd;
+    color: #7a5a00;
+  }
+
+  &--red {
+    background: #fde8e8;
+    color: #8b2500;
+  }
+
+  &--orange {
+    background: #feecd0;
+    color: #7a4000;
   }
 }
 
-// Tab bar
-.overview-tabs {
+// ── Dash bar (competitivity) ──────────────────────────────────────────
+
+.project-show__dash-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2px;
+  align-items: center;
+}
+
+.project-show__dash {
+  display: block;
+  width: 52px;
+  height: 7px;
+  border-radius: 4px;
+
+  &--filled {
+    background: #1a1a1a;
+  }
+
+  &--empty {
+    background: #d0ccc4;
+  }
+}
+
+// ── Dot bar (feasibility) ─────────────────────────────────────────────
+
+.project-show__dot-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 2px;
+  align-items: center;
+}
+
+.project-show__dot {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+
+  &--filled {
+    background: #1a1a1a;
+  }
+
+  &--empty {
+    background: #d0ccc4;
+  }
+}
+
+// ── Generate button ───────────────────────────────────────────────────
+
+.project-show__generate {
   display: flex;
   justify-content: center;
-  gap: 0;
 }
 
-.overview-tab {
-  padding: 80px 20px 20px;
-  border: 1px solid #ccc;
-  width: 96px;
-  text-align: center;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  font-size: 0.7rem;
+.project-show__generate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 18px 48px;
+  font-size: 1.05rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
-  color: #1a1a1a;
-  text-decoration: none;
   font-family: sans-serif;
-  transition: border-color 0.2s;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s;
 
-  &--active {
-    border-color: $yellow;
-    color: $yellow;
+  &:hover {
+    background: #333;
   }
+}
 
-  &:hover:not(.overview-tab--active) {
-    border-color: #888;
-  }
+.project-show__generate-icon {
+  font-size: 1.1rem;
 }
