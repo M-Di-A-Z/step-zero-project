@@ -1,18 +1,82 @@
-<div class="chat-page">
-  <% hero_titles = [
-    "Tell me what's on your mind",
-    "Got an idea you'd like to battletest?",
-  ] %>
-  <div class="chat-hero">
-    <p class="chat-hero-title"><%= hero_titles.sample %></p>
-  </div>
+<div class="home-bg"></div>
+<canvas class="home-gradient-canvas" id="gradientCanvas"></canvas>
 
-  <div class="chat-messages" id="messages" data-controller="autoscroll">
-    <%= render "messages/messages", messages: @chat.messages %>
-  </div>
+<script>
+  (function() {
+    var canvas = document.getElementById("gradientCanvas");
+    if (!canvas || canvas.dataset.running) return;
+    canvas.dataset.running = "1";
+    var ctx = canvas.getContext("2d");
+    var mouseX = window.innerWidth / 2;
+    var mouseY = window.innerHeight / 2;
+    var currentX = mouseX, currentY = mouseY, time = 0;
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener("resize", resize);
+    document.addEventListener("mousemove", function(e) { mouseX = e.clientX; mouseY = e.clientY; });
+    var blobs = [
+      { offsetX: 0, offsetY: 0, radius: 700, color: [245, 166, 35], opacity: 0.20, speed: 1.0 },
+      { offsetX: 250, offsetY: -200, radius: 550, color: [255, 200, 80], opacity: 0.14, speed: 1.4 },
+      { offsetX: -300, offsetY: 220, radius: 600, color: [235, 140, 20], opacity: 0.12, speed: 0.8 },
+      { offsetX: -180, offsetY: -280, radius: 480, color: [255, 220, 120], opacity: 0.10, speed: 1.1 },
+      { offsetX: 200, offsetY: 300, radius: 520, color: [240, 155, 30], opacity: 0.11, speed: 0.6 },
+    ];
+    function draw() {
+      time += 0.008;
+      currentX += (mouseX - currentX) * 0.05;
+      currentY += (mouseY - currentY) * 0.05;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      blobs.forEach(function(blob) {
+        var wavyX = currentX + blob.offsetX + Math.sin(time * blob.speed) * 100 + Math.sin(time * 1.7 * blob.speed) * 60;
+        var wavyY = currentY + blob.offsetY + Math.cos(time * blob.speed * 0.9) * 80 + Math.cos(time * 1.3 * blob.speed) * 50;
+        var gradient = ctx.createRadialGradient(wavyX, wavyY, 0, wavyX, wavyY, blob.radius);
+        gradient.addColorStop(0, "rgba(" + blob.color.join(",") + "," + blob.opacity + ")");
+        gradient.addColorStop(0.4, "rgba(" + blob.color.join(",") + "," + (blob.opacity * 0.5) + ")");
+        gradient.addColorStop(0.7, "rgba(" + blob.color.join(",") + "," + (blob.opacity * 0.2) + ")");
+        gradient.addColorStop(1, "rgba(" + blob.color.join(",") + ",0)");
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        for (var i = 0; i <= 150; i++) {
+          var angle = (i / 150) * Math.PI * 2;
+          var waveOffset = Math.sin(angle * 2 + time * 1.5 * blob.speed) * 80
+                         + Math.sin(angle * 3 - time * 1.2 * blob.speed) * 50
+                         + Math.sin(angle * 5 + time * 2.5 * blob.speed) * 25;
+          var r = blob.radius + waveOffset;
+          var px = wavyX + Math.cos(angle) * r;
+          var py = wavyY + Math.sin(angle) * r;
+          if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+</script>
 
-  <div class="chat-input-area" id="new_message_container">
-    <%= render "messages/form", chat: @chat, message: @message %>
+<%= turbo_frame_tag "idea-flow" do %>
+  <div class="chat-page">
+    <div class="chat-column">
+
+      <div class="chat-header">
+        <p class="chat-header-label">We need some clarifications</p>
+      </div>
+
+      <div class="chat-messages" id="messages" data-controller="autoscroll">
+        <div class="message-row user-row">
+          <div class="chat-bubble user-bubble">
+            <%= @business_idea.content %>
+          </div>
+        </div>
+
+        <%= render "messages/messages", messages: @chat.messages %>
+      </div>
+
+      <div class="chat-input-area" id="new_message_container">
+        <%= render "messages/form", chat: @chat, message: @message %>
+      </div>
+
+    </div>
   </div>
-<%= turbo_stream_from @chat %>
-</div>
+<% end %>
