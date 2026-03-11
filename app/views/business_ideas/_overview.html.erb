@@ -1,0 +1,59 @@
+<% overview = data.overview.is_a?(String) ? JSON.parse(data.overview) : data.overview %>
+
+<div class="overview-page">
+
+  <!-- Title -->
+  <h1 class="overview-title">
+    The project <em class="overview-title__highlight"><%= idea.title %></em>
+  </h1>
+
+  <!-- Three cards row -->
+  <div class="overview-cards">
+
+    <!-- Card 1: Market Stage -->
+    <div class="overview-card">
+      <p class="overview-card__label">MARKET STAGE</p>
+      <span class="overview-pill"><%= overview["market_stage_pill"] %></span>
+      <h2 class="overview-card__heading"><%= overview["market_stage_label"] %></h2>
+      <p class="overview-card__context"><%= overview["market_stage_context"] %></p>
+    </div>
+
+    <!-- Card 2: Competitive Intensity -->
+    <div class="overview-card">
+      <p class="overview-card__label">COMPETITIVE INTENSITY</p>
+      <div class="overview-dash-bar">
+        <% 5.times do |i| %>
+          <span class="overview-dash-bar__dash <%= i < overview["competitive_intensity_dots"] ? 'overview-dash-bar__dash--filled' : 'overview-dash-bar__dash--empty' %>"></span>
+        <% end %>
+      </div>
+      <h2 class="overview-card__heading"><%= overview["competitive_intensity_label"] %></h2>
+      <p class="overview-card__context"><%= overview["competitive_intensity_context"] %></p>
+    </div>
+
+    <!-- Card 3: Project Feasibility gauge -->
+    <div class="overview-card overview-card--gauge">
+      <div class="overview-gauge">
+        <svg viewBox="0 0 120 70" class="overview-gauge__svg">
+          <path d="M10,65 A50,50 0 0,1 110,65" fill="none" stroke="#e0e0e0" stroke-width="10" stroke-linecap="round"/>
+          <path d="M10,65 A50,50 0 0,1 110,65" fill="none" stroke="#1a1a1a" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="157"
+                stroke-dashoffset="<%= 157 - (157 * idea.idea_score / 100.0).round %>"/>
+        </svg>
+        <div class="overview-gauge__value"><%= idea.idea_score %>%</div>
+      </div>
+      <p class="overview-card__label overview-card__label--center"><%= overview["project_feasibility"] %></p>
+      <p class="overview-card__context overview-card__context--center"><%= overview["project_feasibility_context"] %></p>
+    </div>
+
+  </div>
+
+  <!-- Tab bar -->
+  <nav class="overview-tabs">
+    <a href="#" class="overview-tab overview-tab--active">DASHBOARD</a>
+    <a href="#" class="overview-tab">MARKET SIZE</a>
+    <a href="#" class="overview-tab">COMPETITORS</a>
+    <a href="#" class="overview-tab">BUSINESS</a>
+    <a href="#" class="overview-tab">EXECUTION</a>
+  </nav>
+
+</div>
