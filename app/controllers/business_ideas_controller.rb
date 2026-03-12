@@ -17,16 +17,15 @@ class BusinessIdeasController < ApplicationController
     @business_idea.status = "pending"
     if @business_idea.save
       chat = Chat.create!(business_idea: @business_idea)
+      @business_idea.update!(status: "in progress")
       redirect_to chat_path(chat)
-      @business_idea.status = "in_progress"
     else
       render :new, status: :unprocessable_entity
-      @business_idea.status = "pending"
     end
   end
 
   def index
-    @business_ideas = current_user.business_ideas
+    @business_ideas = current_user.business_ideas.where.not(status: ["pending", "in progress"])
   end
 
   def show

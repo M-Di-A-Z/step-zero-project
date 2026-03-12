@@ -10,4 +10,6 @@
   <%= render "messages/form", chat: @chat, message: Message.new %>
 <% end %>
 
-<%= turbo_stream.invoke "autoscroll#scrollToBottom", targets: "[data-controller='autoscroll']" %>
+<%= turbo_stream.append "messages" do %>
+  <template data-controller="autoscroll-trigger"></template>
+<% end %>
