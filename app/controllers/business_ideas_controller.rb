@@ -32,6 +32,13 @@ class BusinessIdeasController < ApplicationController
     @business_idea = current_user.business_ideas.find(params[:id])
   end
 
+  def research
+    @business_idea = current_user.business_ideas.find(params[:id])
+    @business_idea.update!(status: "complete")
+    ResearchBusinessIdeaJob.perform_later(@business_idea.id)
+    redirect_to business_idea_path(@business_idea)
+  end
+
   def destroy
     @business_idea = current_user.business_ideas.find(params[:id])
     @business_idea.destroy

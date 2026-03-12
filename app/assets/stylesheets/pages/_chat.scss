@@ -137,3 +137,38 @@ turbo-frame#idea-flow {
     padding: 0;
   }
 }
+
+// ── Generate Research button ───────────────────────────────────────────
+
+.generate-research-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 24px;
+  background: #1a1a1a;
+  color: #F5F0E8;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-family: $body-font;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+
+  &:hover {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  svg {
+    stroke: #F5F0E8;
+    stroke-width: 2;
+    fill: none;
+  }
+}

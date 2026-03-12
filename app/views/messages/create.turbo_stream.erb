@@ -7,7 +7,11 @@
 <% end %>
 
 <%= turbo_stream.update "new_message_container" do %>
-  <%= render "messages/form", chat: @chat, message: Message.new %>
+  <% if @research_ready %>
+    <%= render "messages/generate_research_button", business_idea: @business_idea %>
+  <% else %>
+    <%= render "messages/form", chat: @chat, message: Message.new %>
+  <% end %>
 <% end %>
 
 <%= turbo_stream.append "messages" do %>

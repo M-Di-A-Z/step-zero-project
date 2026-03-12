@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   root to: "pages#home"
   resources :business_ideas, only: [:new, :create, :index, :show, :destroy] do
     resources :business_datas, only: [:create]
+    member do
+      post :research
+    end
   end
 
   resources :chats, only: [:show ] do

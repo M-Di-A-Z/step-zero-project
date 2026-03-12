@@ -7,13 +7,13 @@ class MessagesController < ApplicationController
     if @message.save
       response = ClaudeService.new(@chat).ask
 
-      if response.include?("[RESEARCH_READY]")
+      @research_ready = response.include?("[RESEARCH_READY]")
+
+      if @research_ready
         @assistant_message = @chat.messages.create!(
           role: "assistant",
-          content: "Got it! I have everything I need. Starting research now..."
+          content: "I've got all the info I need now, let's generate the research."
         )
-        @business_idea.update!(status: "researching")
-        ResearchBusinessIdeaJob.perform_later(@business_idea.id)
       else
         @assistant_message = @chat.messages.create!(role: "assistant", content: response)
       end
