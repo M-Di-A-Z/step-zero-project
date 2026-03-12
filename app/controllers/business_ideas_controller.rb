@@ -14,11 +14,9 @@ class BusinessIdeasController < ApplicationController
 
     @business_idea = BusinessIdea.new(business_idea_params)
     @business_idea.user = current_user
-    @business_idea.status = "pending"
+    @business_idea.status = 1
     if @business_idea.save
       chat = Chat.create!(business_idea: @business_idea)
-      redirect_to chat_path(chat)
-      @business_idea.status = "in_progress"
     else
       render :new, status: :unprocessable_entity
       @business_idea.status = "pending"
@@ -49,6 +47,4 @@ class BusinessIdeasController < ApplicationController
   def business_idea_params
     params.require(:business_idea).permit(:content)
   end
-
-
 end
