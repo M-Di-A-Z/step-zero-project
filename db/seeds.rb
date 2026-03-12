@@ -32,7 +32,7 @@ BusinessData.create!(
     market_stage_context: "Consumer health tech is expanding rapidly, with rising demand for personalized nutrition tools driven by wellness trends.",
     competitive_intensity_dots: 3,
     competitive_intensity_label: "Moderate Competition",
-    competitive_intensity_context: "Several apps exist in this space, but most lack deep personalization or real-time ingredient analysis for complex dietary needs.",
+    competitive_intensity_context: "Several apps exist in this spa  ce, but most lack deep personalization or real-time ingredient analysis for complex dietary needs.",
     project_feasibility: "High",
     project_feasibility_context: "Core tech stack is accessible — barcode APIs and nutrition databases are publicly available, keeping build complexity low.",
     positioning_sentence: "NutriScan is the first nutrition scanner built around your health profile, not just generic labels."
@@ -41,7 +41,13 @@ BusinessData.create!(
     tam: "$28B",
     sam: "$4.2B",
     market_stage: "Early Growth",
-    key_driver: "Growing prevalence of diet-related chronic diseases and consumer shift toward preventive health management."
+    key_driver: "Growing prevalence of diet-related chronic diseases and consumer shift toward preventive health management.",
+    geo: [
+      { region: "North America", pct: 42 },
+      { region: "Europe", pct: 28 },
+      { region: "Asia-Pacific", pct: 20 },
+      { region: "Rest of World", pct: 10 }
+    ]
   },
   competitors: {
     intensity: "Moderate",
@@ -108,7 +114,13 @@ BusinessData.create!(
     tam: "$12B",
     sam: "$1.8B",
     market_stage: "Emerging",
-    key_driver: "Permanent shift to hybrid and remote work creating sustained demand for flexible, affordable third-place workspaces."
+    key_driver: "Permanent shift to hybrid and remote work creating sustained demand for flexible, affordable third-place workspaces.",
+    geo: [
+      { region: "North America", pct: 38 },
+      { region: "Europe", pct: 32 },
+      { region: "Asia-Pacific", pct: 22 },
+      { region: "Rest of World", pct: 8 }
+    ]
   },
   competitors: {
     intensity: "Low",

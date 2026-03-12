@@ -1,0 +1,153 @@
+// ── Execution Tab ────────────────────────────────────────────────────
+
+.execution {
+  height: 100%;
+  background: transparent;
+  padding: 32px 48px 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+// ── Header ───────────────────────────────────────────────────────────
+
+.execution__header {
+  margin-bottom: 56px;
+}
+
+.execution__title {
+  font-size: 3.5rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  font-family: "Poppins", sans-serif;
+}
+
+.execution__subtitle {
+  font-size: 1.05rem;
+  color: #888;
+  line-height: 1.6;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+
+  strong {
+    color: #f5a623;
+    font-weight: 500;
+  }
+}
+
+// ── Metric cards ─────────────────────────────────────────────────────
+
+.execution__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.execution__card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+.execution__card-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #aaa;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  font-family: "Poppins", sans-serif;
+}
+
+.execution__card-visual {
+  margin-bottom: 14px;
+}
+
+.execution__card-heading {
+  font-size: 2.6rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 12px;
+  line-height: 1.1;
+  font-family: "Ramaraja", serif;
+}
+
+.execution__card-context {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+// ── Pill ─────────────────────────────────────────────────────────────
+
+.execution__pill {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+
+  &--green {
+    background: #d6f5e3;
+    color: #2a7a4a;
+  }
+
+  &--orange {
+    background: #feecd0;
+    color: #7a4000;
+  }
+
+  &--red {
+    background: #fde8e8;
+    color: #8b2500;
+  }
+}
+
+// ── Key risk ─────────────────────────────────────────────────────────
+
+.execution__risk {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+  padding: 32px 36px;
+}
+
+.execution__risk-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #aaa;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+.execution__risk-text {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.7;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  margin: 0;
+
+  strong {
+    color: #1a1a1a;
+    font-weight: 600;
+  }
+}

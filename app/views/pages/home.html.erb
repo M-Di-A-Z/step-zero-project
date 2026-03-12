@@ -1,6 +1,9 @@
 <% content_for(:body_class) { "home-body" } %>
+<<<<<<< HEAD
 <div class="home-bg"></div>
 <canvas class="home-gradient-canvas" id="gradientCanvas"></canvas>
+=======
+>>>>>>> 0cc4d16d2410883b2af7eb482dd95e16af0fb663
 
 <%= turbo_frame_tag "idea-flow", data: { turbo_action: "advance" } do %>
   <div class="home-page">
@@ -51,6 +54,7 @@
         }
         type();
       </script>
+<<<<<<< HEAD
 
       <script>
         (function() {
@@ -78,6 +82,8 @@
             time += 0.008;
             currentX += (mouseX - currentX) * 0.05;
             currentY += (mouseY - currentY) * 0.05;
+=======
+>>>>>>> 0cc4d16d2410883b2af7eb482dd95e16af0fb663
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
