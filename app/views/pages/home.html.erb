@@ -1,11 +1,4 @@
 <% content_for(:body_class) { "home-body" } %>
-<div class="home-page">
-  <div class="home-content">
-    <h1 class="home-title">
-      I've got this idea,
-      <br>
-      <span class="home-title-typewriter" id="typewriter"></span><span class="home-title-cursor">|</span>
-    </h1>
 
 <%= turbo_frame_tag "idea-flow", data: { turbo_action: "advance" } do %>
   <div class="home-page">
