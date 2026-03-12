@@ -20,34 +20,53 @@
   <% else %>
     <div class="projects-grid">
       <% @business_ideas.each do |idea| %>
-        <%= link_to idea.status == "complete" ? business_idea_path(idea) : "#", class: "project-card" do %>
-          <div class="project-card__top">
-            <span class="project-card__status project-card__status--<%= idea.status %>">
-              <%= idea.status.capitalize %>
-            </span>
-            <% if idea.idea_score.present? %>
-              <span class="project-card__score"><%= idea.idea_score %><span class="project-card__score-max">/100</span></span>
+        <div class="project-card-wrapper">
+          <%= link_to idea.status == "complete" ? business_idea_path(idea) : "#", class: "project-card" do %>
+            <div class="project-card__top">
+              <span class="project-card__status project-card__status--<%= idea.status %>">
+                <%= idea.status.capitalize %>
+              </span>
+              <% if idea.idea_score.present? %>
+                <span class="project-card__score"><%= idea.idea_score %><span class="project-card__score-max">/100</span></span>
+              <% end %>
+            </div>
+
+            <div class="project-card__title-row">
+              <h2 class="project-card__title">
+                <%= idea.title.present? ? idea.title : idea.content.truncate(60) %>
+              </h2>
+              <span class="project-card__arrow">→</span>
+            </div>
+
+            <% if idea.summary.present? %>
+              <p class="project-card__summary"><%= idea.summary.truncate(120) %></p>
             <% end %>
-          </div>
 
-          <h2 class="project-card__title">
-            <%= idea.title.present? ? idea.title : idea.content.truncate(60) %>
-          </h2>
-
-          <% if idea.summary.present? %>
-            <p class="project-card__summary"><%= idea.summary.truncate(120) %></p>
-          <% end %>
-
-          <div class="project-card__bottom">
-            <div class="project-card__progress">
-              <div class="project-card__progress-track">
-                <div class="project-card__progress-fill project-card__progress-fill--<%= idea.status %>"></div>
+            <div class="project-card__bottom">
+              <div class="project-card__progress">
+                <div class="project-card__progress-track">
+                  <div class="project-card__progress-fill project-card__progress-fill--<%= idea.status %>"></div>
+                </div>
+                <span class="project-card__progress-label">
+                  <% if idea.status == "pending" %>Research pending
+                  <% elsif idea.status == "researching" %>Researching…
+                  <% elsif idea.status == "complete" %>Analysis complete
+                  <% end %>
+                </span>
               </div>
               
             </div>
-            <span class="project-card__arrow">→</span>
-          </div>
-        <% end %>
+          <% end %>
+          <%= button_to business_idea_path(idea), method: :delete, class: "project-card__delete", data: { turbo_confirm: "Delete this idea?" } do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+              <path d="M10 11v6"></path>
+              <path d="M14 11v6"></path>
+              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+            </svg>
+          <% end %>
+        </div>
       <% end %>
     </div>
   <% end %>

@@ -1,13 +1,11 @@
 class ClaudeService
-  SYSTEM_PROMPT = <<~PROMPT
+  CHAT_SYSTEM_PROMPT = <<~PROMPT
     You are an expert business analyst helping a founder validate their business idea.
     Your role is to ask 3 concise clarifying questions — one at a time — to understand:
     1. The core features they plan to build
     2. Their target market (who they are building for)
-
-    After the founder has answered your questions, summarize what you've learned and confirm
-    their details (features and target market) in a brief closing message.
-
+    After the founder has answered, summarize what you've learned and confirm
+    their details in a brief closing message.
     Keep your tone friendly, direct, and professional. Do not repeat questions already asked.
   PROMPT
 
@@ -17,22 +15,21 @@ class ClaudeService
   end
 
   def ask
-    client = Anthropic::Client.new(api_key: ENV["ANTHROPIC_API_KEY"])
-
-    messages = @chat.messages.order(:created_at).map do |m|
-      { role: m.role, content: m.content }
-    end
-
-    response = client.messages(
+    llm_chat = RubyLLM.chat(
       model: "claude-sonnet-4-20250514",
-      max_tokens: 1024,
-      system: "#{SYSTEM_PROMPT}\n\nThe business idea: #{@business_idea.content}",
-      messages: messages
+      system: "#{CHAT_SYSTEM_PROMPT}\n\nThe business idea: #{@business_idea.content}"
     )
 
-    response.content.first.text
-  rescue Anthropic::Error => e
-    Rails.logger.error("ClaudeService error: #{e.message}")
+    # Replay full message history without triggering API calls
+    @chat.messages.order(:created_at).each do |m|
+      llm_chat.add_message(role: m.role.to_sym, content: m.content)
+    end
+
+    # Trigger a single API call with the full history
+    response = llm_chat.complete
+    response.content || "Sorry, I couldn't generate a response."
+  rescue => e
+    Rails.logger.error("ClaudeService#ask error: #{e.message}")
     "Sorry, I encountered an error. Please try again."
   end
 end
