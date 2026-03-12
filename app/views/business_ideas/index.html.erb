@@ -43,13 +43,7 @@
               <div class="project-card__progress-track">
                 <div class="project-card__progress-fill project-card__progress-fill--<%= idea.status %>"></div>
               </div>
-              <span class="project-card__progress-label">
-                <% case idea.status
-                   when "pending" then %>Research pending
-                <% when "researching" then %>Researching…
-                <% when "complete" then %>Analysis complete
-                <% end %>
-              </span>
+
             </div>
             <span class="project-card__arrow">→</span>
           </div>
