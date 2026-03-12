@@ -17,6 +17,7 @@ class BusinessIdeasController < ApplicationController
     @business_idea.status = 1
     if @business_idea.save
       chat = Chat.create!(business_idea: @business_idea)
+      redirect_to chat_path(chat)
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,6 +35,12 @@ class BusinessIdeasController < ApplicationController
     @business_idea = current_user.business_ideas.find(params[:id])
     @business_idea.destroy
     redirect_to business_ideas_path
+  end
+
+  def research
+    @business_idea = current_user.business_ideas.find(params[:id])
+    ResearchBusinessIdeaJob.perform_later(@business_idea.id)
+    redirect_to business_idea_path(@business_idea)
   end
 
   def report
