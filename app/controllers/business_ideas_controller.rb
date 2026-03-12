@@ -39,11 +39,16 @@ class BusinessIdeasController < ApplicationController
     redirect_to business_ideas_path
   end
 
+  def report
+    @business_idea = BusinessIdea.find(params[:id])
+    @business_data = @business_idea.business_data
+  end
+
   private
 
   def business_idea_params
     params.require(:business_idea).permit(:content)
   end
 
- 
+
 end

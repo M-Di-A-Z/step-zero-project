@@ -7,7 +7,7 @@ class BusinessIdea < ApplicationRecord
   # validation sur le status avec une valeur par defaut comprise dans la liste des status
   # autre methodes
 
-  enum :status, { "in progress": 1, pending: 0, complete: 2, aborted: 3 }
+  enum :status, { "In Progress": 1, "Pending": 0, "Complete": 2, "Aborted": 3 }
   # creer un enum (=> enumerateur), qui est une liste figee predeterminee
   # dans laquelle le user va puiser le statut qu'il faut
   # enum :status, { pending: 0, in_progress: 1, completed: 2 } ou enum :status, [:pending, :in_progress, :completed]
