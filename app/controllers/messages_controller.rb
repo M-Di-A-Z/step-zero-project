@@ -12,8 +12,7 @@ class MessagesController < ApplicationController
           role: "assistant",
           content: "Got it! I have everything I need. Starting research now..."
         )
-        @business_idea.update!(status: "researching")
-        ResearchBusinessIdeaJob.perform_later(@business_idea.id)
+        @research_ready = true
       else
         @assistant_message = @chat.messages.create!(role: "assistant", content: response)
       end

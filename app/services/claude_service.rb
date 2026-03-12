@@ -71,7 +71,7 @@ class ClaudeService
     ### Top-level
     - project_name: A short, catchy brand-style name for the idea (not a description). Examples: "FreshFleet", "MediSync", "LoopPay".
     - summary: One sentence pitch — what the business does, for whom, and why it matters.
-    - idea_score: 0-100 overall viability score. Weighted blend of market opportunity (30%), competitive landscape (20%), technical feasibility (25%), and execution risk (25%). Be honest — most ideas score 40-75.
+    - idea_score: 0-100 overall viability score. This MUST be the very last field you decide on — after completing ALL research and filling every other field. Review your entire analysis, form your own conclusion on the idea's potential, then assign a score. Weighted blend of market opportunity (30%), competitive landscape (20%), technical feasibility (25%), and execution risk (25%). Be honest — most ideas score 40-75.
 
     ### Overview
     - market_stage_pill: MUST be exactly one of: "Emerging", "Growing", "Mature", "Declining". Displayed as a colored pill badge.
@@ -196,10 +196,10 @@ Here is how the flow works:
                    "Now research this idea using web search and return the JSON."
 
     body = {
-      model: "claude-sonnet-4-20250514",
+      model: "claude-haiku-4-5-20251001",
       max_tokens: 16_000,
       system: RESEARCH_SYSTEM_PROMPT,
-      tools: [{ type: "web_search_20250305", name: "web_search" }],
+      tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 5 }],
       messages: [{ role: "user", content: user_message }]
     }
 
@@ -215,9 +215,19 @@ Here is how the flow works:
     request.body = body.to_json
 
     response = http.request(request)
+    Rails.logger.info("ClaudeService#research HTTP status: #{response.code}")
     result = JSON.parse(response.body)
+    Rails.logger.info("ClaudeService#research stop_reason: #{result['stop_reason']}")
+    Rails.logger.info("ClaudeService#research content types: #{result['content']&.map { |b| b['type'] }&.inspect}")
+
+    if result["error"]
+      Rails.logger.error("ClaudeService#research API error: #{result['error']}")
+      raise "Claude API error: #{result['error']['message']}"
+    end
 
     text = extract_text_from_response(result)
+    Rails.logger.info("ClaudeService#research extracted text length: #{text.length}")
+    Rails.logger.info("ClaudeService#research text preview: #{text[0..500]}")
     parse_research_json(text)
   end
 
@@ -237,7 +247,21 @@ Here is how the flow works:
   end
 
   def parse_research_json(text)
-    clean = text.gsub(/\A```json\s*/, "").gsub(/```\s*\z/, "").strip
+    clean = text.gsub(/<cite[^>]*>/, "") # strip <cite> tags from web_search
+    clean = clean.gsub(%r{</cite>}, "")
+
+    # Extract JSON from ```json fences if present (handles preamble text before the JSON)
+    if clean =~ /```json\s*(.*?)```/m
+      clean = $1.strip
+    else
+      # Fallback: find the first { to last } as the JSON object
+      start_idx = clean.index("{")
+      end_idx = clean.rindex("}")
+      if start_idx && end_idx
+        clean = clean[start_idx..end_idx]
+      end
+    end
+
     JSON.parse(clean)
   end
 end

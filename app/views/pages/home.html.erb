@@ -50,7 +50,7 @@
         type();
       </script>
 
-    <%= form_with url: business_ideas_path, method: :post, class: "home-form" do |f| %>
+    <%= form_with url: business_ideas_path, method: :post, scope: :business_idea, class: "home-form", data: { turbo: false } do |f| %>
       <div class="home-chatbar">
         <%= f.text_field :content,
             placeholder: "",

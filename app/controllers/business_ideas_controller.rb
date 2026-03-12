@@ -39,8 +39,14 @@ class BusinessIdeasController < ApplicationController
 
   def research
     @business_idea = current_user.business_ideas.find(params[:id])
+    @business_idea.update!(status: "researching")
     ResearchBusinessIdeaJob.perform_later(@business_idea.id)
     redirect_to business_idea_path(@business_idea)
+  end
+
+  def status
+    @business_idea = current_user.business_ideas.find(params[:id])
+    render json: { status: @business_idea.status }
   end
 
   def report
