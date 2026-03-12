@@ -39,50 +39,74 @@
 <% else %>
 <div class="tab-layout">
 
-  <!-- Tab panels -->
-  <div class="tab-panel active" data-tab="0">
-    <%= render "overview", idea: @business_idea, data: @business_idea.business_data %>
-  </div>
-  <div class="tab-panel" data-tab="1">
-    <%= render "market_size", idea: @business_idea, data: @business_idea.business_data %>
-  </div>
-  <div class="tab-panel" data-tab="2">
-    <%= render "competitors", idea: @business_idea, data: @business_idea.business_data %>
-  </div>
-  <div class="tab-panel" data-tab="3">
-    <%= render "business", idea: @business_idea, data: @business_idea.business_data %>
-  </div>
-  <div class="tab-panel" data-tab="4">
-    <%= render "execution", idea: @business_idea, data: @business_idea.business_data %>
-  </div>
+<div class="view-toggle">
+  <span class="view-toggle__label">Data</span>
+  <label class="label">
+    <div class="toggle">
+      <input class="toggle-state" type="checkbox" id="view-toggle-input" onchange="switchView(this.checked ? 'plan' : 'data')">
+      <div class="indicator"></div>
+    </div>
+  </label>
+  <span class="view-toggle__label">Plan</span>
+</div>
 
-  <!-- Vertical pip indicator -->
-  <nav class="tab-indicator" id="tabIndicator">
-    <div class="tab-pip active" data-tab="0">
-      <span class="tab-pip__dot active"></span>
-      <span class="tab-pip__label">Dashboard</span>
-    </div>
-    <div class="tab-pip" data-tab="1">
-      <span class="tab-pip__dot"></span>
-      <span class="tab-pip__label">Market size</span>
-    </div>
-    <div class="tab-pip" data-tab="2">
-      <span class="tab-pip__dot"></span>
-      <span class="tab-pip__label">Competitors</span>
-    </div>
-    <div class="tab-pip" data-tab="3">
-      <span class="tab-pip__dot"></span>
-      <span class="tab-pip__label">Business</span>
-    </div>
-    <div class="tab-pip" data-tab="4">
-      <span class="tab-pip__dot"></span>
-      <span class="tab-pip__label">Execution</span>
-    </div>
-  </nav>
+<div id="view-data">
+  <div class="tab-layout">
 
+    <!-- Tab panels -->
+    <div class="tab-panel active" data-tab="0">
+      <%= render "overview", idea: @business_idea, data: @business_idea.business_data %>
+    </div>
+    <div class="tab-panel" data-tab="1">
+      <%= render "market_size", idea: @business_idea, data: @business_idea.business_data %>
+    </div>
+    <div class="tab-panel" data-tab="2">
+      <%= render "competitors", idea: @business_idea, data: @business_idea.business_data %>
+    </div>
+    <div class="tab-panel" data-tab="3">
+      <%= render "business", idea: @business_idea, data: @business_idea.business_data %>
+    </div>
+    <div class="tab-panel" data-tab="4">
+      <%= render "execution", idea: @business_idea, data: @business_idea.business_data %>
+    </div>
+
+    <!-- Vertical pip indicator -->
+    <nav class="tab-indicator" id="tabIndicator">
+      <div class="tab-pip active" data-tab="0">
+        <span class="tab-pip__dot active"></span>
+        <span class="tab-pip__label">Dashboard</span>
+      </div>
+      <div class="tab-pip" data-tab="1">
+        <span class="tab-pip__dot"></span>
+        <span class="tab-pip__label">Market size</span>
+      </div>
+      <div class="tab-pip" data-tab="2">
+        <span class="tab-pip__dot"></span>
+        <span class="tab-pip__label">Competitors</span>
+      </div>
+      <div class="tab-pip" data-tab="3">
+        <span class="tab-pip__dot"></span>
+        <span class="tab-pip__label">Business</span>
+      </div>
+      <div class="tab-pip" data-tab="4">
+        <span class="tab-pip__dot"></span>
+        <span class="tab-pip__label">Execution</span>
+      </div>
+    </nav>
+
+  </div>
+</div>
+
+<div id="view-plan" style="display:none">
+  <%= render "plan", idea: @business_idea %>
 </div>
 
 <script>
+  function switchView(view) {
+    document.getElementById('view-data').style.display = view === 'data' ? '' : 'none';
+    document.getElementById('view-plan').style.display = view === 'plan' ? '' : 'none';
+  }
+
   (function() {
     var currentTab = 0;
     var indicator = document.getElementById("tabIndicator");
