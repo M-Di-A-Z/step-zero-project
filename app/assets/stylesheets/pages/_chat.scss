@@ -1,0 +1,139 @@
+// ── Chat page — full screen ────────────────────────────────────────────
+
+turbo-frame#idea-flow {
+  display: block;
+  height: calc(100vh - 65px);
+}
+
+.chat-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+}
+
+// ── Centered column ────────────────────────────────────────────────────
+
+.chat-column {
+  width: 66%;
+  max-width: 900px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+}
+
+// ── Header ─────────────────────────────────────────────────────────────
+
+.chat-header {
+  flex-shrink: 0;
+  padding: 32px 0 20px;
+  border-bottom: 1px solid #E0D9CE;
+  margin-bottom: 24px;
+}
+
+.chat-header-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #aaa;
+  font-family: $body-font;
+  margin: 0;
+}
+
+// ── Messages area ──────────────────────────────────────────────────────
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 16px;
+
+  scrollbar-width: thin;
+  scrollbar-color: #d0ccc4 transparent;
+}
+
+.message-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+
+  &.user-row {
+    justify-content: flex-end;
+  }
+
+  &.assistant-row {
+    justify-content: flex-start;
+  }
+}
+
+// ── Bubbles ────────────────────────────────────────────────────────────
+
+.chat-bubble {
+  max-width: 78%;
+  padding: 14px 22px;
+  font-size: 1rem;
+  line-height: 1.65;
+  font-family: $body-font;
+  border-radius: 50px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+
+  p { margin: 0 0 8px; &:last-child { margin-bottom: 0; } }
+  ul, ol { margin: 8px 0; padding-left: 20px; }
+}
+
+.user-bubble {
+  background: #1a1a1a;
+  color: #F5F0E8;
+}
+
+.assistant-bubble {
+  background: #faf8f3;
+  border: 1px solid #E0D9CE;
+  color: #3a3530;
+}
+
+// ── Input area ─────────────────────────────────────────────────────────
+
+.chat-input-area {
+  flex-shrink: 0;
+  padding: 16px 0 28px;
+}
+
+.chat-chatbar {
+  display: flex;
+  align-items: center;
+  background: #faf8f3;
+  border-radius: 50px;
+  padding: 6px 8px 6px 24px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+
+  .chat-input-wrapper {
+    flex: 1;
+    margin: 0;
+  }
+
+  .chat-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 1.1rem;
+    color: #3a3530;
+    font-family: $body-font;
+    resize: none;
+    line-height: 1.5;
+
+    &::placeholder { color: #c8bfb0; }
+  }
+
+  // simple_form wraps input in extra divs — flatten them
+  .form-group, .string, input {
+    margin: 0;
+    padding: 0;
+  }
+}

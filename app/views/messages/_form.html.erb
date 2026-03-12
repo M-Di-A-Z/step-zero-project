@@ -1,11 +1,15 @@
-<%= simple_form_for [chat, message], html: { class: "chat-form" } do |f| %>
-  <div class="chat-input-card">
-    <%= f.input :content, label: false, placeholder: "Got an idea?",
+<%= simple_form_for [chat, message], html: { class: "chat-form", data: { turbo_frame: "_top" } } do |f| %>
+  <div class="chat-chatbar">
+    <%= f.input :content, label: false, placeholder: "",
         wrapper_html: { class: "chat-input-wrapper" },
-        input_html: { class: "chat-textarea", rows: 1, placeholder: "",
+        input_html: { class: "chat-input", rows: 1,
           data: { controller: "submit-on-enter placeholder-typer", action: "keydown->submit-on-enter#handleKeydown" } } %>
-    <div class="chat-input-card-footer">
-      <button type="submit" class="chat-send-btn"><span>Submit</span></button>
-    </div>
+    <button type="submit" class="home-submit">
+      <span>SEND</span>
+      <svg width="15px" height="10px" viewBox="0 0 13 10">
+        <path d="M1,5 L11,5"></path>
+        <polyline points="8 1 12 5 8 9"></polyline>
+      </svg>
+    </button>
   </div>
 <% end %>

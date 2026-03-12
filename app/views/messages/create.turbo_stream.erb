@@ -1,3 +1,15 @@
+<%= turbo_stream.append "messages" do %>
+  <%= render "messages/message", message: @message %>
+<% end %>
+
+<%= turbo_stream.append "messages" do %>
+  <%= render "messages/message", message: @assistant_message %>
+<% end %>
+
 <%= turbo_stream.update "new_message_container" do %>
   <%= render "messages/form", chat: @chat, message: Message.new %>
+<% end %>
+
+<%= turbo_stream.append "messages" do %>
+  <template data-controller="autoscroll-trigger"></template>
 <% end %>
