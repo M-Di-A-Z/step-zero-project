@@ -19,12 +19,11 @@ class BusinessIdeasController < ApplicationController
       chat = Chat.create!(business_idea: @business_idea)
     else
       render :new, status: :unprocessable_entity
-      @business_idea.status = "pending"
     end
   end
 
   def index
-    @business_ideas = current_user.business_ideas
+    @business_ideas = current_user.business_ideas.where.not(status: ["pending", "in progress"])
   end
 
   def show

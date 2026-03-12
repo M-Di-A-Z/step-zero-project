@@ -14,6 +14,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_110000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "buisness_ideas", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.string "report"
+    t.string "status"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_buisness_ideas_on_user_id"
+  end
+
   create_table "business_data", force: :cascade do |t|
     t.jsonb "business"
     t.bigint "business_idea_id", null: false
@@ -69,6 +80,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_110000) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "buisness_ideas", "users"
   add_foreign_key "business_data", "business_ideas"
   add_foreign_key "business_ideas", "users"
   add_foreign_key "chats", "business_ideas"

@@ -1,4 +1,4 @@
-<%= simple_form_for [chat, message], html: { class: "chat-form" } do |f| %>
+<%= simple_form_for [chat, message], html: { class: "chat-form", data: { turbo_frame: "_top" } } do |f| %>
   <div class="chat-chatbar">
     <%= f.input :content, label: false, placeholder: "",
         wrapper_html: { class: "chat-input-wrapper" },
