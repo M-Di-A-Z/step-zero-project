@@ -1,55 +1,44 @@
-// ── View Toggle (Data / Plan) ─────────────────────────────────────────
+// ── Research Loading State ───────────────────────────────────────────
 
-.view-toggle {
-  display: inline-flex;
+.research-loading {
+  display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 24px;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+
+  &__content {
+    max-width: 400px;
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+  }
+
+  &__spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border: 3px solid #E0D9CE;
+    border-top-color: #8B2500;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
 }
 
-.view-toggle__label {
-  color: #1a1a1a;
-  font-size: 14px;
-}
-
-.label {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.toggle {
-  isolation: isolate;
-  position: relative;
-  height: 30px;
-  width: 60px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow:
-    -8px -4px 8px 0px #ffffff,
-    8px 4px 12px 0px #c9c3b8,
-    4px 4px 4px 0px #c9c3b8 inset,
-    -4px -4px 4px 0px #ffffff inset;
-}
-
-.toggle-state {
-  display: none;
-}
-
-.indicator {
-  height: 100%;
-  width: 200%;
-  background: #F5F0E8;
-  border-radius: 15px;
-  transform: translate3d(-75%, 0, 0);
-  transition: transform 0.4s cubic-bezier(0.85, 0.05, 0.18, 1.35);
-  box-shadow:
-    -8px -4px 8px 0px #ffffff,
-    8px 4px 12px 0px #c9c3b8;
-}
-
-.toggle-state:checked ~ .indicator {
-  transform: translate3d(25%, 0, 0);
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 // ── Project Show Page ────────────────────────────────────────────────

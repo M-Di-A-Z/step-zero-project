@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :business_datas, only: [:create]
     member do
         get :report
+        get :status
+        get :research
+        post :research
     end
   end
 

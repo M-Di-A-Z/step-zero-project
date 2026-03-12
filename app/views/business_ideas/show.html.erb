@@ -1,5 +1,44 @@
 <% content_for(:body_class) { "no-scroll" } %>
 
+<% if @business_idea.status == "aborted" %>
+  <div class="research-loading">
+    <div class="research-loading__content">
+      <h2>Research failed</h2>
+      <p>Something went wrong while researching your idea. Please try again.</p>
+      <%= button_to research_business_idea_path(@business_idea), method: :post, class: "generate-btn", data: { turbo_frame: "_top" } do %>
+        <span class="text_button">Retry Research</span>
+      <% end %>
+    </div>
+  </div>
+<% elsif @business_idea.status == "researching" || @business_idea.business_data.nil? %>
+  <div class="research-loading">
+    <div class="research-loading__content">
+      <h2>Researching your idea…</h2>
+      <p>Our AI agent is searching the web and analyzing your business idea. This usually takes 1-2 minutes.</p>
+      <div class="research-loading__spinner"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var pollInterval = setInterval(function() {
+        fetch("<%= status_business_idea_path(@business_idea) %>")
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.status === "complete") {
+              clearInterval(pollInterval);
+              window.location.reload();
+            } else if (data.status === "aborted") {
+              clearInterval(pollInterval);
+              window.location.reload();
+            }
+          });
+      }, 3000);
+    })();
+  </script>
+<% else %>
+<div class="tab-layout">
+
 <div class="view-toggle">
   <span class="view-toggle__label">Data</span>
   <label class="label">
@@ -118,3 +157,4 @@
     });
   })();
 </script>
+<% end %>

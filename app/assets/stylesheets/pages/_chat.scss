@@ -2,7 +2,7 @@
 
 turbo-frame#idea-flow {
   display: block;
-  height: calc(100vh - 65px);
+  height: calc(100vh - 50px);
 }
 
 .chat-page {
@@ -28,9 +28,9 @@ turbo-frame#idea-flow {
 
 .chat-header {
   flex-shrink: 0;
-  padding: 32px 0 20px;
+  padding: 4px 0 8px;
   border-bottom: 1px solid #E0D9CE;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .chat-header-label {
@@ -102,6 +102,14 @@ turbo-frame#idea-flow {
 .chat-input-area {
   flex-shrink: 0;
   padding: 16px 0 28px;
+}
+
+.chat-generate-research {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+
+  a { text-decoration: none; }
 }
 
 .chat-chatbar {

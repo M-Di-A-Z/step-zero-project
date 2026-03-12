@@ -1,4 +1,4 @@
-<% overview = data.overview.is_a?(String) ? JSON.parse(data.overview) : data.overview %>
+<% overview = data.overview.is_a?(String) ? JSON.parse(data.overview) : (data.overview || {}) %>
 
 <% feasibility_dots = case overview["project_feasibility"]&.downcase
    when "low" then 2
@@ -50,10 +50,10 @@
     <div class="project-show__card">
       <p class="project-show__card-label">Market Stage</p>
       <div class="project-show__card-visual">
-        <span class="project-show__pill project-show__pill--green"><%= overview["market_stage_pill"] %></span>
+        <span class="project-show__pill project-show__pill--green"><%= overview["market_stage_pill"] || "n/a" %></span>
       </div>
-      <h2 class="project-show__card-heading"><%= overview["market_stage_label"] %></h2>
-      <p class="project-show__card-context"><%= overview["market_stage_context"] %></p>
+      <h2 class="project-show__card-heading"><%= overview["market_stage_label"] || "n/a" %></h2>
+      <p class="project-show__card-context"><%= overview["market_stage_context"] || "n/a" %></p>
     </div>
 
     <!-- Card 2: Competitivity -->
@@ -62,12 +62,12 @@
       <div class="project-show__card-visual">
         <div class="project-show__dash-bar">
           <% 5.times do |i| %>
-            <span class="project-show__dash <%= i < overview["competitive_intensity_dots"] ? 'project-show__dash--filled' : 'project-show__dash--empty' %>"></span>
+            <span class="project-show__dash <%= i < overview["competitive_intensity_dots"].to_i ? 'project-show__dash--filled' : 'project-show__dash--empty' %>"></span>
           <% end %>
         </div>
       </div>
-      <h2 class="project-show__card-heading"><%= overview["competitive_intensity_label"] %></h2>
-      <p class="project-show__card-context"><%= overview["competitive_intensity_context"] %></p>
+      <h2 class="project-show__card-heading"><%= overview["competitive_intensity_label"] || "n/a" %></h2>
+      <p class="project-show__card-context"><%= overview["competitive_intensity_context"] || "n/a" %></p>
     </div>
 
     <!-- Card 3: Project Feasibility -->
@@ -80,8 +80,8 @@
           <% end %>
         </div>
       </div>
-      <h2 class="project-show__card-heading"><%= overview["project_feasibility"] %></h2>
-      <p class="project-show__card-context"><%= overview["project_feasibility_context"] %></p>
+      <h2 class="project-show__card-heading"><%= overview["project_feasibility"] || "n/a" %></h2>
+      <p class="project-show__card-context"><%= overview["project_feasibility_context"] || "n/a" %></p>
     </div>
 
   </div>
