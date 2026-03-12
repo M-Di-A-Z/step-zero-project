@@ -7,46 +7,55 @@
       <span class="home-title-typewriter" id="typewriter"></span><span class="home-title-cursor">|</span>
     </h1>
 
-    <script>
-      const sentences = [
-        "an AI that writes legal contracts for freelancers",
-        "a smarter way for dentists to manage meetings",
-        "a subscription box for indie coffee lovers",
-        "an agent that scraps financial news on X"
-      ];
-      let sentenceIndex = 0;
-      let charIndex = 0;
-      let deleting = false;
-      const el = document.getElementById("typewriter");
-      const pauseAfterType = 2000;
-      const pauseAfterDelete = 400;
-      const typeSpeed = 45;
-      const deleteSpeed = 25;
+<%= turbo_frame_tag "idea-flow", data: { turbo_action: "advance" } do %>
+  <div class="home-page">
+    <div class="home-content">
+      <h1 class="home-title">
+        I've got this idea,
+        <br>
+        <span class="home-title-typewriter" id="typewriter"></span><span class="home-title-cursor">|</span>
+      </h1>
 
-      function type() {
-        const current = sentences[sentenceIndex];
-        if (!deleting) {
-          el.textContent = current.slice(0, charIndex + 1);
-          charIndex++;
-          if (charIndex === current.length) {
-            setTimeout(() => { deleting = true; type(); }, pauseAfterType);
-            return;
+      <script>
+        const sentences = [
+          "an AI that writes legal contracts for freelancers",
+          "a smarter way for dentists to manage meetings",
+          "a subscription box for indie coffee lovers",
+          "an agent that scraps financial news on X"
+        ];
+        let sentenceIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+        const el = document.getElementById("typewriter");
+        const pauseAfterType = 2000;
+        const pauseAfterDelete = 400;
+        const typeSpeed = 45;
+        const deleteSpeed = 25;
+
+        function type() {
+          const current = sentences[sentenceIndex];
+          if (!deleting) {
+            el.textContent = current.slice(0, charIndex + 1);
+            charIndex++;
+            if (charIndex === current.length) {
+              setTimeout(() => { deleting = true; type(); }, pauseAfterType);
+              return;
+            }
+            setTimeout(type, typeSpeed);
+          } else {
+            el.textContent = current.slice(0, charIndex - 1);
+            charIndex--;
+            if (charIndex === 0) {
+              deleting = false;
+              sentenceIndex = (sentenceIndex + 1) % sentences.length;
+              setTimeout(type, pauseAfterDelete);
+              return;
+            }
+            setTimeout(type, deleteSpeed);
           }
-          setTimeout(type, typeSpeed);
-        } else {
-          el.textContent = current.slice(0, charIndex - 1);
-          charIndex--;
-          if (charIndex === 0) {
-            deleting = false;
-            sentenceIndex = (sentenceIndex + 1) % sentences.length;
-            setTimeout(type, pauseAfterDelete);
-            return;
-          }
-          setTimeout(type, deleteSpeed);
         }
-      }
-      type();
-    </script>
+        type();
+      </script>
 
     <%= form_with url: business_ideas_path, method: :post, class: "home-form" do |f| %>
       <div class="home-chatbar">
@@ -65,4 +74,4 @@
       </div>
     <% end %>
   </div>
-</div>
+<% end %>
