@@ -1,0 +1,154 @@
+// ── Tab system — vertical pip indicator on the right ──────────────────
+
+:root {
+  --amber: #F5A623;
+  --amber-glow: rgba(245, 166, 35, 0.25);
+  --pip-dot-size: 10px;
+  --pip-bar-width: 10px;
+  --pip-bar-height: 43px;
+  --pip-gap: 7px;
+  --tab-transition: 0.55s;
+}
+
+// ── Layout wrapper ──────────────────────────────────────────────────
+
+.tab-layout {
+  position: relative;
+  height: calc(100vh - 64px);
+  padding-right: 40px;
+  overflow: hidden;
+}
+
+// ── Tab content panels ──────────────────────────────────────────────
+
+.tab-panel {
+  position: absolute;
+  inset: 0;
+  right: 40px;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(18px) scale(0.97);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+
+  &.active {
+    position: relative;
+    height: 100%;
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    transition-delay: 0.12s;
+  }
+}
+
+// ── Side indicator (vertical, fixed right) ──────────────────────────
+
+.tab-indicator {
+  position: fixed;
+  right: 27px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pip-gap);
+  z-index: 20;
+}
+
+.tab-pip {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  padding: 2px;
+  position: relative;
+
+  &:hover .tab-pip__dot:not(.active) {
+    opacity: 0.7;
+    transform: scale(1.15);
+  }
+}
+
+.tab-pip__dot {
+  width: var(--pip-dot-size);
+  height: var(--pip-dot-size);
+  border-radius: 999px;
+  background: var(--amber);
+  position: relative;
+  transition:
+    height var(--tab-transition) cubic-bezier(0.34, 1.56, 0.64, 1),
+    width var(--tab-transition) cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-radius var(--tab-transition) cubic-bezier(0.22, 1, 0.36, 1),
+    opacity var(--tab-transition) cubic-bezier(0.22, 1, 0.36, 1),
+    transform var(--tab-transition) cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow var(--tab-transition) cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0.45;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 999px;
+    background: var(--amber-glow);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+
+  &.active {
+    height: var(--pip-bar-height);
+    width: var(--pip-bar-width);
+    border-radius: 999px;
+    opacity: 1;
+    box-shadow: 0 2px 12px var(--amber-glow);
+
+    &::after {
+      opacity: 1;
+      inset: -5px;
+    }
+  }
+}
+
+// Staggered delays
+.tab-pip:nth-child(1) .tab-pip__dot { transition-delay: 0.00s; }
+.tab-pip:nth-child(2) .tab-pip__dot { transition-delay: 0.03s; }
+.tab-pip:nth-child(3) .tab-pip__dot { transition-delay: 0.06s; }
+.tab-pip:nth-child(4) .tab-pip__dot { transition-delay: 0.09s; }
+.tab-pip:nth-child(5) .tab-pip__dot { transition-delay: 0.12s; }
+
+// Reverse stagger when going up
+.tab-indicator[data-direction="up"] {
+  .tab-pip:nth-child(1) .tab-pip__dot { transition-delay: 0.12s; }
+  .tab-pip:nth-child(2) .tab-pip__dot { transition-delay: 0.09s; }
+  .tab-pip:nth-child(3) .tab-pip__dot { transition-delay: 0.06s; }
+  .tab-pip:nth-child(4) .tab-pip__dot { transition-delay: 0.03s; }
+  .tab-pip:nth-child(5) .tab-pip__dot { transition-delay: 0.00s; }
+}
+
+// ── Tab label (appears to the left of active pip) ───────────────────
+
+.tab-pip__label {
+  position: absolute;
+  right: calc(100% + 6px);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  font-family: sans-serif;
+  pointer-events: none;
+}
+
+.tab-pip.active .tab-pip__label {
+  opacity: 1;
+}

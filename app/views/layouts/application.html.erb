@@ -23,9 +23,123 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="<%= content_for(:body_class) %>"><%= render "shared/navbar" %>
-<%= render "shared/flashes" %>
+  <body class="<%= content_for(:body_class) %>">
+    <div class="app-bg"></div>
+    <canvas class="app-gradient-canvas" id="gradientCanvas"></canvas>
+    <%= render "shared/navbar" %>
+    <%= render "shared/flashes" %>
+    <div class="page-content" id="pageContent">
+      <%= yield %>
+    </div>
 
-    <%= yield %>
+    <script>
+      (function() {
+        const canvas = document.getElementById("gradientCanvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let currentX = mouseX;
+        let currentY = mouseY;
+        let time = 0;
+
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener("resize", resize);
+
+        document.addEventListener("mousemove", function(e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function draw() {
+          time += 0.008;
+          currentX += (mouseX - currentX) * 0.05;
+          currentY += (mouseY - currentY) * 0.05;
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          var blobs = [
+            { offsetX: 0, offsetY: 0, radius: 700, color: [245, 166, 35], opacity: 0.20, speed: 1.0 },
+            { offsetX: 250, offsetY: -200, radius: 550, color: [255, 200, 80], opacity: 0.14, speed: 1.4 },
+            { offsetX: -300, offsetY: 220, radius: 600, color: [235, 140, 20], opacity: 0.12, speed: 0.8 },
+            { offsetX: -180, offsetY: -280, radius: 480, color: [255, 220, 120], opacity: 0.10, speed: 1.1 },
+            { offsetX: 200, offsetY: 300, radius: 520, color: [240, 155, 30], opacity: 0.11, speed: 0.6 },
+          ];
+
+          blobs.forEach(function(blob) {
+            var wavyX = currentX + blob.offsetX + Math.sin(time * blob.speed) * 100 + Math.sin(time * 1.7 * blob.speed) * 60;
+            var wavyY = currentY + blob.offsetY + Math.cos(time * blob.speed * 0.9) * 80 + Math.cos(time * 1.3 * blob.speed) * 50;
+
+            var gradient = ctx.createRadialGradient(wavyX, wavyY, 0, wavyX, wavyY, blob.radius);
+            gradient.addColorStop(0, "rgba(" + blob.color.join(",") + "," + blob.opacity + ")");
+            gradient.addColorStop(0.4, "rgba(" + blob.color.join(",") + "," + (blob.opacity * 0.5) + ")");
+            gradient.addColorStop(0.7, "rgba(" + blob.color.join(",") + "," + (blob.opacity * 0.2) + ")");
+            gradient.addColorStop(1, "rgba(" + blob.color.join(",") + ",0)");
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+
+            var points = 150;
+            for (var i = 0; i <= points; i++) {
+              var angle = (i / points) * Math.PI * 2;
+              var waveOffset = Math.sin(angle * 2 + time * 1.5 * blob.speed) * 80
+                             + Math.sin(angle * 3 - time * 1.2 * blob.speed) * 50
+                             + Math.sin(angle * 5 + time * 2.5 * blob.speed) * 25;
+              var r = blob.radius + waveOffset;
+              var px = wavyX + Math.cos(angle) * r;
+              var py = wavyY + Math.sin(angle) * r;
+              if (i === 0) ctx.moveTo(px, py);
+              else ctx.lineTo(px, py);
+            }
+            ctx.closePath();
+            ctx.fill();
+          });
+
+          requestAnimationFrame(draw);
+        }
+        draw();
+      })();
+    </script>
+
+    <script>
+      // Page transition: same blur/fade as tab panels
+      document.addEventListener("turbo:before-visit", function(e) {
+        var el = document.getElementById("pageContent");
+        if (el && !el.classList.contains("page-content--leaving")) {
+          e.preventDefault();
+          var url = e.detail.url;
+          el.classList.remove("page-content--visible");
+          el.classList.add("page-content--leaving");
+          setTimeout(function() {
+            Turbo.visit(url);
+          }, 500);
+        }
+      });
+
+      document.addEventListener("turbo:load", function() {
+        var el = document.getElementById("pageContent");
+        if (el) {
+          el.classList.remove("page-content--leaving");
+          // Small delay before revealing, like tab transition-delay
+          setTimeout(function() {
+            el.classList.add("page-content--visible");
+          }, 120);
+        }
+      });
+
+      // Initial page load
+      document.addEventListener("DOMContentLoaded", function() {
+        var el = document.getElementById("pageContent");
+        if (el) {
+          setTimeout(function() {
+            el.classList.add("page-content--visible");
+          }, 120);
+        }
+      });
+    </script>
   </body>
 </html>

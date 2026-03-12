@@ -81,6 +81,7 @@ Reads from business_data.market_size
 | SAM number             | sam           |
 | Market Stage label     | market_stage  |
 | Key market driver      | key_driver    |
+| Geo pie chart          | geo[n].region, geo[n].pct |
 
 ### Dashboard 3 — Competitors
 Reads from business_data.competitors
@@ -145,7 +146,10 @@ AI must return this exact JSON. No markdown, no preamble, no ```json fences.
     "tam": "",
     "sam": "",
     "market_stage": "",
-    "key_driver": ""
+    "key_driver": "",
+    "geo": [
+      { "region": "", "pct": 0 }
+    ]
   },
   "competitors": {
     "intensity": "",

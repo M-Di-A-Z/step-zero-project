@@ -1,0 +1,50 @@
+<% execution = data.execution.is_a?(String) ? JSON.parse(data.execution) : data.execution %>
+
+<% risk_color = case execution["regulatory_risk_level"]&.downcase
+   when "low" then "green"
+   when "medium" then "orange"
+   when "high" then "red"
+   else "orange"
+   end %>
+
+<div class="execution">
+
+  <!-- Header -->
+  <div class="execution__header">
+    <h1 class="execution__title">Execution</h1>
+    <p class="execution__subtitle">Feasibility and risk assessment for <strong><%= idea.title %></strong></p>
+  </div>
+
+  <!-- Top metrics -->
+  <div class="execution__metrics">
+
+    <div class="execution__card">
+      <p class="execution__card-label">Time to MVP</p>
+      <h2 class="execution__card-heading"><%= execution["time_to_mvp"] %></h2>
+    </div>
+
+    <div class="execution__card">
+      <p class="execution__card-label">Tech Feasibility</p>
+      <h2 class="execution__card-heading"><%= execution["tech_feasibility_label"] %></h2>
+      <p class="execution__card-context"><%= execution["tech_feasibility_context"] %></p>
+    </div>
+
+    <div class="execution__card">
+      <p class="execution__card-label">Regulatory Risk</p>
+      <div class="execution__card-visual">
+        <span class="execution__pill execution__pill--<%= risk_color %>"><%= execution["regulatory_risk_level"] %></span>
+      </div>
+      <p class="execution__card-context"><%= execution["regulatory_risk_context"] %></p>
+    </div>
+
+  </div>
+
+  <!-- Key risk -->
+  <div class="execution__risk">
+    <p class="execution__risk-label">Key Risk</p>
+    <p class="execution__risk-text">
+      <%= execution["key_risk"]&.gsub(execution["key_risk_highlight"].to_s, "<strong>#{execution["key_risk_highlight"]}</strong>")&.html_safe %>
+    </p>
+  </div>
+
+</div>

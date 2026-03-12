@@ -1,0 +1,35 @@
+// Global background — trame + wavy gradient canvas
+
+html, body {
+  background: #ffffff;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.app-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  background-image: url(asset-path("trame.svg"));
+  background-repeat: repeat;
+  background-size: auto;
+  pointer-events: none;
+}
+
+.app-gradient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}

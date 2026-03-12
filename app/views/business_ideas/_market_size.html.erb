@@ -1,0 +1,88 @@
+<% market = data.market_size.is_a?(String) ? JSON.parse(data.market_size) : data.market_size %>
+<% geo = market["geo"] || [] %>
+
+<%
+  # Pie chart math — SVG circle with stroke-dasharray segments
+  pie_radius = 80
+  pie_circumference = 2 * Math::PI * pie_radius
+  pie_colors = ["#1a1a1a", "#f5a623", "#d0ccc4", "#888888", "#e8dcc8", "#c4a35a"]
+  pie_offset = 0
+%>
+
+<div class="market-size">
+
+  <!-- Header -->
+  <div class="market-size__header">
+    <h1 class="market-size__title">Market Size</h1>
+    <p class="market-size__subtitle">Total addressable market and growth indicators for <strong><%= idea.title %></strong></p>
+  </div>
+
+  <!-- TAM / SAM cards -->
+  <div class="market-size__metrics">
+
+    <div class="market-size__card">
+      <p class="market-size__card-label">TAM</p>
+      <p class="market-size__card-sublabel">Total Addressable Market</p>
+      <h2 class="market-size__card-value"><%= market["tam"] %></h2>
+    </div>
+
+    <div class="market-size__card">
+      <p class="market-size__card-label">SAM</p>
+      <p class="market-size__card-sublabel">Serviceable Addressable Market</p>
+      <h2 class="market-size__card-value"><%= market["sam"] %></h2>
+    </div>
+
+    <div class="market-size__card">
+      <p class="market-size__card-label">Market Stage</p>
+      <p class="market-size__card-sublabel">Current maturity level</p>
+      <h2 class="market-size__card-heading"><%= market["market_stage"] %></h2>
+    </div>
+
+  </div>
+
+  <!-- Geo + Key driver row -->
+  <div class="market-size__bottom">
+
+    <!-- Pie chart -->
+    <% if geo.any? %>
+      <div class="market-size__geo">
+        <p class="market-size__geo-label">Geographic Distribution</p>
+        <div class="market-size__geo-content">
+          <div class="market-size__pie-wrap">
+            <svg viewBox="0 0 200 200" class="market-size__pie-svg">
+              <% geo.each_with_index do |segment, i| %>
+                <% seg_length = pie_circumference * segment["pct"].to_f / 100.0 %>
+                <% gap_length = pie_circumference - seg_length %>
+                <circle cx="100" cy="100" r="<%= pie_radius %>"
+                        fill="none"
+                        stroke="<%= pie_colors[i % pie_colors.length] %>"
+                        stroke-width="32"
+                        stroke-dasharray="<%= seg_length.round(2) %> <%= gap_length.round(2) %>"
+                        stroke-dashoffset="<%= (-pie_offset).round(2) %>"
+                        transform="rotate(-90 100 100)" />
+                <% pie_offset += seg_length %>
+              <% end %>
+            </svg>
+          </div>
+          <div class="market-size__pie-legend">
+            <% geo.each_with_index do |segment, i| %>
+              <div class="market-size__legend-item">
+                <span class="market-size__legend-dot" style="background: <%= pie_colors[i % pie_colors.length] %>;"></span>
+                <span class="market-size__legend-region"><%= segment["region"] %></span>
+                <span class="market-size__legend-pct"><%= segment["pct"] %>%</span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Key driver -->
+    <div class="market-size__driver">
+      <p class="market-size__driver-label">Key Market Driver</p>
+      <p class="market-size__driver-text"><%= market["key_driver"] %></p>
+    </div>
+
+  </div>
+
+</div>
