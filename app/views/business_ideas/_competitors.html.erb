@@ -1,0 +1,65 @@
+<% competitors = data.competitors.is_a?(String) ? JSON.parse(data.competitors) : data.competitors %>
+<% top_3 = competitors["top_3"] || [] %>
+
+<div class="competitors">
+
+  <!-- Header -->
+  <div class="competitors__header">
+    <h1 class="competitors__title">Competitors</h1>
+    <p class="competitors__subtitle">Competitive landscape analysis for <strong><%= idea.title %></strong></p>
+  </div>
+
+  <!-- Top metrics -->
+  <div class="competitors__metrics">
+
+    <div class="competitors__card">
+      <p class="competitors__card-label">Competitive Intensity</p>
+      <div class="competitors__card-visual">
+        <div class="competitors__dash-bar">
+          <% 5.times do |i| %>
+            <span class="competitors__dash <%= i < competitors["intensity_dots"].to_i ? 'competitors__dash--filled' : 'competitors__dash--empty' %>"></span>
+          <% end %>
+        </div>
+      </div>
+      <h2 class="competitors__card-heading"><%= competitors["intensity"] %></h2>
+    </div>
+
+    <div class="competitors__card">
+      <p class="competitors__card-label">Competitor Count</p>
+      <div class="competitors__card-visual">
+        <h2 class="competitors__card-value"><%= competitors["competitor_count"] %></h2>
+      </div>
+      <p class="competitors__card-context">identified players in this space</p>
+    </div>
+
+    <div class="competitors__card">
+      <p class="competitors__card-label">Market Gap</p>
+      <p class="competitors__card-context"><%= competitors["market_gap"] %></p>
+    </div>
+
+  </div>
+
+  <!-- Top 3 competitors table -->
+  <div class="competitors__table-card">
+    <p class="competitors__table-label">Top Competitors</p>
+    <table class="competitors__table">
+      <thead>
+        <tr>
+          <th class="competitors__th">Name</th>
+          <th class="competitors__th">Value Proposition</th>
+          <th class="competitors__th">Revenue / Funding</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% top_3.each do |comp| %>
+          <tr class="competitors__tr">
+            <td class="competitors__td competitors__td--name"><%= comp["name"] %></td>
+            <td class="competitors__td"><%= comp["value_prop"] %></td>
+            <td class="competitors__td competitors__td--funding"><%= comp["revenue_or_funding"] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>

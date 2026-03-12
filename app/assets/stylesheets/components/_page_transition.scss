@@ -1,0 +1,26 @@
+// ── Page transition — same style as tab panels ──────────────────────
+
+.page-content {
+  position: relative;
+  z-index: 5;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(18px) scale(0.97);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page-content--visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.page-content--leaving {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(18px) scale(0.97);
+  transition-delay: 0s;
+}

@@ -1,0 +1,143 @@
+// ── Business Analytics Tab ───────────────────────────────────────────
+
+.business-tab {
+  height: 100%;
+  background: transparent;
+  padding: 32px 48px 24px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+// ── Header ───────────────────────────────────────────────────────────
+
+.business-tab__header {
+  margin-bottom: 56px;
+}
+
+.business-tab__title {
+  font-size: 3.5rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  font-family: "Poppins", sans-serif;
+}
+
+.business-tab__subtitle {
+  font-size: 1.05rem;
+  color: #888;
+  line-height: 1.6;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+
+  strong {
+    color: #f5a623;
+    font-weight: 500;
+  }
+}
+
+// ── Cards ────────────────────────────────────────────────────────────
+
+.business-tab__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.business-tab__bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.business-tab__card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+.business-tab__card-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #aaa;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  font-family: "Poppins", sans-serif;
+}
+
+.business-tab__card-context {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+// ── Revenue split bar ────────────────────────────────────────────────
+
+.business-tab__split {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.business-tab__split-bar {
+  height: 12px;
+  background: #d0ccc4;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.business-tab__split-fill {
+  height: 100%;
+  background: #1a1a1a;
+  border-radius: 6px;
+}
+
+.business-tab__split-legend {
+  display: flex;
+  gap: 24px;
+}
+
+.business-tab__split-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #666;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+
+  strong {
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+}
+
+.business-tab__split-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &--recurring {
+    background: #1a1a1a;
+  }
+
+  &--onetime {
+    background: #d0ccc4;
+  }
+}

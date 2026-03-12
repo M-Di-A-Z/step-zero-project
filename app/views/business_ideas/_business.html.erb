@@ -1,0 +1,55 @@
+<% business = data.business.is_a?(String) ? JSON.parse(data.business) : data.business %>
+
+<div class="business-tab">
+
+  <!-- Header -->
+  <div class="business-tab__header">
+    <h1 class="business-tab__title">Business Analytics</h1>
+    <p class="business-tab__subtitle">Revenue model and scalability analysis for <strong><%= idea.title %></strong></p>
+  </div>
+
+  <!-- Top metrics -->
+  <div class="business-tab__metrics">
+
+    <div class="business-tab__card">
+      <p class="business-tab__card-label">Revenue Split</p>
+      <div class="business-tab__split">
+        <div class="business-tab__split-bar">
+          <div class="business-tab__split-fill" style="width: <%= business["recurring_pct"] %>%;"></div>
+        </div>
+        <div class="business-tab__split-legend">
+          <span class="business-tab__split-item">
+            <span class="business-tab__split-dot business-tab__split-dot--recurring"></span>
+            Recurring <strong><%= business["recurring_pct"] %>%</strong>
+          </span>
+          <span class="business-tab__split-item">
+            <span class="business-tab__split-dot business-tab__split-dot--onetime"></span>
+            One-time <strong><%= business["onetime_pct"] %>%</strong>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="business-tab__card">
+      <p class="business-tab__card-label">Customer Profile</p>
+      <p class="business-tab__card-context"><%= business["customer_profile"] %></p>
+    </div>
+
+  </div>
+
+  <!-- Bottom row -->
+  <div class="business-tab__bottom">
+
+    <div class="business-tab__card">
+      <p class="business-tab__card-label">Revenue Models</p>
+      <p class="business-tab__card-context"><%= business["revenue_models"] %></p>
+    </div>
+
+    <div class="business-tab__card">
+      <p class="business-tab__card-label">Scalability</p>
+      <p class="business-tab__card-context"><%= business["scalability"] %></p>
+    </div>
+
+  </div>
+
+</div>

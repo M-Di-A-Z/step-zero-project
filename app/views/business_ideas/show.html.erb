@@ -1,5 +1,97 @@
-<%= render "overview", idea: @business_idea, data: @business_idea.business_data %>
-<%# <%= render "market_size", data: @business_idea.business_data %> %>
-<%# <%= render "competitors", data: @business_idea.business_data %> %>
-<%# <%= render "business", data: @business_idea.business_data %> %>
-<%# <%= render "execution", data: @business_idea.business_data %> %>
+<% content_for(:body_class) { "no-scroll" } %>
+<div class="tab-layout">
+
+  <!-- Tab panels -->
+  <div class="tab-panel active" data-tab="0">
+    <%= render "overview", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="tab-panel" data-tab="1">
+    <%= render "market_size", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="tab-panel" data-tab="2">
+    <%= render "competitors", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="tab-panel" data-tab="3">
+    <%= render "business", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="tab-panel" data-tab="4">
+    <%= render "execution", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+
+  <!-- Vertical pip indicator -->
+  <nav class="tab-indicator" id="tabIndicator">
+    <div class="tab-pip active" data-tab="0">
+      <span class="tab-pip__dot active"></span>
+      <span class="tab-pip__label">Dashboard</span>
+    </div>
+    <div class="tab-pip" data-tab="1">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Market size</span>
+    </div>
+    <div class="tab-pip" data-tab="2">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Competitors</span>
+    </div>
+    <div class="tab-pip" data-tab="3">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Business</span>
+    </div>
+    <div class="tab-pip" data-tab="4">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Execution</span>
+    </div>
+  </nav>
+
+</div>
+
+<script>
+  (function() {
+    var currentTab = 0;
+    var indicator = document.getElementById("tabIndicator");
+    var pips = indicator.querySelectorAll(".tab-pip");
+    var panels = document.querySelectorAll(".tab-panel");
+
+    function switchTab(index) {
+      if (index === currentTab) return;
+
+      // Set stagger direction based on navigation direction
+      indicator.setAttribute("data-direction", index < currentTab ? "up" : "down");
+
+      // Deactivate current
+      panels[currentTab].classList.remove("active");
+      pips[currentTab].classList.remove("active");
+      pips[currentTab].querySelector(".tab-pip__dot").classList.remove("active");
+
+      currentTab = index;
+
+      // Activate new
+      panels[currentTab].classList.add("active");
+      pips[currentTab].classList.add("active");
+      pips[currentTab].querySelector(".tab-pip__dot").classList.add("active");
+    }
+
+    pips.forEach(function(pip, i) {
+      pip.addEventListener("click", function() {
+        switchTab(i);
+      });
+    });
+
+    // Scroll (wheel) navigation between tabs
+    var scrollCooldown = false;
+    document.addEventListener("wheel", function(e) {
+      if (scrollCooldown) return;
+      var delta = e.deltaY;
+      if (Math.abs(delta) < 30) return;
+
+      if (delta > 0 && currentTab < panels.length - 1) {
+        switchTab(currentTab + 1);
+        scrollCooldown = true;
+        setTimeout(function() { scrollCooldown = false; }, 700);
+      } else if (delta < 0 && currentTab > 0) {
+        switchTab(currentTab - 1);
+        scrollCooldown = true;
+        setTimeout(function() { scrollCooldown = false; }, 700);
+      }
+    });
+  })();
+</script>
