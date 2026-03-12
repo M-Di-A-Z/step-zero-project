@@ -20,30 +20,15 @@
   <% else %>
     <div class="projects-grid">
       <% @business_ideas.each do |idea| %>
-        <%= link_to idea.status == "complete" ? business_idea_path(idea) : "#", class: "project-card" do %>
-          <div class="project-card__top">
-            <span class="project-card__status project-card__status--<%= idea.status %>">
-              <%= idea.status.capitalize %>
-            </span>
-            <% if idea.idea_score.present? %>
-              <span class="project-card__score"><%= idea.idea_score %><span class="project-card__score-max">/100</span></span>
-            <% end %>
-          </div>
-
-          <h2 class="project-card__title">
-            <%= idea.title.present? ? idea.title : idea.content.truncate(60) %>
-          </h2>
-
-          <% if idea.summary.present? %>
-            <p class="project-card__summary"><%= idea.summary.truncate(120) %></p>
-          <% end %>
-
-          <div class="project-card__bottom">
-            <div class="project-card__progress">
-              <div class="project-card__progress-track">
-                <div class="project-card__progress-fill project-card__progress-fill--<%= idea.status %>"></div>
-              </div>
-
+        <div class="project-card-wrapper">
+          <%= link_to idea.status == "complete" ? business_idea_path(idea) : "#", class: "project-card" do %>
+            <div class="project-card__top">
+              <span class="project-card__status project-card__status--<%= idea.status %>">
+                <%= idea.status.capitalize %>
+              </span>
+              <% if idea.idea_score.present? %>
+                <span class="project-card__score"><%= idea.idea_score %><span class="project-card__score-max">/100</span></span>
+              <% end %>
             </div>
 
             <div class="project-card__title-row">
