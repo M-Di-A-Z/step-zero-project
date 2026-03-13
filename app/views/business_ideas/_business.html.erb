@@ -1,4 +1,4 @@
-<% business = data.business.is_a?(String) ? JSON.parse(data.business) : data.business %>
+<% business = data.business.is_a?(String) ? JSON.parse(data.business) : (data.business || {}) %>
 
 <div class="business-tab">
 
@@ -15,16 +15,16 @@
       <p class="business-tab__card-label">Revenue Split</p>
       <div class="business-tab__split">
         <div class="business-tab__split-bar">
-          <div class="business-tab__split-fill" style="width: <%= business["recurring_pct"] %>%;"></div>
+          <div class="business-tab__split-fill" style="width: <%= business["recurring_pct"] || 0 %>%;"></div>
         </div>
         <div class="business-tab__split-legend">
           <span class="business-tab__split-item">
             <span class="business-tab__split-dot business-tab__split-dot--recurring"></span>
-            Recurring <strong><%= business["recurring_pct"] %>%</strong>
+            Recurring <strong><%= business["recurring_pct"] || "n/a" %>%</strong>
           </span>
           <span class="business-tab__split-item">
             <span class="business-tab__split-dot business-tab__split-dot--onetime"></span>
-            One-time <strong><%= business["onetime_pct"] %>%</strong>
+            One-time <strong><%= business["onetime_pct"] || "n/a" %>%</strong>
           </span>
         </div>
       </div>
@@ -32,7 +32,7 @@
 
     <div class="business-tab__card">
       <p class="business-tab__card-label">Customer Profile</p>
-      <p class="business-tab__card-context"><%= business["customer_profile"] %></p>
+      <p class="business-tab__card-context"><%= business["customer_profile"] || "n/a" %></p>
     </div>
 
   </div>
@@ -42,12 +42,12 @@
 
     <div class="business-tab__card">
       <p class="business-tab__card-label">Revenue Models</p>
-      <p class="business-tab__card-context"><%= business["revenue_models"] %></p>
+      <p class="business-tab__card-context"><%= business["revenue_models"] || "n/a" %></p>
     </div>
 
     <div class="business-tab__card">
       <p class="business-tab__card-label">Scalability</p>
-      <p class="business-tab__card-context"><%= business["scalability"] %></p>
+      <p class="business-tab__card-context"><%= business["scalability"] || "n/a" %></p>
     </div>
 
   </div>

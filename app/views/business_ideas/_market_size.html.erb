@@ -1,4 +1,4 @@
-<% market = data.market_size.is_a?(String) ? JSON.parse(data.market_size) : data.market_size %>
+<% market = data.market_size.is_a?(String) ? JSON.parse(data.market_size) : (data.market_size || {}) %>
 <% geo = market["geo"] || [] %>
 
 <%
@@ -23,19 +23,19 @@
     <div class="market-size__card">
       <p class="market-size__card-label">TAM</p>
       <p class="market-size__card-sublabel">Total Addressable Market</p>
-      <h2 class="market-size__card-value"><%= market["tam"] %></h2>
+      <h2 class="market-size__card-value"><%= market["tam"] || "n/a" %></h2>
     </div>
 
     <div class="market-size__card">
       <p class="market-size__card-label">SAM</p>
       <p class="market-size__card-sublabel">Serviceable Addressable Market</p>
-      <h2 class="market-size__card-value"><%= market["sam"] %></h2>
+      <h2 class="market-size__card-value"><%= market["sam"] || "n/a" %></h2>
     </div>
 
     <div class="market-size__card">
       <p class="market-size__card-label">Market Stage</p>
       <p class="market-size__card-sublabel">Current maturity level</p>
-      <h2 class="market-size__card-heading"><%= market["market_stage"] %></h2>
+      <h2 class="market-size__card-heading"><%= market["market_stage"] || "n/a" %></h2>
     </div>
 
   </div>
@@ -80,7 +80,7 @@
     <!-- Key driver -->
     <div class="market-size__driver">
       <p class="market-size__driver-label">Key Market Driver</p>
-      <p class="market-size__driver-text"><%= market["key_driver"] %></p>
+      <p class="market-size__driver-text"><%= market["key_driver"] || "n/a" %></p>
     </div>
 
   </div>
