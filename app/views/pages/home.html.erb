@@ -56,7 +56,8 @@
             placeholder: "",
             class: "home-input",
             required: true,
-            autocomplete: "off" %>
+            autocomplete: "off",
+            data: { controller: "submit-on-enter", action: "keydown->submit-on-enter#handleKeydown" } %>
         <%= f.button type: "submit", class: "home-submit" do %>
           <span>CHECK</span>
           <svg width="15px" height="10px" viewBox="0 0 13 10">
