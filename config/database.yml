@@ -88,8 +88,9 @@ production:
   primary: &primary_production
     <<: *default
     database: step_zero_project_production
-    username: step_zero_project
-    password: <%= ENV["STEP_ZERO_PROJECT_DATABASE_PASSWORD"] %>
+    url: <%= ENV["DATABASE_URL"] %>
+    # username: step_zero_project
+    # password: <%= ENV["STEP_ZERO_PROJECT_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
     migrations_paths: db/cache_migrate
