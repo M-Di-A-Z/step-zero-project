@@ -9,7 +9,9 @@ User.destroy_all
 user = User.create!(
   email: "demo@ideaproof.com",
   password: "password123",
-  password_confirmation: "password123"
+  password_confirmation: "password123",
+  first_name: "Alex",
+  last_name: "Martin"
 )
 
 # Create a business idea
@@ -82,7 +84,9 @@ BusinessData.create!(
 test_user = User.create!(
   email: "test@test.com",
   password: "123456",
-  password_confirmation: "123456"
+  password_confirmation: "123456",
+  first_name: "Test",
+  last_name: "User"
 )
 
 # Create a business idea for test user

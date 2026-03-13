@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
 
+  resource :profile, only: [:show, :edit, :update]
+
   get "up" => "rails/health#show", as: :rails_health_check
   get "report", to: "business_ideas#report"
 
