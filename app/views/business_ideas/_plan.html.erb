@@ -1,3 +1,232 @@
-<div class="plan-view">
-  <p>Plan coming soon.</p>
+<style>
+  .plan-container * { margin: 0; padding: 0; box-sizing: border-box; }
+  .plan-container { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #0F172A; padding: 28px 0; }
+  .plan-container .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+  .pipeline { display: flex; align-items: center; margin-bottom: 28px; gap: 0; }
+  .pipeline-btn { flex: 1; border: none; cursor: pointer; border-radius: 10px; padding: 12px 8px;
+    background: transparent; transition: all 0.2s; outline: 2px solid transparent; text-align: center; }
+  .pipeline-btn.active { background: rgba(0,0,0,0.06); }
+  .pipeline-btn:hover { background: rgba(0,0,0,0.04); }
+  .pipeline-icon { font-size: 20px; }
+  .pipeline-label { color: #94A3B8; font-size: 12px; font-weight: 600; }
+  .pipeline-btn.active .pipeline-label { color: #1a1a1a; }
+  .pipeline-pct { font-size: 11px; font-weight: 700; margin-top: 2px; }
+  .pipeline-line { width: 24px; height: 2px; background: #E0D9CE; flex-shrink: 0; }
+  .pipeline-line.done { background: #10B981; }
+  .phase-card { background: #fff; border-radius: 14px; padding: 24px 28px; margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04); border: 1px solid #E0D9CE; }
+  .phase-title { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+  .phase-badge { font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+  .phase-desc { font-size: 13px; color: #64748B; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px; }
+  .metric-card { background: #fff; border-radius: 12px; padding: 20px 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04); border: 1px solid #E0D9CE; border-left-width: 4px; }
+  .metric-name { font-size: 13px; font-weight: 600; color: #374151; }
+  .metric-value { font-size: 28px; font-weight: 800; margin: 4px 0; }
+  .metric-target { font-size: 12px; color: #9CA3AF; margin-bottom: 10px; }
+  .achieved-badge { font-size: 10px; background: #D1FAE5; color: #065F46; padding: 2px 8px;
+    border-radius: 10px; font-weight: 700; }
+  .bar-bg { height: 6px; border-radius: 3px; background: #F3F4F6; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+  .gate { margin-top: 20px; border-radius: 12px; padding: 16px 22px;
+    display: flex; align-items: center; gap: 12px; }
+  .gate-title { font-size: 13px; font-weight: 700; }
+  .gate-sub { font-size: 12px; color: #64748B; }
+  .edit-input { width: 80px; padding: 4px 8px; border: 1px solid #E0D9CE; border-radius: 6px;
+    font-size: 14px; font-weight: 700; }
+  .edit-btn { padding: 4px 12px; border: none; border-radius: 6px; font-size: 12px;
+    font-weight: 600; cursor: pointer; color: #fff; margin-left: 6px; }
+  .edit-btn:hover { opacity: 0.85; }
+  .phase-header-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .metric-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+  .plan-overall { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+</style>
+
+<div id="plan-dashboard" class="plan-container">
+  <div class="container">
+    <!-- rendered by JS below -->
+  </div>
 </div>
+
+<script>
+(function() {
+  const phases = [
+    {
+      name: "Discovery", slug: "discovery", subtitle: "Valider le problème",
+      icon: "🔍", color: "#8B5CF6",
+      desc: "Comprendre le marché, valider le problème, identifier les personas cibles.",
+      metrics: [
+        { name: "Entretiens réalisés",   current: 24,  target: 30, unit: "" },
+        { name: "Confirmation problème",  current: 72,  target: 70, unit: "%" },
+        { name: "Marché SOM estimé",      current: 0.8, target: 1,  unit: "M€" },
+        { name: "Personas validés",       current: 2,   target: 2,  unit: "" },
+      ]
+    },
+    {
+      name: "MVP", slug: "mvp", subtitle: "Valider la solution",
+      icon: "🛠️", color: "#3B82F6",
+      desc: "Construire un produit minimum, mesurer l'engagement et la satisfaction.",
+      metrics: [
+        { name: "Utilisateurs actifs", current: 67, target: 100, unit: "" },
+        { name: "Rétention J7",        current: 18, target: 25,  unit: "%" },
+        { name: "NPS",                 current: 22, target: 30,  unit: "" },
+        { name: "Usage feature core",  current: 55, target: 60,  unit: "%" },
+      ]
+    },
+    {
+      name: "POC", slug: "poc", subtitle: "Valider la viabilité",
+      icon: "🧪", color: "#F59E0B",
+      desc: "Prouver la viabilité économique et technique du modèle.",
+      metrics: [
+        { name: "Willingness to pay", current: 0, target: 40, unit: "%" },
+        { name: "CAC estimé",         current: 0, target: 1,  unit: "< LTV/3" },
+        { name: "Conversion payant",  current: 0, target: 5,  unit: "%" },
+        { name: "LOI signées",        current: 0, target: 2,  unit: "" },
+      ]
+    },
+    {
+      name: "Go To Market", slug: "gtm", subtitle: "Scaler",
+      icon: "🚀", color: "#10B981",
+      desc: "Déployer la stratégie d'acquisition et scaler les revenus.",
+      metrics: [
+        { name: "MRR",             current: 0, target: 10000, unit: "€" },
+        { name: "Croissance MoM",  current: 0, target: 15,    unit: "%" },
+        { name: "LTV:CAC Ratio",   current: 0, target: 3,     unit: ":1" },
+        { name: "Churn mensuel",   current: 0, target: 5,     unit: "% ≤" },
+      ]
+    }
+  ];
+
+  function completion(phase) {
+    const vals = phase.metrics.map(m => m.target === 0 ? 0 : Math.min(m.current / m.target, 1));
+    return Math.round(vals.reduce((a, b) => a + b, 0) / vals.length * 100);
+  }
+  function gatePassed(p) { return completion(p) >= 100; }
+  function metricPct(m) { return m.target === 0 ? 0 : Math.min(Math.round(m.current / m.target * 100), 100); }
+  function achieved(m) { return m.target > 0 && m.current >= m.target; }
+
+  function fmtVal(m) {
+    const v = m.current;
+    if (m.unit === "M€") return v + "M€";
+    if (m.unit === "€") return v.toLocaleString("fr-FR") + "€";
+    if (m.unit === "%") return v + "%";
+    return (v % 1 === 0 ? Math.floor(v) : v).toString();
+  }
+  function fmtTarget(m) {
+    const t = m.target;
+    if (m.unit === "M€") return t + "M€";
+    if (m.unit === "€") return t.toLocaleString("fr-FR") + "€";
+    return (t % 1 === 0 ? Math.floor(t) : t) + " " + m.unit;
+  }
+
+  function ring(pct, color, size) {
+    const s = 5, r = (size - s) / 2, c = 2 * Math.PI * r;
+    const off = c - (c * Math.min(pct, 100) / 100);
+    return `<svg width="${size}" height="${size}" style="transform:rotate(-90deg)">
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#E0D9CE" stroke-width="${s}"/>
+      <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="${s}"
+        stroke-dasharray="${c}" stroke-dashoffset="${off}" stroke-linecap="round" style="transition:stroke-dashoffset .8s ease"/>
+      <text x="${size/2}" y="${size/2}" text-anchor="middle" dominant-baseline="central"
+        style="transform:rotate(90deg);transform-origin:center;font-size:13px;font-weight:700;fill:${color}">${pct}%</text>
+    </svg>`;
+  }
+
+  let activeIdx = 0;
+
+  function render() {
+    const p = phases[activeIdx];
+    const overall = Math.round(phases.reduce((s, ph) => s + completion(ph), 0) / phases.length);
+
+    let html = `
+      <div class="plan-overall">
+        ${ring(overall, "#8B2500", 56)}
+        <div>
+          <div style="font-size:14px;font-weight:600">Avancement global</div>
+          <div style="font-size:12px;color:#64748B">${overall}% complété</div>
+        </div>
+      </div>
+      <div class="pipeline">`;
+
+    phases.forEach((ph, i) => {
+      const comp = completion(ph);
+      const act = i === activeIdx;
+      html += `<div class="pipeline-btn ${act ? 'active' : ''}"
+        style="${act ? 'outline:2px solid ' + ph.color : ''}" onclick="planSwitchPhase(${i})">
+        <div class="pipeline-icon">${ph.icon}</div>
+        <div class="pipeline-label">${ph.name}</div>
+        <div class="pipeline-pct" style="color:${gatePassed(ph) ? '#10B981' : ph.color}">
+          ${gatePassed(ph) ? '✓ Done' : comp + '%'}
+        </div>
+      </div>`;
+      if (i < phases.length - 1)
+        html += `<div class="pipeline-line ${gatePassed(ph) ? 'done' : ''}"></div>`;
+    });
+
+    html += `</div>
+      <div class="phase-card" style="border-color:${p.color}40">
+        <div class="phase-header-flex">
+          <div>
+            <div class="phase-title">
+              <span style="font-size:28px">${p.icon}</span>
+              <h2 style="font-size:20px;font-weight:700">${p.name}</h2>
+              <span class="phase-badge" style="background:${p.color}14;color:${p.color}">${p.subtitle}</span>
+            </div>
+            <p class="phase-desc">${p.desc}</p>
+          </div>
+          ${ring(completion(p), p.color, 64)}
+        </div>
+      </div>
+      <div class="metrics-grid">`;
+
+    p.metrics.forEach((m, mi) => {
+      const pct = metricPct(m);
+      const done = achieved(m);
+      const grad = done ? 'linear-gradient(90deg,#10B981,#34D399)' : `linear-gradient(90deg,${p.color},${p.color}aa)`;
+      html += `
+        <div class="metric-card" style="border-left-color:${done ? '#10B981' : p.color}">
+          <div class="metric-header">
+            <span class="metric-name">${m.name}</span>
+            ${done ? '<span class="achieved-badge">ATTEINT</span>' : ''}
+          </div>
+          <div class="metric-value">${fmtVal(m)}</div>
+          <div class="metric-target">Objectif : ${fmtTarget(m)}</div>
+          <div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${grad}"></div></div>
+          <div style="margin-top:12px;display:flex;align-items:center">
+            <input type="number" step="any" min="0" value="${m.current}" class="edit-input" id="plan-input-${mi}">
+            <button class="edit-btn" style="background:${p.color}" onclick="planUpdateMetric(${mi})">Mettre à jour</button>
+          </div>
+        </div>`;
+    });
+
+    const ac = p.metrics.filter(m => achieved(m)).length;
+    const gp = gatePassed(p);
+
+    html += `</div>
+      <div class="gate" style="background:${p.color}0A;border:1px solid ${p.color}20">
+        <span style="font-size:20px">${gp ? '🎉' : '🚧'}</span>
+        <div>
+          <div class="gate-title" style="color:${p.color}">
+            ${gp ? 'Gate validée — Prêt pour la phase suivante !' : 'Gate en cours'}
+          </div>
+          <div class="gate-sub">
+            ${gp ? 'Tous les objectifs de cette phase sont atteints.' : ac + '/' + p.metrics.length + ' objectifs atteints. Continuez !'}
+          </div>
+        </div>
+      </div>`;
+
+    document.querySelector('#plan-dashboard .container').innerHTML = html;
+  }
+
+  window.planSwitchPhase = function(i) { activeIdx = i; render(); };
+  window.planUpdateMetric = function(mi) {
+    const input = document.getElementById('plan-input-' + mi);
+    const val = parseFloat(input.value);
+    if (!isNaN(val) && val >= 0) {
+      phases[activeIdx].metrics[mi].current = val;
+      render();
+    }
+  };
+
+  render();
+})();
+</script>
