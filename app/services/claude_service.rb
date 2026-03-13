@@ -37,7 +37,10 @@ class ClaudeService
         "tam": "",
         "sam": "",
         "market_stage": "",
-        "key_driver": ""
+        "key_driver": "",
+        "geo": [
+          { "region": "", "pct": 0 }
+        ]
       },
       "competitors": {
         "intensity": "",
@@ -89,6 +92,7 @@ class ClaudeService
     - sam: Serviceable Addressable Market — the realistic slice this startup could target given geography, segment, and go-to-market. Same format.
     - market_stage: Same value as overview market_stage_pill.
     - key_driver: The single most important trend, technology shift, or behavioral change driving this market right now.
+    - geo: Array of 3-5 geographic regions with their market share percentage. Each object has "region" (e.g. "North America", "Europe", "Asia-Pacific", "Latin America", "Middle East & Africa") and "pct" (integer, all pct values must sum to 100). Base the distribution on where the target market and demand are strongest.
 
     ### Competitors
     - intensity: Same value as overview competitive_intensity_label.
