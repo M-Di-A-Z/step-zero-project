@@ -1,20 +1,44 @@
-<h2>Log in</h2>
+<div class="auth-page">
+  <div class="auth-card">
+    <h2 class="auth-title">Welcome back</h2>
+    <p class="auth-subtitle">Log in to continue validating your ideas.</p>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f| %>
+      <div class="auth-field">
+        <label class="auth-label">Email</label>
+        <%= f.input :email,
+                    label: false,
+                    required: false,
+                    autofocus: true,
+                    input_html: { autocomplete: "email", class: "auth-input", placeholder: "you@example.com" } %>
+      </div>
+
+      <div class="auth-field">
+        <label class="auth-label">Password</label>
+        <%= f.input :password,
+                    label: false,
+                    required: false,
+                    input_html: { autocomplete: "current-password", class: "auth-input", placeholder: "Your password" } %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="auth-remember">
+          <%= f.input :remember_me, as: :boolean, label: "Remember me", wrapper_html: { class: "auth-checkbox" } %>
+        </div>
+      <% end %>
+
+      <div class="auth-actions">
+        <%= f.button :submit, "Log in", class: "auth-submit" %>
+      </div>
+    <% end %>
+
+    <div class="auth-links">
+      <% if devise_mapping.registerable? %>
+        <p>Don't have an account? <%= link_to "Sign up", new_registration_path(resource_name), class: "auth-link" %></p>
+      <% end %>
+      <% if devise_mapping.recoverable? %>
+        <p><%= link_to "Forgot your password?", new_password_path(resource_name), class: "auth-link" %></p>
+      <% end %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
