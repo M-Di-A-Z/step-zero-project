@@ -313,6 +313,30 @@
   }
 }
 
+// ── Log out ──────────────────────────────────────────────────────
+
+.profile-logout {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid hsla(36, 14%, 85%, 1);
+
+  &__btn {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #888;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #8B2500;
+    }
+  }
+}
+
 // ── Edit form ────────────────────────────────────────────────────
 
 .profile-edit {

@@ -80,4 +80,9 @@
       </div>
     <% end %>
   </div>
+
+  <!-- Log out -->
+  <div class="profile-logout">
+    <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "profile-logout__btn" %>
+  </div>
 </div>
