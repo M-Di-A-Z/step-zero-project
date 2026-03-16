@@ -1,0 +1,66 @@
+<% if @business_idea.business_data.nil? %>
+  <div class="modal-not-ready">
+    <div class="modal-not-ready__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+    </div>
+    <h3>Research in progress</h3>
+    <p>This project is still being analyzed. Check back soon.</p>
+  </div>
+<% else %>
+
+<div class="modal-tab-layout" id="modalTabLayout">
+
+  <!-- Tab panels -->
+  <div class="modal-tab-panel active" data-tab="0">
+    <%= render "overview", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="modal-tab-panel" data-tab="1">
+    <%= render "market_size", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="modal-tab-panel" data-tab="2">
+    <%= render "competitors", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="modal-tab-panel" data-tab="3">
+    <%= render "business", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="modal-tab-panel" data-tab="4">
+    <%= render "execution", idea: @business_idea, data: @business_idea.business_data %>
+  </div>
+  <div class="modal-tab-panel" data-tab="5">
+    <%= render "plan", idea: @business_idea %>
+  </div>
+
+  <!-- Vertical pip indicator -->
+  <nav class="modal-tab-indicator" id="modalTabIndicator">
+    <div class="tab-pip active" data-tab="0">
+      <span class="tab-pip__dot active"></span>
+      <span class="tab-pip__label">Dashboard</span>
+    </div>
+    <div class="tab-pip" data-tab="1">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Market size</span>
+    </div>
+    <div class="tab-pip" data-tab="2">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Competitors</span>
+    </div>
+    <div class="tab-pip" data-tab="3">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Business</span>
+    </div>
+    <div class="tab-pip" data-tab="4">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Execution</span>
+    </div>
+    <div class="tab-pip" data-tab="5">
+      <span class="tab-pip__dot"></span>
+      <span class="tab-pip__label">Plan</span>
+    </div>
+  </nav>
+
+</div>
+
+<% end %>

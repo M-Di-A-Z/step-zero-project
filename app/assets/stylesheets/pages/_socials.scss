@@ -42,7 +42,7 @@
   }
 }
 
-// Back link (share page)
+// Back link
 .socials-back-link {
   display: inline-flex;
   align-items: center;
@@ -127,15 +127,11 @@
 
   &--selectable {
     cursor: pointer;
-  }
 
-  &--shared {
-    box-shadow: 0 2px 10px rgba(245, 166, 35, 0.15), 0 0 0 1.5px rgba(245, 166, 35, 0.4);
-  }
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(0, 0, 0, 0.06);
-    transform: translateY(-2px);
+    &:hover {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1), 0 0 0 1.5px rgba(245, 166, 35, 0.35);
+      transform: translateY(-2px);
+    }
   }
 
   // Left: avatar column
@@ -145,8 +141,8 @@
   }
 
   &__avatar {
-    width: 56px;
-    height: 56px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     overflow: hidden;
     background: #f5a623;
@@ -163,7 +159,7 @@
   }
 
   &__avatar-initials {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #fff;
     font-family: sans-serif;
@@ -171,7 +167,7 @@
     line-height: 1;
   }
 
-  // Center: main content
+  // Center
   &__body {
     flex: 1;
     min-width: 0;
@@ -181,7 +177,7 @@
   }
 
   &__title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #1a1a1a;
     margin: 0;
@@ -193,19 +189,14 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    font-size: 0.78rem;
+    font-size: 0.85rem;
     color: #aaa;
     font-family: sans-serif;
     margin: 0;
 
-    svg {
-      flex-shrink: 0;
-      color: #bbb;
-    }
-
     strong {
       font-weight: 600;
-      color: #777;
+      color: #555;
     }
   }
 
@@ -217,7 +208,45 @@
     margin: 0;
   }
 
-  // Right: tag + stats column
+  // Share action (share page)
+  &__share-action {
+    display: flex;
+    align-items: center;
+  }
+
+  &__share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: sans-serif;
+    border: 1.5px solid #1a1a1a;
+    background: transparent;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+
+    &:hover {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    &--shared {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
+
+      &:hover {
+        background: #c0392b;
+        border-color: #c0392b;
+      }
+    }
+  }
+
+  // Right column (share page)
   &__right {
     flex-shrink: 0;
     display: flex;
@@ -226,10 +255,9 @@
     justify-content: space-between;
     align-self: stretch;
     gap: 20px;
-    min-width: 160px;
   }
 
-  // Status pill (top right)
+  // Status pill
   &__status {
     display: inline-flex;
     align-items: center;
@@ -268,93 +296,186 @@
     flex-shrink: 0;
   }
 
-  // Stats row (bottom right)
-  &__stats {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+  &--shared {
+    box-shadow: 0 2px 10px rgba(245, 166, 35, 0.15), 0 0 0 1.5px rgba(245, 166, 35, 0.4);
   }
 
-  // Overlapping participant avatars
-  &__participants {
-    display: flex;
-  }
+}
 
-  &__participant-avatar {
-    width: 30px;
-    height: 30px;
+// ── Project preview modal ─────────────────────────────────────
+
+.project-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 12, 8, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+
+    .project-modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.project-modal {
+  position: relative;
+  width: 92vw;
+  height: 88vh;
+  max-width: 1400px;
+  background: #faf8f3;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transform: translateY(24px) scale(0.97);
+  opacity: 0;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 30;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    overflow: hidden;
-    background: #e8e0d4;
-    border: 2px solid #fff;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    color: #555;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: -8px;
-
-    &:first-child { margin-left: 0; }
-  }
-
-  &__participant-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__participant-initial {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: #888;
-    font-family: sans-serif;
-  }
-
-  // Comment count
-  &__stat {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: #aaa;
-    font-family: sans-serif;
-    white-space: nowrap;
-  }
-
-  // Share action (share selection page)
-  &__share-action {
-    display: flex;
-    align-items: center;
-  }
-
-  &__share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    font-family: sans-serif;
-    border: 1.5px solid #1a1a1a;
-    background: transparent;
-    color: #1a1a1a;
-    cursor: pointer;
-    transition: background 0.18s, color 0.18s, border-color 0.18s;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 
     &:hover {
       background: #1a1a1a;
       color: #fff;
-    }
-
-    &--shared {
-      background: #1a1a1a;
-      color: #fff;
-      border-color: #1a1a1a;
-
-      &:hover {
-        background: #c0392b;
-        border-color: #c0392b;
-      }
+      transform: scale(1.08);
     }
   }
+
+  &__body {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+// ── Tab layout inside modal ───────────────────────────────────
+
+.modal-tab-layout {
+  position: relative;
+  height: 100%;
+  padding-right: 56px;
+  overflow: hidden;
+}
+
+.modal-tab-panel {
+  position: absolute;
+  inset: 0;
+  right: 56px;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(18px) scale(0.97);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  overflow-y: auto;
+
+  &.active {
+    position: relative;
+    height: 100%;
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    transition-delay: 0.1s;
+  }
+}
+
+// Override fixed pip indicator to be absolute inside modal
+.modal-tab-indicator {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  z-index: 20;
+}
+
+// ── Loading & error states ────────────────────────────────────
+
+.modal-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+  color: #999;
+  font-family: sans-serif;
+  font-size: 0.9rem;
+
+  &__spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #e8e2d8;
+    border-top-color: #f5a623;
+    border-radius: 50%;
+    animation: modal-spin 0.8s linear infinite;
+  }
+}
+
+.modal-not-ready {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  color: #999;
+  font-family: sans-serif;
+  text-align: center;
+  padding: 40px;
+
+  svg { color: #ccc; }
+  h3 { font-size: 1.1rem; font-weight: 600; color: #555; margin: 0; }
+  p  { font-size: 0.875rem; margin: 0; }
+}
+
+.modal-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #c0392b;
+  font-family: sans-serif;
+  font-size: 0.9rem;
+}
+
+@keyframes modal-spin {
+  to { transform: rotate(360deg); }
 }
