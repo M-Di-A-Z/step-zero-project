@@ -8,6 +8,8 @@ Rails.application.routes.draw do
         get :status
         get :research
         post :research
+        get :preview
+        patch :share
     end
   end
 
@@ -16,6 +18,9 @@ Rails.application.routes.draw do
   end
 
   resource :profile, only: [:show, :edit, :update]
+
+  get "socials", to: "socials#index", as: :socials
+  get "socials/share", to: "socials#share", as: :share_socials
 
   get "up" => "rails/health#show", as: :rails_health_check
   get "report", to: "business_ideas#report"

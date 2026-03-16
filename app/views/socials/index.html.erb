@@ -1,0 +1,165 @@
+<div class="socials-page">
+  <div class="socials-header">
+    <div class="socials-header__left">
+      <h1 class="socials-header__title">Socials</h1>
+      <p class="socials-header__subtitle">Discover and explore projects from the community</p>
+    </div>
+    <% if user_signed_in? %>
+      <div class="socials-header__actions">
+        <%= link_to share_socials_path, class: "socials-share-btn" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Share a project
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @posts.empty? %>
+    <div class="socials-empty">
+      <p class="socials-empty__text">No projects shared yet. Be the first to share yours.</p>
+      <% if user_signed_in? %>
+        <%= link_to "Go to my projects →", business_ideas_path, class: "socials-empty__link" %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="socials-list">
+      <% @posts.each do |post| %>
+        <%= render "social_card", post: post %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<!-- Project preview modal -->
+<div id="projectModal" class="project-modal-overlay" aria-modal="true" role="dialog">
+  <div class="project-modal" id="projectModalBox">
+    <button class="project-modal__close" id="closeModal" aria-label="Close preview">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="project-modal__body" id="modalBody">
+      <div class="modal-loading">
+        <div class="modal-loading__spinner"></div>
+        <p>Loading project…</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var overlay  = document.getElementById("projectModal");
+  var modalBox = document.getElementById("projectModalBox");
+  var body     = document.getElementById("modalBody");
+  var closeBtn = document.getElementById("closeModal");
+  var currentTab = 0;
+  var modalTabController = null;
+
+  // ── Open ──────────────────────────────────────────────────────────
+  document.querySelectorAll("[data-preview-url]").forEach(function(card) {
+    card.addEventListener("click", function() {
+      openModal(card.dataset.previewUrl);
+    });
+  });
+
+  function openModal(url) {
+    body.innerHTML = '<div class="modal-loading"><div class="modal-loading__spinner"></div><p>Loading project…</p></div>';
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+
+    fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+      .then(function(r) { return r.text(); })
+      .then(function(html) {
+        body.innerHTML = html;
+        initModalTabs();
+      })
+      .catch(function() {
+        body.innerHTML = '<div class="modal-error"><p>Could not load the project. Please try again.</p></div>';
+      });
+  }
+
+  // ── Close ─────────────────────────────────────────────────────────
+  function closeModal() {
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+    currentTab = 0;
+    if (modalTabController) {
+      modalTabController.destroy();
+      modalTabController = null;
+    }
+  }
+
+  closeBtn.addEventListener("click", closeModal);
+
+  overlay.addEventListener("click", function(e) {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (!overlay.classList.contains("active")) return;
+    if (e.key === "Escape") { closeModal(); return; }
+    if (modalTabController) {
+      if (e.key === "ArrowDown") { e.preventDefault(); modalTabController.next(); }
+      if (e.key === "ArrowUp")   { e.preventDefault(); modalTabController.prev(); }
+    }
+  });
+
+  // ── Tab logic inside modal ────────────────────────────────────────
+  function initModalTabs() {
+    var layout    = body.querySelector(".modal-tab-layout");
+    if (!layout) return;
+
+    var indicator = layout.querySelector(".modal-tab-indicator");
+    var pips      = indicator ? indicator.querySelectorAll(".tab-pip") : [];
+    var panels    = layout.querySelectorAll(".modal-tab-panel");
+    currentTab = 0;
+
+    function switchTab(index) {
+      if (index === currentTab) return;
+      indicator.setAttribute("data-direction", index < currentTab ? "up" : "down");
+
+      panels[currentTab].classList.remove("active");
+      pips[currentTab].classList.remove("active");
+      pips[currentTab].querySelector(".tab-pip__dot").classList.remove("active");
+
+      currentTab = index;
+
+      panels[currentTab].classList.add("active");
+      pips[currentTab].classList.add("active");
+      pips[currentTab].querySelector(".tab-pip__dot").classList.add("active");
+    }
+
+    pips.forEach(function(pip, i) {
+      pip.addEventListener("click", function() { switchTab(i); });
+    });
+
+    // Scroll inside modal
+    var scrollCooldown = false;
+    body.addEventListener("wheel", function(e) {
+      if (scrollCooldown) return;
+      if (Math.abs(e.deltaY) < 30) return;
+      if (e.deltaY > 0 && currentTab < panels.length - 1) {
+        switchTab(currentTab + 1);
+        scrollCooldown = true;
+        setTimeout(function() { scrollCooldown = false; }, 700);
+      } else if (e.deltaY < 0 && currentTab > 0) {
+        switchTab(currentTab - 1);
+        scrollCooldown = true;
+        setTimeout(function() { scrollCooldown = false; }, 700);
+      }
+    });
+
+    modalTabController = {
+      next: function() { if (currentTab < panels.length - 1) switchTab(currentTab + 1); },
+      prev: function() { if (currentTab > 0) switchTab(currentTab - 1); },
+      destroy: function() {}
+    };
+  }
+})();
+</script>

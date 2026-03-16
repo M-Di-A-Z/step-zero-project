@@ -1,0 +1,427 @@
+// ── Socials (forum-style feed) ────────────────────────────────
+
+.socials-page {
+  min-height: 100vh;
+  background: transparent;
+  padding: 60px 80px;
+  font-family: "Georgia", serif;
+}
+
+// Header
+.socials-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #E0D9CE;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    font-family: sans-serif;
+  }
+
+  &__subtitle {
+    font-size: 0.9rem;
+    color: #888;
+    font-family: sans-serif;
+    margin: 0;
+  }
+
+  &__actions {
+    flex-shrink: 0;
+  }
+}
+
+// Back link
+.socials-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-family: sans-serif;
+  color: #aaa;
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color 0.15s;
+
+  &:hover {
+    color: #1a1a1a;
+    text-decoration: none;
+  }
+}
+
+// Share button
+.socials-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: sans-serif;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+
+  &:hover {
+    background: #f5a623;
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+}
+
+// Empty state
+.socials-empty {
+  text-align: center;
+  padding: 100px 0;
+
+  &__text {
+    font-size: 1.1rem;
+    color: #888;
+    font-family: sans-serif;
+    margin-bottom: 16px;
+  }
+
+  &__link {
+    font-size: 1rem;
+    color: #8B2500;
+    font-style: italic;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// Feed list
+.socials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+// ── Social card ───────────────────────────────────────────────
+.social-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 28px 36px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  transition: box-shadow 0.2s, transform 0.18s;
+  cursor: default;
+
+  &--selectable {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1), 0 0 0 1.5px rgba(245, 166, 35, 0.35);
+      transform: translateY(-2px);
+    }
+  }
+
+  // Left: avatar column
+  &__left {
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  &__avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f5a623;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  &__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__avatar-initials {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  // Center
+  &__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.3;
+    font-family: sans-serif;
+  }
+
+  &__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    color: #aaa;
+    font-family: sans-serif;
+    margin: 0;
+
+    strong {
+      font-weight: 600;
+      color: #555;
+    }
+  }
+
+  &__description {
+    font-size: 0.875rem;
+    color: #666;
+    line-height: 1.6;
+    font-family: sans-serif;
+    margin: 0;
+  }
+
+  // Share action (share page)
+  &__share-action {
+    display: flex;
+    align-items: center;
+  }
+
+  &__share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: sans-serif;
+    border: 1.5px solid #1a1a1a;
+    background: transparent;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+
+    &:hover {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    &--shared {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
+
+      &:hover {
+        background: #c0392b;
+        border-color: #c0392b;
+      }
+    }
+  }
+
+}
+
+// ── Project preview modal ─────────────────────────────────────
+
+.project-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 12, 8, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+
+    .project-modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.project-modal {
+  position: relative;
+  width: 92vw;
+  height: 88vh;
+  max-width: 1400px;
+  background: #faf8f3;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transform: translateY(24px) scale(0.97);
+  opacity: 0;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 30;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+    &:hover {
+      background: #1a1a1a;
+      color: #fff;
+      transform: scale(1.08);
+    }
+  }
+
+  &__body {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+// ── Tab layout inside modal ───────────────────────────────────
+
+.modal-tab-layout {
+  position: relative;
+  height: 100%;
+  padding-right: 56px;
+  overflow: hidden;
+}
+
+.modal-tab-panel {
+  position: absolute;
+  inset: 0;
+  right: 56px;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(18px) scale(0.97);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  overflow-y: auto;
+
+  &.active {
+    position: relative;
+    height: 100%;
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    transition-delay: 0.1s;
+  }
+}
+
+// Override fixed pip indicator to be absolute inside modal
+.modal-tab-indicator {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  z-index: 20;
+}
+
+// ── Loading & error states ────────────────────────────────────
+
+.modal-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+  color: #999;
+  font-family: sans-serif;
+  font-size: 0.9rem;
+
+  &__spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #e8e2d8;
+    border-top-color: #f5a623;
+    border-radius: 50%;
+    animation: modal-spin 0.8s linear infinite;
+  }
+}
+
+.modal-not-ready {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  color: #999;
+  font-family: sans-serif;
+  text-align: center;
+  padding: 40px;
+
+  svg { color: #ccc; }
+  h3 { font-size: 1.1rem; font-weight: 600; color: #555; margin: 0; }
+  p  { font-size: 0.875rem; margin: 0; }
+}
+
+.modal-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #c0392b;
+  font-family: sans-serif;
+  font-size: 0.9rem;
+}
+
+@keyframes modal-spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,31 @@
+<div class="social-card social-card--selectable"
+     data-preview-url="<%= preview_business_idea_path(post) %>"
+     role="button"
+     tabindex="0">
+  <%# Left: avatar %>
+  <div class="social-card__left">
+    <div class="social-card__avatar">
+      <% if post.user.avatar.attached? %>
+        <%= image_tag post.user.avatar, class: "social-card__avatar-img" %>
+      <% else %>
+        <span class="social-card__avatar-initials">
+          <%= post.user.first_name.present? ? post.user.first_name[0].upcase : post.user.email[0].upcase %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Center: content %>
+  <div class="social-card__body">
+    <h2 class="social-card__title">
+      <%= post.title.present? ? post.title : post.content.truncate(70) %>
+    </h2>
+    <p class="social-card__meta">
+      Shared by&nbsp;<strong><%= post.user.first_name.present? ? "#{post.user.first_name} #{post.user.last_name}".strip : post.user.email %></strong>
+      &nbsp;·&nbsp;<%= time_ago_in_words(post.created_at) %> ago
+    </p>
+    <% if post.summary.present? %>
+      <p class="social-card__description"><%= post.summary.truncate(160) %></p>
+    <% end %>
+  </div>
+</div>
