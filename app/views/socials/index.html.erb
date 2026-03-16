@@ -32,6 +32,33 @@
   <% end %>
 </div>
 
+<!-- Comments modal -->
+<div id="commentsModal" class="comments-modal-overlay" aria-modal="true" role="dialog">
+  <div class="comments-modal">
+    <div class="comments-modal__header">
+      <h3 class="comments-modal__title" id="commentsModalTitle">Comments</h3>
+      <button class="comments-modal__close" id="closeCommentsModal" aria-label="Close comments">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="comments-modal__body" id="commentsModalBody">
+      <div class="modal-loading">
+        <div class="modal-loading__spinner"></div>
+        <p>Loading comments…</p>
+      </div>
+    </div>
+    <% if user_signed_in? %>
+      <div class="comments-modal__form">
+        <textarea id="commentInput" class="comments-modal__input" placeholder="Write a comment…" rows="2"></textarea>
+        <button id="commentSubmit" class="comments-modal__submit">Post</button>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <!-- Project preview modal -->
 <div id="projectModal" class="project-modal-overlay" aria-modal="true" role="dialog">
   <div class="project-modal" id="projectModalBox">
@@ -52,6 +79,10 @@
 </div>
 
 <script>
+// Move modals to body so position:fixed works despite .page-content transform
+document.body.appendChild(document.getElementById("commentsModal"));
+document.body.appendChild(document.getElementById("projectModal"));
+
 (function() {
   var overlay  = document.getElementById("projectModal");
   var modalBox = document.getElementById("projectModalBox");
@@ -161,4 +192,151 @@
     };
   }
 })();
+
+// ── Comments modal ────────────────────────────────────────────
+(function() {
+  var overlay   = document.getElementById("commentsModal");
+  var bodyEl    = document.getElementById("commentsModalBody");
+  var titleEl   = document.getElementById("commentsModalTitle");
+  var closeBtn  = document.getElementById("closeCommentsModal");
+  var input     = document.getElementById("commentInput");
+  var submitBtn = document.getElementById("commentSubmit");
+  var currentUrl = null;
+
+  window.openCommentsModal = function(btn) {
+    currentUrl = btn.dataset.commentsUrl;
+    var title  = btn.dataset.postTitle;
+    titleEl.textContent = title;
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+    loadComments();
+  };
+
+  function loadComments() {
+    bodyEl.innerHTML = '<div class="modal-loading"><div class="modal-loading__spinner"></div><p>Loading comments…</p></div>';
+    fetch(currentUrl, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+      .then(function(r) { return r.text(); })
+      .then(function(html) {
+        bodyEl.innerHTML = html;
+        bindDeleteButtons();
+      })
+      .catch(function() {
+        bodyEl.innerHTML = '<div class="modal-error"><p>Could not load comments.</p></div>';
+      });
+  }
+
+  function closeModal() {
+    overlay.classList.remove("active");
+    document.body.style.overflow = "";
+    currentUrl = null;
+    if (input) input.value = "";
+  }
+
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", function(e) {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener("keydown", function(e) {
+    if (overlay.classList.contains("active") && e.key === "Escape") closeModal();
+  });
+
+  // Submit comment
+  if (submitBtn && input) {
+    submitBtn.addEventListener("click", postComment);
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); postComment(); }
+    });
+  }
+
+  function postComment() {
+    var body = input.value.trim();
+    if (!body || !currentUrl) return;
+    submitBtn.disabled = true;
+
+    var csrfToken = document.querySelector('meta[name="csrf-token"]');
+    fetch(currentUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRF-Token": csrfToken ? csrfToken.content : ""
+      },
+      body: JSON.stringify({ comment: { body: body } })
+    })
+    .then(function(r) { return r.text(); })
+    .then(function(html) {
+      bodyEl.innerHTML = html;
+      input.value = "";
+      bindDeleteButtons();
+      updateCardCount(currentUrl);
+    })
+    .catch(function() {
+      alert("Could not post comment. Please try again.");
+    })
+    .finally(function() {
+      submitBtn.disabled = false;
+    });
+  }
+
+  function bindDeleteButtons() {
+    bodyEl.querySelectorAll("[data-comment-delete]").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        if (!confirm("Delete this comment?")) return;
+        var csrfToken = document.querySelector('meta[name="csrf-token"]');
+        fetch(btn.dataset.commentDelete, {
+          method: "DELETE",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-Token": csrfToken ? csrfToken.content : ""
+          }
+        })
+        .then(function(r) { return r.text(); })
+        .then(function(html) {
+          bodyEl.innerHTML = html;
+          bindDeleteButtons();
+          updateCardCount(currentUrl);
+        });
+      });
+    });
+  }
+
+  function updateCardCount(url) {
+    var btns = document.querySelectorAll('[data-comments-url="' + url + '"]');
+    fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+      .then(function(r) { return r.text(); })
+      .then(function(html) {
+        var tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        var items = tmp.querySelectorAll(".comment-item");
+        btns.forEach(function(b) {
+          var span = b.querySelector("span");
+          if (span) span.textContent = items.length;
+        });
+      });
+  }
+})();
+
+// ── Like toggle ──────────────────────────────────────────────
+window.toggleLike = function(btn) {
+  var url = btn.dataset.likeUrl;
+  var liked = btn.dataset.liked === "true";
+  var csrfToken = document.querySelector('meta[name="csrf-token"]');
+
+  fetch(url, {
+    method: liked ? "DELETE" : "POST",
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+      "X-CSRF-Token": csrfToken ? csrfToken.content : ""
+    }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    btn.dataset.liked = data.liked.toString();
+    btn.classList.toggle("social-card__like-btn--liked", data.liked);
+    var svg = btn.querySelector("svg");
+    svg.setAttribute("fill", data.liked ? "currentColor" : "none");
+    var span = btn.querySelector("span");
+    if (span) span.textContent = data.count;
+  });
+};
 </script>

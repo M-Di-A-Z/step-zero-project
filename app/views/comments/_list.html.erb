@@ -1,0 +1,31 @@
+<div class="comments-list" id="commentsList">
+  <% if comments.empty? %>
+    <p class="comments-empty">No comments yet. Be the first to share your thoughts!</p>
+  <% else %>
+    <% comments.each do |comment| %>
+      <div class="comment-item">
+        <div class="comment-item__avatar">
+          <% if comment.user.avatar.attached? %>
+            <%= image_tag comment.user.avatar, class: "comment-item__avatar-img" %>
+          <% else %>
+            <span class="comment-item__avatar-initials">
+              <%= comment.user.first_name.present? ? comment.user.first_name[0].upcase : comment.user.email[0].upcase %>
+            </span>
+          <% end %>
+        </div>
+        <div class="comment-item__content">
+          <div class="comment-item__header">
+            <span class="comment-item__author">
+              <%= comment.user.first_name.present? ? "#{comment.user.first_name} #{comment.user.last_name}".strip : comment.user.email %>
+            </span>
+            <span class="comment-item__time"><%= time_ago_in_words(comment.created_at) %> ago</span>
+          </div>
+          <p class="comment-item__body"><%= comment.body %></p>
+          <% if user_signed_in? && comment.user == current_user %>
+            <button class="comment-item__delete" data-comment-delete="<%= business_idea_comment_path(business_idea, comment) %>">Delete</button>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
