@@ -10,62 +10,67 @@
       </h1>
 
       <script>
-        const sentences = [
-          "an AI that writes legal contracts for freelancers",
-          "a smarter way for dentists to manage meetings",
-          "a subscription box for indie coffee lovers",
-          "an agent that scraps financial news on X"
-        ];
-        let sentenceIndex = 0;
-        let charIndex = 0;
-        let deleting = false;
-        const el = document.getElementById("typewriter");
-        const pauseAfterType = 2000;
-        const pauseAfterDelete = 400;
-        const typeSpeed = 45;
-        const deleteSpeed = 25;
+        document.addEventListener("turbo:load", () => {
+          const el = document.getElementById("typewriter");
+          if (!el) return;
 
-        function type() {
-          const current = sentences[sentenceIndex];
-          if (!deleting) {
-            el.textContent = current.slice(0, charIndex + 1);
-            charIndex++;
-            if (charIndex === current.length) {
-              setTimeout(() => { deleting = true; type(); }, pauseAfterType);
-              return;
+          const sentences = [
+            "an AI that writes legal contracts for freelancers",
+            "a smarter way for dentists to manage meetings",
+            "a subscription box for indie coffee lovers",
+            "an agent that scraps financial news on X"
+          ];
+          let sentenceIndex = 0;
+          let charIndex = 0;
+          let deleting = false;
+          const pauseAfterType = 2000;
+          const pauseAfterDelete = 400;
+          const typeSpeed = 45;
+          const deleteSpeed = 25;
+
+          function type() {
+            const current = sentences[sentenceIndex];
+            if (!deleting) {
+              el.textContent = current.slice(0, charIndex + 1);
+              charIndex++;
+              if (charIndex === current.length) {
+                setTimeout(() => { deleting = true; type(); }, pauseAfterType);
+                return;
+              }
+              setTimeout(type, typeSpeed);
+            } else {
+              el.textContent = current.slice(0, charIndex - 1);
+              charIndex--;
+              if (charIndex === 0) {
+                deleting = false;
+                sentenceIndex = (sentenceIndex + 1) % sentences.length;
+                setTimeout(type, pauseAfterDelete);
+                return;
+              }
+              setTimeout(type, deleteSpeed);
             }
-            setTimeout(type, typeSpeed);
-          } else {
-            el.textContent = current.slice(0, charIndex - 1);
-            charIndex--;
-            if (charIndex === 0) {
-              deleting = false;
-              sentenceIndex = (sentenceIndex + 1) % sentences.length;
-              setTimeout(type, pauseAfterDelete);
-              return;
-            }
-            setTimeout(type, deleteSpeed);
           }
-        }
-        type();
+          type();
+        });
       </script>
 
-    <%= form_with url: business_ideas_path, method: :post, scope: :business_idea, class: "home-form", data: { turbo: false } do |f| %>
-      <div class="home-chatbar">
-        <%= f.text_field :content,
-            placeholder: "",
-            class: "home-input",
-            required: true,
-            autocomplete: "off",
-            data: { controller: "submit-on-enter", action: "keydown->submit-on-enter#handleKeydown" } %>
-        <%= f.button type: "submit", class: "home-submit" do %>
-          <span>CHECK</span>
-          <svg width="15px" height="10px" viewBox="0 0 13 10">
-            <path d="M1,5 L11,5"></path>
-            <polyline points="8 1 12 5 8 9"></polyline>
-          </svg>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+      <%= form_with url: business_ideas_path, method: :post, scope: :business_idea, class: "home-form", data: { turbo: false } do |f| %>
+        <div class="home-chatbar">
+          <%= f.text_field :content,
+              placeholder: "",
+              class: "home-input",
+              required: true,
+              autocomplete: "off",
+              data: { controller: "submit-on-enter", action: "keydown->submit-on-enter#handleKeydown" } %>
+          <%= f.button type: "submit", class: "home-submit" do %>
+            <span>CHECK</span>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+              <path d="M1,5 L11,5"></path>
+              <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+</div>
 <% end %>
