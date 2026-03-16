@@ -52,47 +52,47 @@
 (function() {
   const phases = [
     {
-      name: "Discovery", slug: "discovery", subtitle: "Valider le problème",
-      icon: "🔍", color: "#8B5CF6",
-      desc: "Comprendre le marché, valider le problème, identifier les personas cibles.",
+      name: "Discovery", slug: "discovery", subtitle: "Validate need",
+      icon: "🔍", color: "#F5A624",
+      desc: "Understanding market, validate the need, identify target's personas.",
       metrics: [
-        { name: "Entretiens réalisés",   current: 24,  target: 30, unit: "" },
-        { name: "Confirmation problème",  current: 72,  target: 70, unit: "%" },
-        { name: "Marché SOM estimé",      current: 0.8, target: 1,  unit: "M€" },
-        { name: "Personas validés",       current: 2,   target: 2,  unit: "" },
+        { name: "Users interviews carried out",   current: 24,  target: 30, unit: "" },
+        { name: "Issues confirmed",  current: 72,  target: 70, unit: "%" },
+        //{ name: "Estimated market",      current: 0.8, target: 1,  unit: "M€" },
+        { name: "Validated personas",       current: 2,   target: 2,  unit: "" },
       ]
     },
     {
-      name: "MVP", slug: "mvp", subtitle: "Valider la solution",
-      icon: "🛠️", color: "#3B82F6",
-      desc: "Construire un produit minimum, mesurer l'engagement et la satisfaction.",
+      name: "MVP", slug: "mvp", subtitle: "Minimal viable product",
+      icon: "🛠️", color: "#8B2500",
+      desc: "Build a minimum standard product, measure engagement and satisfaction.",
       metrics: [
-        { name: "Utilisateurs actifs", current: 67, target: 100, unit: "" },
-        { name: "Rétention J7",        current: 18, target: 25,  unit: "%" },
-        { name: "NPS",                 current: 22, target: 30,  unit: "" },
+        { name: "Active users", current: 67, target: 100, unit: "" },
+        //{ name: "Retention last 7 days",        current: 18, target: 25,  unit: "%" },
+        { name: "Net Promotor Score",    current: 22, target: 30,  unit: "" },
         { name: "Usage feature core",  current: 55, target: 60,  unit: "%" },
       ]
     },
     {
-      name: "POC", slug: "poc", subtitle: "Valider la viabilité",
-      icon: "🧪", color: "#F59E0B",
-      desc: "Prouver la viabilité économique et technique du modèle.",
+      name: "POC", slug: "poc", subtitle: "Proof of concept",
+      icon: "🧪", color: "#F5A624",
+      desc: "Prove the economic and technical viability of the model.",
       metrics: [
         { name: "Willingness to pay", current: 0, target: 40, unit: "%" },
-        { name: "CAC estimé",         current: 0, target: 1,  unit: "< LTV/3" },
-        { name: "Conversion payant",  current: 0, target: 5,  unit: "%" },
-        { name: "LOI signées",        current: 0, target: 2,  unit: "" },
+        { name: "CAC estimated",         current: 0, target: 1,  unit: "< LTV/3" },
+        { name: "Paid conversion",  current: 0, target: 5,  unit: "%" },
+        //{ name: "Signed Letter of Intent",        current: 0, target: 2,  unit: "" },
       ]
     },
     {
-      name: "Go To Market", slug: "gtm", subtitle: "Scaler",
-      icon: "🚀", color: "#10B981",
-      desc: "Déployer la stratégie d'acquisition et scaler les revenus.",
+      name: "Go To Market", slug: "gtm", subtitle: "Scale",
+      icon: "🚀", color: "#8B2500",
+      desc: "Deploy the acquisition strategy and scale revenue.",
       metrics: [
-        { name: "MRR",             current: 0, target: 10000, unit: "€" },
-        { name: "Croissance MoM",  current: 0, target: 15,    unit: "%" },
-        { name: "LTV:CAC Ratio",   current: 0, target: 3,     unit: ":1" },
-        { name: "Churn mensuel",   current: 0, target: 5,     unit: "% ≤" },
+        { name: "Monthly Reccuring Revenue", current: 0, target: 10000, unit: "€" },
+        { name: "Monthly growth",  current: 0, target: 15,    unit: "%" },
+        //{ name: "LTV:CAC Ratio",   current: 0, target: 3,     unit: ":1" },
+        { name: "Monthly churn",   current: 0, target: 5,     unit: "% ≤" },
       ]
     }
   ];
@@ -141,8 +141,8 @@
       <div class="plan-overall">
         ${ring(overall, "#8B2500", 56)}
         <div>
-          <div style="font-size:14px;font-weight:600">Avancement global</div>
-          <div style="font-size:12px;color:#64748B">${overall}% complété</div>
+          <div style="font-size:14px;font-weight:600">Overall process</div>
+          <div style="font-size:12px;color:#64748B">${overall}% completed</div>
         </div>
       </div>
       <div class="pipeline">`;
@@ -186,14 +186,14 @@
         <div class="metric-card" style="border-left-color:${done ? '#10B981' : p.color}">
           <div class="metric-header">
             <span class="metric-name">${m.name}</span>
-            ${done ? '<span class="achieved-badge">ATTEINT</span>' : ''}
+            ${done ? '<span class="achieved-badge">ACHIEVED</span>' : ''}
           </div>
           <div class="metric-value">${fmtVal(m)}</div>
-          <div class="metric-target">Objectif : ${fmtTarget(m)}</div>
+          <div class="metric-target">Goal : ${fmtTarget(m)}</div>
           <div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${grad}"></div></div>
           <div style="margin-top:12px;display:flex;align-items:center">
             <input type="number" step="any" min="0" value="${m.current}" class="edit-input" id="plan-input-${mi}">
-            <button class="edit-btn" style="background:${p.color}" onclick="planUpdateMetric(${mi})">Mettre à jour</button>
+            <button class="edit-btn" style="background:${p.color}" onclick="planUpdateMetric(${mi})">Update</button>
           </div>
         </div>`;
     });
@@ -206,10 +206,10 @@
         <span style="font-size:20px">${gp ? '🎉' : '🚧'}</span>
         <div>
           <div class="gate-title" style="color:${p.color}">
-            ${gp ? 'Gate validée — Prêt pour la phase suivante !' : 'Gate en cours'}
+            ${gp ? 'Gate validated — Ready for the next phase !' : 'Gate in progress'}
           </div>
           <div class="gate-sub">
-            ${gp ? 'Tous les objectifs de cette phase sont atteints.' : ac + '/' + p.metrics.length + ' objectifs atteints. Continuez !'}
+            ${gp ? 'Congrats ! All objectives in these gate are completed.' : ac + '/' + p.metrics.length + ' goals achieved. Keep going !'}
           </div>
         </div>
       </div>`;
