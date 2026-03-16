@@ -30,6 +30,10 @@
     font-family: sans-serif;
   }
 
+  &__title-highlight {
+    color: #f5a623;
+  }
+
   &__subtitle {
     font-size: 0.9rem;
     color: #888;
@@ -118,6 +122,18 @@
 
   &:active {
     transform: scale(0.95);
+  }
+
+  &--back {
+    svg {
+      margin-left: 0;
+      margin-right: 10px;
+      transform: translateX(5px);
+    }
+
+    &:hover svg {
+      transform: translateX(0);
+    }
   }
 }
 
@@ -289,15 +305,46 @@
     }
   }
 
+  // Publish pill (share page)
+  &__publish-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px 6px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.18s, transform 0.15s;
+
+    &:hover {
+      opacity: 0.8;
+      transform: scale(1.04);
+    }
+
+    &--published {
+      background: #E8F5EC;
+      color: #1a7a3c;
+      .social-card__status-dot { background: #1EDD88; }
+    }
+
+    &--unpublished {
+      background: #F0EDE4;
+      color: #999;
+      .social-card__status-dot { background: #bbb; }
+    }
+  }
+
   // Right column (share page)
   &__right {
     flex-shrink: 0;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-    align-self: stretch;
-    gap: 20px;
+    align-items: center;
+    justify-content: flex-end;
   }
 
   // Status pill

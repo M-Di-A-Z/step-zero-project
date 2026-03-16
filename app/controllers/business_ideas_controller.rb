@@ -52,7 +52,7 @@ class BusinessIdeasController < ApplicationController
   def share
     @business_idea = current_user.business_ideas.find(params[:id])
     @business_idea.update!(shared: !@business_idea.shared)
-    redirect_to share_socials_path
+    render json: { shared: @business_idea.shared }
   end
 
   def preview
@@ -63,12 +63,6 @@ class BusinessIdeasController < ApplicationController
   def report
     @business_idea = BusinessIdea.find(params[:id])
     @business_data = @business_idea.business_data
-  end
-
-  def share
-    @business_idea = current_user.business_ideas.find(params[:id])
-    @business_idea.update(shared: !@business_idea.shared)
-    redirect_to socials_path
   end
 
   private
