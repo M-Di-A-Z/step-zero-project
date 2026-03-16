@@ -42,11 +42,7 @@
   }
 }
 
-<<<<<<< HEAD
 // Back link
-=======
-// Back link (share page)
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
 .socials-back-link {
   display: inline-flex;
   align-items: center;
@@ -131,23 +127,11 @@
 
   &--selectable {
     cursor: pointer;
-<<<<<<< HEAD
 
     &:hover {
       box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1), 0 0 0 1.5px rgba(245, 166, 35, 0.35);
       transform: translateY(-2px);
     }
-=======
-  }
-
-  &--shared {
-    box-shadow: 0 2px 10px rgba(245, 166, 35, 0.15), 0 0 0 1.5px rgba(245, 166, 35, 0.4);
-  }
-
-  &:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09), 0 0 0 1px rgba(0, 0, 0, 0.06);
-    transform: translateY(-2px);
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
   }
 
   // Left: avatar column
@@ -157,13 +141,8 @@
   }
 
   &__avatar {
-<<<<<<< HEAD
     width: 72px;
     height: 72px;
-=======
-    width: 56px;
-    height: 56px;
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
     border-radius: 50%;
     overflow: hidden;
     background: #f5a623;
@@ -180,11 +159,7 @@
   }
 
   &__avatar-initials {
-<<<<<<< HEAD
     font-size: 1.5rem;
-=======
-    font-size: 1.2rem;
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
     font-weight: 700;
     color: #fff;
     font-family: sans-serif;
@@ -192,11 +167,7 @@
     line-height: 1;
   }
 
-<<<<<<< HEAD
   // Center
-=======
-  // Center: main content
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
   &__body {
     flex: 1;
     min-width: 0;
@@ -206,11 +177,7 @@
   }
 
   &__title {
-<<<<<<< HEAD
     font-size: 1.5rem;
-=======
-    font-size: 1.25rem;
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
     font-weight: 700;
     color: #1a1a1a;
     margin: 0;
@@ -222,29 +189,14 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-<<<<<<< HEAD
     font-size: 0.85rem;
-=======
-    font-size: 0.78rem;
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
     color: #aaa;
     font-family: sans-serif;
     margin: 0;
 
-<<<<<<< HEAD
     strong {
       font-weight: 600;
       color: #555;
-=======
-    svg {
-      flex-shrink: 0;
-      color: #bbb;
-    }
-
-    strong {
-      font-weight: 600;
-      color: #777;
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
     }
   }
 
@@ -256,10 +208,45 @@
     margin: 0;
   }
 
-<<<<<<< HEAD
   // Share action (share page)
-=======
-  // Right: tag + stats column
+  &__share-action {
+    display: flex;
+    align-items: center;
+  }
+
+  &__share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: sans-serif;
+    border: 1.5px solid #1a1a1a;
+    background: transparent;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+
+    &:hover {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    &--shared {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
+
+      &:hover {
+        background: #c0392b;
+        border-color: #c0392b;
+      }
+    }
+  }
+
+  // Right column (share page)
   &__right {
     flex-shrink: 0;
     display: flex;
@@ -268,10 +255,9 @@
     justify-content: space-between;
     align-self: stretch;
     gap: 20px;
-    min-width: 160px;
   }
 
-  // Status pill (top right)
+  // Status pill
   &__status {
     display: inline-flex;
     align-items: center;
@@ -310,97 +296,9 @@
     flex-shrink: 0;
   }
 
-  // Stats row (bottom right)
-  &__stats {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+  &--shared {
+    box-shadow: 0 2px 10px rgba(245, 166, 35, 0.15), 0 0 0 1.5px rgba(245, 166, 35, 0.4);
   }
-
-  // Overlapping participant avatars
-  &__participants {
-    display: flex;
-  }
-
-  &__participant-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: #e8e0d4;
-    border: 2px solid #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: -8px;
-
-    &:first-child { margin-left: 0; }
-  }
-
-  &__participant-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__participant-initial {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: #888;
-    font-family: sans-serif;
-  }
-
-  // Comment count
-  &__stat {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: #aaa;
-    font-family: sans-serif;
-    white-space: nowrap;
-  }
-
-  // Share action (share selection page)
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
-  &__share-action {
-    display: flex;
-    align-items: center;
-  }
-
-  &__share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    font-family: sans-serif;
-    border: 1.5px solid #1a1a1a;
-    background: transparent;
-    color: #1a1a1a;
-    cursor: pointer;
-    transition: background 0.18s, color 0.18s, border-color 0.18s;
-
-    &:hover {
-      background: #1a1a1a;
-      color: #fff;
-    }
-
-    &--shared {
-      background: #1a1a1a;
-      color: #fff;
-      border-color: #1a1a1a;
-
-      &:hover {
-        background: #c0392b;
-        border-color: #c0392b;
-      }
-    }
-  }
-<<<<<<< HEAD
 
 }
 
@@ -580,6 +478,4 @@
 
 @keyframes modal-spin {
   to { transform: rotate(360deg); }
-=======
->>>>>>> 5db03a2d50b91dc2a26231e445c070ed9cdfc0ff
 }
