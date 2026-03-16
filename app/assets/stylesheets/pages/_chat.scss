@@ -33,14 +33,16 @@ turbo-frame#idea-flow {
   margin-bottom: 12px;
 }
 
-.chat-header-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #aaa;
-  font-family: $body-font;
-  margin: 0;
+.chat-header-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 100px 0 0;
+  font-family: sans-serif;
+
+  &--highlight {
+    color: #f5a623;
+  }
 }
 
 // ── Messages area ──────────────────────────────────────────────────────
@@ -135,6 +137,10 @@ turbo-frame#idea-flow {
     font-family: $body-font;
 
     &::placeholder { color: #c8bfb0; }
+
+    &:focus{
+      box-shadow: none;
+    }
   }
 
   // simple_form wraps input in extra divs — flatten them

@@ -1,6 +1,6 @@
 <div class="projects-page">
   <div class="projects-header">
-    <h1 class="projects-header__title">My Projects</h1>
+    <h1 class="projects-header__title">My <span class="projects-header__title--highlight">Ideas</span></h1>
     <%= link_to root_path, class: "projects-new-btn" do %>
       <span>New idea</span>
       <svg width="13px" height="10px" viewBox="0 0 13 10">
@@ -51,12 +51,6 @@
                   <% end %>
                 </span>
               </div>
-              <div class="project_card_report">
-
-              </div>
-                <% if idea.report_generated? %>
-                  <%= link_to "View Report", report_business_idea_path(idea), class: "project-card__report-link" %>
-                <% end %>
             </div>
           <% end %>
           <%= button_to business_idea_path(idea), method: :delete, class: "project-card__delete", data: { turbo_confirm: "Delete this idea?" } do %>

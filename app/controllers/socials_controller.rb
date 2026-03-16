@@ -1,7 +1,7 @@
 class SocialsController < ApplicationController
   def index
     @posts = BusinessIdea.where(shared: true)
-                         .includes(:user, :likes, :comments)
+                         .includes(:user, :likes, comments: :user)
                          .order(created_at: :desc)
   end
 

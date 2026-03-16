@@ -33,6 +33,10 @@
     margin: 0;
     flex: 1;
     font-family: sans-serif;
+
+    &--highlight {
+      color: #f5a623;
+    }
   }
 }
 
@@ -223,6 +227,7 @@
     justify-content: space-between;
     margin-top: auto;
     gap: 12px;
+    padding-right: 32px;
   }
 
   &__progress {
@@ -279,6 +284,32 @@
   &:hover &__arrow {
     color: #1a1a1a;
     transform: translateX(3px);
+  }
+
+  &__report-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-family: sans-serif;
+    background: #1a1a1a;
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    svg { stroke: #fff; }
+
+    &:hover {
+      background: #333;
+      transform: scale(1.03);
+      text-decoration: none;
+      color: #fff;
+    }
   }
 }
 
