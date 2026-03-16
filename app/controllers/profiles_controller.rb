@@ -3,10 +3,11 @@ class ProfilesController < ApplicationController
 
   def show
     @user = current_user
-    @business_ideas = @user.business_ideas.order(created_at: :desc)
-    @total_projects = @business_ideas.count
-    @completed_projects = @business_ideas.where(status: "complete").count
-    @average_score = @business_ideas.where.not(idea_score: nil).average(:idea_score)&.round || 0
+    @business_ideas = @user.business_ideas.where(status: "complete").order(created_at: :desc)
+    @total_projects = @user.business_ideas.count
+    @completed_projects = @user.business_ideas.where(status: "complete").count
+    @shared_projects = @user.business_ideas.where(shared: true).count
+    @average_score = @user.business_ideas.where(status: "complete").where.not(idea_score: nil).average(:idea_score)&.round || 0
   end
 
   def edit
