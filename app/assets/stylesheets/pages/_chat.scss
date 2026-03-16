@@ -137,6 +137,10 @@ turbo-frame#idea-flow {
     font-family: $body-font;
 
     &::placeholder { color: #c8bfb0; }
+
+    &:focus{
+      box-shadow: none;
+    }
   }
 
   // simple_form wraps input in extra divs — flatten them
