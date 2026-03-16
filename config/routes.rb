@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: "pages#home"
   resources :business_ideas, only: [:new, :create, :index, :show, :destroy] do
     resources :business_datas, only: [:create]
+    resources :comments, only: [:index, :create, :destroy]
+    resource :like, only: [:create, :destroy]
     member do
         get :report
         get :status

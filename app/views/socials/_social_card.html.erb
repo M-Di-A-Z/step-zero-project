@@ -2,8 +2,9 @@
      data-preview-url="<%= preview_business_idea_path(post) %>"
      role="button"
      tabindex="0">
-  <%# Left: avatar %>
-  <div class="social-card__left">
+
+  <%# Top row: avatar + author + time %>
+  <div class="social-card__header">
     <div class="social-card__avatar">
       <% if post.user.avatar.attached? %>
         <%= image_tag post.user.avatar, class: "social-card__avatar-img" %>
@@ -13,19 +14,74 @@
         </span>
       <% end %>
     </div>
+    <div class="social-card__author-info">
+      <span class="social-card__author"><%= post.user.first_name.present? ? "#{post.user.first_name} #{post.user.last_name}".strip : post.user.email %></span>
+      <span class="social-card__time"><%= time_ago_in_words(post.created_at) %> ago</span>
+    </div>
   </div>
 
-  <%# Center: content %>
-  <div class="social-card__body">
-    <h2 class="social-card__title">
-      <%= post.title.present? ? post.title : post.content.truncate(70) %>
-    </h2>
-    <p class="social-card__meta">
-      Shared by&nbsp;<strong><%= post.user.first_name.present? ? "#{post.user.first_name} #{post.user.last_name}".strip : post.user.email %></strong>
-      &nbsp;·&nbsp;<%= time_ago_in_words(post.created_at) %> ago
-    </p>
-    <% if post.summary.present? %>
-      <p class="social-card__description"><%= post.summary.truncate(160) %></p>
+  <%# Title %>
+  <h2 class="social-card__title">
+    <%= post.title.present? ? post.title : post.content.truncate(70) %>
+  </h2>
+
+  <%# Description %>
+  <% if post.summary.present? %>
+    <p class="social-card__description"><%= post.summary.truncate(120) %></p>
+  <% end %>
+
+  <% commenters = post.comments.map(&:user).uniq { |u| u.id } %>
+
+  <%# Footer: score + like + comment with avatars %>
+  <div class="social-card__footer">
+    <% if post.idea_score.present? && post.idea_score > 0 %>
+      <div class="social-card__score">
+        <span class="social-card__score-value"><%= post.idea_score %></span>
+        <span class="social-card__score-label">/100</span>
+      </div>
+    <% else %>
+      <div></div>
     <% end %>
+    <div class="social-card__actions">
+      <% liked = user_signed_in? && post.likes.any? { |l| l.user_id == current_user.id } %>
+      <button class="social-card__like-btn <%= 'social-card__like-btn--liked' if liked %>"
+              data-like-url="<%= business_idea_like_path(post) %>"
+              data-liked="<%= liked %>"
+              onclick="event.stopPropagation(); toggleLike(this);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="<%= liked ? 'currentColor' : 'none' %>" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        <span><%= post.likes.size %></span>
+      </button>
+      <button class="social-card__comment-btn"
+              data-comments-url="<%= business_idea_comments_path(post) %>"
+              data-post-title="<%= post.title.present? ? post.title : post.content.truncate(40) %>"
+              onclick="event.stopPropagation(); openCommentsModal(this);">
+        <% if commenters.any? %>
+          <div class="social-card__commenters-avatars">
+            <% commenters.first(4).each do |commenter| %>
+              <div class="social-card__commenter-avatar">
+                <% if commenter.avatar.attached? %>
+                  <%= image_tag commenter.avatar, class: "social-card__commenter-avatar-img" %>
+                <% else %>
+                  <span class="social-card__commenter-initials">
+                    <%= commenter.first_name.present? ? commenter.first_name[0].upcase : commenter.email[0].upcase %>
+                  </span>
+                <% end %>
+              </div>
+            <% end %>
+            <% if commenters.size > 4 %>
+              <div class="social-card__commenter-avatar social-card__commenter-more">
+                <span>...</span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span><%= post.comments.size %></span>
+      </button>
+    </div>
   </div>
 </div>
