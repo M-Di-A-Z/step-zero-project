@@ -246,6 +246,60 @@
     }
   }
 
+  // Right column (share page)
+  &__right {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    align-self: stretch;
+    gap: 20px;
+  }
+
+  // Status pill
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: sans-serif;
+
+    &--pending {
+      background: #F0EDE4;
+      color: #999;
+      .social-card__status-dot { background: #bbb; }
+    }
+
+    &--researching {
+      background: #FFF8E7;
+      color: #9a6700;
+      .social-card__status-dot { background: #f5a623; }
+    }
+
+    &--complete {
+      background: #E8F5EC;
+      color: #1a7a3c;
+      .social-card__status-dot { background: #1EDD88; }
+    }
+  }
+
+  &__status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &--shared {
+    box-shadow: 0 2px 10px rgba(245, 166, 35, 0.15), 0 0 0 1.5px rgba(245, 166, 35, 0.4);
+  }
+
 }
 
 // ── Project preview modal ─────────────────────────────────────
