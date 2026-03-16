@@ -29,7 +29,6 @@
       <div class="competitors__card-visual">
         <h2 class="competitors__card-value"><%= competitors["competitor_count"] || "n/a" %></h2>
       </div>
-      <p class="competitors__card-context">identified players in this space</p>
     </div>
 
     <div class="competitors__card">
@@ -54,7 +53,7 @@
         <% top_3.each do |comp| %>
           <tr class="competitors__tr">
             <td class="competitors__td competitors__td--name"><%= comp["name"] || "n/a" %></td>
-            <td class="competitors__td"><%= comp["value_prop"] || "n/a" %></td>
+            <td class="competitors__td competitors__td--value-prop"><%= comp["value_prop"] || "n/a" %></td>
             <td class="competitors__td competitors__td--funding"><%= comp["revenue_or_funding"] || "n/a" %></td>
           </tr>
         <% end %>

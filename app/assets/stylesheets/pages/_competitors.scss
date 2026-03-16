@@ -1,16 +1,14 @@
 // ── Competitors Tab ──────────────────────────────────────────────────
 
 .competitors {
-  height: 100%;
   background: transparent;
-  padding: 32px 48px 24px;
+  padding: 120px 48px 16px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -18,7 +16,7 @@
 // ── Header ───────────────────────────────────────────────────────────
 
 .competitors__header {
-  margin-bottom: 56px;
+  margin-bottom: 28px;
 }
 
 .competitors__title {
@@ -47,48 +45,50 @@
 
 .competitors__metrics {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 32px;
+  grid-template-columns: 1fr 1fr 2.5fr;
+  align-items: stretch;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .competitors__card {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
-  padding: 32px 36px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .competitors__card-label {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   color: #aaa;
   text-transform: uppercase;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   font-family: "Poppins", sans-serif;
 }
 
 .competitors__card-visual {
-  height: 36px;
+  height: 28px;
   display: flex;
   align-items: center;
   margin-bottom: 4px;
 }
 
 .competitors__card-heading {
-  font-size: 2.6rem;
+  font-size: 2rem;
   font-weight: 400;
   color: #1a1a1a;
-  margin: 0 0 8px;
+  margin: 0;
   line-height: 1.1;
   font-family: "Ramaraja", serif;
 }
 
 .competitors__card-value {
-  font-size: 3.2rem;
+  font-size: 2.4rem;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
@@ -97,9 +97,9 @@
 }
 
 .competitors__card-context {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #666;
-  line-height: 1.6;
+  line-height: 1.5;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
@@ -108,14 +108,14 @@
 
 .competitors__dash-bar {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
 }
 
 .competitors__dash {
   display: block;
-  width: 52px;
-  height: 7px;
+  width: 36px;
+  height: 6px;
   border-radius: 4px;
 
   &--filled {
@@ -133,32 +133,33 @@
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
-  padding: 32px 36px;
+  padding: 20px 24px;
 }
 
 .competitors__table-label {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   color: #aaa;
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-family: "Poppins", sans-serif;
 }
 
 .competitors__table {
   width: 100%;
+  table-layout: auto;
   border-collapse: collapse;
 }
 
 .competitors__th {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: #bbb;
   text-transform: uppercase;
   text-align: left;
-  padding: 0 16px 14px 0;
+  padding: 0 12px 10px 0;
   border-bottom: 1px solid #e8e3da;
   font-family: "Poppins", sans-serif;
 }
@@ -170,22 +171,27 @@
 }
 
 .competitors__td {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   color: #444;
-  padding: 16px 16px 16px 0;
+  padding: 12px 12px 12px 0;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.45;
   vertical-align: top;
 
   &--name {
     font-weight: 600;
     color: #1a1a1a;
+    width: 15%;
     white-space: nowrap;
+  }
+
+  &--value-prop {
+    width: 45%;
   }
 
   &--funding {
     color: #888;
-    white-space: nowrap;
+    width: 40%;
   }
 }

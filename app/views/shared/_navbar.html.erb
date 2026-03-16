@@ -4,10 +4,20 @@
     <li><%= link_to "My projects", user_signed_in? ? business_ideas_path : new_user_session_path, class: "navbar-home-link #{'navbar-home-link--active' if user_signed_in? && current_page?(business_ideas_path)}" %></li>
     <li><%= link_to "Marketplace", "#", class: "navbar-home-link" %></li>
     <li><%= link_to "About us", "#", class: "navbar-home-link" %></li>
-    <% if user_signed_in? %>
-      <li><%= button_to "Log out", destroy_user_session_path, method: :delete, class: "navbar-home-link navbar-logout-btn" %></li>
-    <% else %>
-      <li><%= link_to "Log in", new_user_session_path, class: "navbar-home-link" %></li>
-    <% end %>
   </ul>
+  <div class="navbar-home-right">
+    <% if user_signed_in? %>
+      <%= link_to profile_path, class: "navbar-home-avatar #{'navbar-home-link--active' if current_page?(profile_path)}" do %>
+        <% if current_user.avatar.attached? %>
+          <%= image_tag current_user.avatar, class: "navbar-home-avatar__img" %>
+        <% else %>
+          <span class="navbar-home-avatar__circle">
+            <%= current_user.first_name.present? ? current_user.first_name[0].upcase : current_user.email[0].upcase %>
+          </span>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path, class: "navbar-home-login-btn" %>
+    <% end %>
+  </div>
 </nav>

@@ -37,7 +37,10 @@ class ClaudeService
         "tam": "",
         "sam": "",
         "market_stage": "",
-        "key_driver": ""
+        "key_driver": "",
+        "geo": [
+          { "region": "", "pct": 0 }
+        ]
       },
       "competitors": {
         "intensity": "",
@@ -71,17 +74,17 @@ class ClaudeService
     ### Top-level
     - project_name: A short, catchy brand-style name for the idea (not a description). Examples: "FreshFleet", "MediSync", "LoopPay".
     - summary: One sentence pitch — what the business does, for whom, and why it matters.
-    - idea_score: 0-100 overall viability score. This MUST be the very last field you decide on — after completing ALL research and filling every other field. Review your entire analysis, form your own conclusion on the idea's potential, then assign a score. Weighted blend of market opportunity (30%), competitive landscape (20%), technical feasibility (25%), and execution risk (25%). Be honest — most ideas score 40-75.
+    - idea_score: 0-100 overall viability score. This MUST be the very last field you decide on — after completing ALL research and filling every other field. Review your entire analysis, form your own informed opinion on the idea's real potential, then assign a score. Weighted blend of market opportunity (30%), competitive landscape (20%), technical feasibility (25%), and execution risk (25%). BE DECISIVE AND OPINIONATED — do NOT default to safe middle scores. A truly great idea with strong market data and weak competition should score 80-95. A bad idea in a saturated market with high barriers should score 15-35. Use the full 0-100 range. Only genuinely average ideas should land in 45-65. Your score must reflect your honest expert judgment based on the research, not a hedged middle ground.
 
     ### Overview
     - market_stage_pill: MUST be exactly one of: "Emerging", "Growing", "Mature", "Declining". Displayed as a colored pill badge.
     - market_stage_label: A descriptive label like "Early Growth Phase" or "Pre-mainstream Adoption".
-    - market_stage_context: One sentence explaining WHY this market is at that stage, citing a specific trend or data point.
+    - market_stage_context: One sentence explaining WHY this market is at that stage, citing a specific trend or data point. Wrap the 1-2 most important data points (numbers, percentages, dollar amounts) in <strong> tags.
     - competitive_intensity_dots: Integer 1-5. Displayed as filled/empty dots (3 = ●●●○○). 1 = blue ocean, 5 = hypercompetitive.
     - competitive_intensity_label: MUST be exactly one of: "Low", "Moderate", "High", "Very High".
-    - competitive_intensity_context: One sentence about the competitive landscape — how many players, how entrenched, any moats.
+    - competitive_intensity_context: One sentence about the competitive landscape — how many players, how entrenched, any moats. Wrap the 1-2 most important data points (numbers, player counts, key names) in <strong> tags.
     - project_feasibility: MUST be exactly one of: "Low", "Medium", "High".
-    - project_feasibility_context: One sentence on whether this can realistically be built and launched — consider tech stack, team size, capital needed.
+    - project_feasibility_context: One sentence on whether this can realistically be built and launched — consider tech stack, team size, capital needed. Wrap the 1-2 most important data points (costs, timelines, team sizes) in <strong> tags.
     - positioning_sentence: How this idea differentiates from existing solutions. What is the unique angle or underserved niche.
 
     ### Market Size
@@ -89,6 +92,7 @@ class ClaudeService
     - sam: Serviceable Addressable Market — the realistic slice this startup could target given geography, segment, and go-to-market. Same format.
     - market_stage: Same value as overview market_stage_pill.
     - key_driver: The single most important trend, technology shift, or behavioral change driving this market right now.
+    - geo: Array of 3-5 geographic regions with their market share percentage. Each object has "region" (e.g. "North America", "Europe", "Asia-Pacific", "Latin America", "Middle East & Africa") and "pct" (integer, all pct values must sum to 100). Base the distribution on where the target market and demand are strongest.
 
     ### Competitors
     - intensity: Same value as overview competitive_intensity_label.

@@ -126,15 +126,13 @@ turbo-frame#idea-flow {
   }
 
   .chat-input {
-    width: 100%;
+    flex: 1;
     border: none;
     background: transparent;
     outline: none;
     font-size: 1.1rem;
     color: #3a3530;
     font-family: $body-font;
-    resize: none;
-    line-height: 1.5;
 
     &::placeholder { color: #c8bfb0; }
   }
