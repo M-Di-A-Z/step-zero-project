@@ -1,15 +1,16 @@
 <div class="socials-page">
   <div class="socials-header">
     <div class="socials-header__left">
-      <%= link_to socials_path, class: "socials-back-link" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
+      <h1 class="socials-header__title">Share your <span class="socials-header__title-highlight">projects</span></h1>
+    </div>
+    <div class="socials-header__actions">
+      <%= link_to socials_path, class: "socials-share-btn socials-share-btn--back" do %>
+        <svg width="13px" height="10px" viewBox="0 0 13 10">
+          <path d="M12,5 L2,5"></path>
+          <polyline points="5 1 1 5 5 9"></polyline>
         </svg>
-        Back to Socials
+        <span>Back to Socials</span>
       <% end %>
-      <h1 class="socials-header__title">Share a project</h1>
-      <p class="socials-header__subtitle">Choose a project to share with the community</p>
     </div>
   </div>
 
@@ -48,25 +49,16 @@
           </div>
 
           <div class="social-card__right">
-            <% status_class = "social-card__status social-card__status--#{idea.status}" %>
-            <span class="<%= status_class %>">
+            <% pill_state = idea.shared ? "published" : "unpublished" %>
+            <button
+              type="button"
+              class="social-card__publish-pill social-card__publish-pill--<%= pill_state %>"
+              data-controller="share-pill"
+              data-action="click->share-pill#toggle"
+              data-share-url="<%= share_business_idea_path(idea) %>">
               <span class="social-card__status-dot"></span>
-              <%= idea.status.capitalize %>
-            </span>
-            <div class="social-card__share-action">
-              <% btn_class = idea.shared ? "social-card__share-btn social-card__share-btn--shared" : "social-card__share-btn" %>
-              <%= button_to share_business_idea_path(idea), method: :patch, class: btn_class do %>
-                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <% if idea.shared %>
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  <% else %>
-                    <circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle>
-                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                  <% end %>
-                </svg>
-                <%= idea.shared ? "Unshare" : "Share my project" %>
-              <% end %>
-            </div>
+              <span class="pill-label"><%= idea.shared ? "Published" : "Unpublished" %></span>
+            </button>
           </div>
         </div>
       <% end %>
