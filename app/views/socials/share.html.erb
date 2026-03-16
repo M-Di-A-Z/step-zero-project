@@ -1,0 +1,79 @@
+<div class="socials-page">
+  <div class="socials-header">
+    <div class="socials-header__left">
+      <%= link_to socials_path, class: "socials-back-link" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Socials
+      <% end %>
+      <h1 class="socials-header__title">Share a project</h1>
+      <p class="socials-header__subtitle">Choose a project to share with the community</p>
+    </div>
+  </div>
+
+  <% if @my_ideas.empty? %>
+    <div class="socials-empty">
+      <p class="socials-empty__text">No completed projects yet. Finish your first research to share it.</p>
+      <%= link_to "Go to my projects →", business_ideas_path, class: "socials-empty__link" %>
+    </div>
+  <% else %>
+    <div class="socials-list">
+      <% @my_ideas.each do |idea| %>
+        <div class="social-card social-card--selectable <%= 'social-card--shared' if idea.shared %>">
+          <div class="social-card__left">
+            <div class="social-card__avatar">
+              <% if current_user.avatar.attached? %>
+                <%= image_tag current_user.avatar, class: "social-card__avatar-img" %>
+              <% else %>
+                <span class="social-card__avatar-initials">
+                  <%= current_user.first_name.present? ? current_user.first_name[0].upcase : current_user.email[0].upcase %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="social-card__body">
+            <div class="social-card__meta">
+              <span class="social-card__author">
+                <%= current_user.first_name.present? ? "#{current_user.first_name} #{current_user.last_name}".strip : current_user.email %>
+              </span>
+              <span class="social-card__dot">·</span>
+              <span class="social-card__time"><%= time_ago_in_words(idea.created_at) %> ago</span>
+            </div>
+            <h2 class="social-card__title">
+              <%= idea.title.present? ? idea.title : idea.content.truncate(70) %>
+            </h2>
+            <% if idea.summary.present? %>
+              <p class="social-card__description"><%= idea.summary.truncate(140) %></p>
+            <% end %>
+          </div>
+
+          <div class="social-card__right">
+            <span class="social-card__status social-card__status--<%= idea.status %>">
+              <%= idea.status.capitalize %>
+            </span>
+            <div class="social-card__share-action">
+              <%= button_to share_business_idea_path(idea), method: :patch,
+                  class: "social-card__share-btn #{'social-card__share-btn--shared' if idea.shared}" do %>
+                <% if idea.shared %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Shared
+                <% else %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                  Share
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

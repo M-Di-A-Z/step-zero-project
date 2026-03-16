@@ -2,7 +2,7 @@
   <ul class="navbar-home-links">
     <li><%= link_to "Home", root_path, class: "navbar-home-link #{'navbar-home-link--active' if current_page?(root_path)}" %></li>
     <li><%= link_to "My projects", user_signed_in? ? business_ideas_path : new_user_session_path, class: "navbar-home-link #{'navbar-home-link--active' if user_signed_in? && current_page?(business_ideas_path)}" %></li>
-    <li><%= link_to "Marketplace", "#", class: "navbar-home-link" %></li>
+    <li><%= link_to "Socials", socials_path, class: "navbar-home-link #{'navbar-home-link--active' if current_page?(socials_path)}" %></li>
     <li><%= link_to "About us", "#", class: "navbar-home-link" %></li>
   </ul>
   <div class="navbar-home-right">

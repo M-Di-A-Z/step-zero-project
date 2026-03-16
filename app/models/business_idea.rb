@@ -3,6 +3,8 @@ class BusinessIdea < ApplicationRecord
   belongs_to :user
   has_one :business_data, class_name: "BusinessData", dependent: :destroy
   has_one :chat, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   validates :content, presence: true
   # validation sur le status avec une valeur par defaut comprise dans la liste des status
   # autre methodes

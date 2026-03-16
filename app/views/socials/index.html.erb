@@ -1,0 +1,34 @@
+<div class="socials-page">
+  <div class="socials-header">
+    <div class="socials-header__left">
+      <h1 class="socials-header__title">Socials</h1>
+      <p class="socials-header__subtitle">Discover and explore projects from the community</p>
+    </div>
+    <% if user_signed_in? %>
+      <div class="socials-header__actions">
+        <%= link_to share_socials_path, class: "socials-share-btn" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Share a project
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @posts.empty? %>
+    <div class="socials-empty">
+      <p class="socials-empty__text">No projects shared yet. Be the first to share yours.</p>
+      <% if user_signed_in? %>
+        <%= link_to "Go to my projects →", business_ideas_path, class: "socials-empty__link" %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="socials-list">
+      <% @posts.each do |post| %>
+        <%= render "social_card", post: post %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

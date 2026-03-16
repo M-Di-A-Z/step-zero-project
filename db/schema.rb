@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_13_110025) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_16_000003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,6 +60,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_13_110025) do
     t.text "details"
     t.integer "idea_score"
     t.boolean "report_generated", default: false, null: false
+    t.boolean "shared", default: false, null: false
     t.integer "status", default: 0
     t.text "summary"
     t.string "title"
@@ -74,6 +75,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_13_110025) do
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["business_idea_id"], name: "index_chats_on_business_idea_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "business_idea_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["business_idea_id"], name: "index_comments_on_business_idea_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "business_idea_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["business_idea_id"], name: "index_likes_on_business_idea_id"
+    t.index ["user_id", "business_idea_id"], name: "index_likes_on_user_id_and_business_idea_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -235,6 +256,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_13_110025) do
   add_foreign_key "business_data", "business_ideas"
   add_foreign_key "business_ideas", "users"
   add_foreign_key "chats", "business_ideas"
+  add_foreign_key "comments", "business_ideas"
+  add_foreign_key "comments", "users"
+  add_foreign_key "likes", "business_ideas"
+  add_foreign_key "likes", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
