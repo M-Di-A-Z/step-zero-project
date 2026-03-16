@@ -3,7 +3,17 @@
      role="button"
      tabindex="0">
 
-  <%# Top row: avatar + author + time %>
+  <%# Title %>
+  <h2 class="social-card__title">
+    <%= post.title.present? ? post.title : post.content.truncate(70) %>
+  </h2>
+
+  <%# Description %>
+  <% if post.summary.present? %>
+    <p class="social-card__description"><%= post.summary.truncate(120) %></p>
+  <% end %>
+
+  <%# Author row: avatar + author + time %>
   <div class="social-card__header">
     <div class="social-card__avatar">
       <% if post.user.avatar.attached? %>
@@ -19,16 +29,6 @@
       <span class="social-card__time"><%= time_ago_in_words(post.created_at) %> ago</span>
     </div>
   </div>
-
-  <%# Title %>
-  <h2 class="social-card__title">
-    <%= post.title.present? ? post.title : post.content.truncate(70) %>
-  </h2>
-
-  <%# Description %>
-  <% if post.summary.present? %>
-    <p class="social-card__description"><%= post.summary.truncate(120) %></p>
-  <% end %>
 
   <% commenters = post.comments.map(&:user).uniq { |u| u.id } %>
 

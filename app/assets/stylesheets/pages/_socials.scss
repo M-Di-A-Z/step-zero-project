@@ -199,17 +199,37 @@
     }
   }
 
-  // Header: avatar + author info
+  // Title
+  &__title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 10px;
+    line-height: 1.3;
+    font-family: sans-serif;
+  }
+
+  // Description
+  &__description {
+    font-size: 0.875rem;
+    color: #555;
+    line-height: 1.6;
+    font-family: sans-serif;
+    margin: 0 0 16px;
+  }
+
+  // Header: avatar + author info (below title/description)
   &__header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: auto;
+    padding-bottom: 16px;
   }
 
   &__avatar {
-    width: 44px;
-    height: 44px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     overflow: hidden;
     background: #f5a623;
@@ -226,7 +246,7 @@
   }
 
   &__avatar-initials {
-    font-size: 1rem;
+    font-size: 0.7rem;
     font-weight: 700;
     color: #fff;
     font-family: sans-serif;
@@ -236,15 +256,15 @@
 
   &__author-info {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: center;
+    gap: 6px;
     min-width: 0;
   }
 
   &__author {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #1a1a1a;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #888;
     font-family: sans-serif;
     white-space: nowrap;
     overflow: hidden;
@@ -252,29 +272,15 @@
   }
 
   &__time {
-    font-size: 0.75rem;
-    color: #aaa;
+    font-size: 0.72rem;
+    color: #bbb;
     font-family: sans-serif;
-  }
+    white-space: nowrap;
 
-  // Title
-  &__title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0 0 10px;
-    line-height: 1.3;
-    font-family: sans-serif;
-  }
-
-  // Description
-  &__description {
-    font-size: 0.85rem;
-    color: #777;
-    line-height: 1.55;
-    font-family: sans-serif;
-    margin: 0 0 auto;
-    padding-bottom: 20px;
+    &::before {
+      content: "·";
+      margin-right: 6px;
+    }
   }
 
   // Footer: score + CTA
