@@ -54,6 +54,12 @@ class BusinessIdeasController < ApplicationController
     @business_data = @business_idea.business_data
   end
 
+  def share
+    @business_idea = current_user.business_ideas.find(params[:id])
+    @business_idea.update(shared: !@business_idea.shared)
+    redirect_to socials_path
+  end
+
   private
 
   def business_idea_params
