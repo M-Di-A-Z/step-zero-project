@@ -2,7 +2,7 @@
 
 .market-size {
   background: transparent;
-  padding: 120px 48px 16px;
+  padding: 84px 48px 16px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
   max-width: 1200px;
@@ -60,7 +60,7 @@
 }
 
 .market-size__card-label {
-  font-size: 0.8rem;
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   color: #aaa;
@@ -78,8 +78,8 @@
 }
 
 .market-size__card-value {
-  font-size: 3.2rem;
-  font-weight: 700;
+  font-size: 2.56rem;
+  font-weight: 600;
   color: #1a1a1a;
   margin: 0;
   line-height: 1;
@@ -87,12 +87,12 @@
 }
 
 .market-size__card-heading {
-  font-size: 2.6rem;
-  font-weight: 400;
+  font-size: 2.08rem;
+  font-weight: 600;
   color: #1a1a1a;
   margin: 0;
   line-height: 1.1;
-  font-family: "Ramaraja", serif;
+  font-family: "Poppins", sans-serif;
 }
 
 // ── Bottom row: Geo + Key driver ─────────────────────────────────────
@@ -113,7 +113,7 @@
 }
 
 .market-size__geo-label {
-  font-size: 0.8rem;
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   color: #aaa;
@@ -161,7 +161,7 @@
 }
 
 .market-size__legend-region {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: #444;
   font-weight: 400;
   font-family: "Poppins", sans-serif;
@@ -169,7 +169,7 @@
 }
 
 .market-size__legend-pct {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: #1a1a1a;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
@@ -185,7 +185,7 @@
 }
 
 .market-size__driver-label {
-  font-size: 0.8rem;
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   color: #aaa;
@@ -195,7 +195,7 @@
 }
 
 .market-size__driver-text {
-  font-size: 1.1rem;
+  font-size: 0.88rem;
   color: #444;
   line-height: 1.7;
   font-family: "Poppins", sans-serif;

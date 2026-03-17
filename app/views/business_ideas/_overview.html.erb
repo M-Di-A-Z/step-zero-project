@@ -41,11 +41,11 @@
     </div>
   </div>
 
-  <!-- link to report  -->
+  <!-- link to launch plan -->
   <div class="project-report_link">
-    <%= link_to report_business_idea_path(idea), class: "project-report_link__btn" do %>
-      <span>View Business Plan</span>
-      <svg width="13px" height="10px" viewBox="0 0 13 10">
+    <%= link_to report_business_idea_path(idea), class: "home-submit" do %>
+      <span>View Launch Plan</span>
+      <svg width="15px" height="10px" viewBox="0 0 13 10">
         <path d="M1,5 L11,5"></path>
         <polyline points="8 1 12 5 8 9"></polyline>
       </svg>
@@ -58,11 +58,8 @@
     <!-- Card 1: Market Stage -->
     <div class="project-show__card">
       <p class="project-show__card-label">Market Stage</p>
-      <div class="project-show__card-visual">
-        <span class="project-show__pill project-show__pill--green"><%= overview["market_stage_pill"] || "n/a" %></span>
-      </div>
-      <h2 class="project-show__card-heading"><%= overview["market_stage_label"] || "n/a" %></h2>
-      <p class="project-show__card-context"><%= sanitize(overview["market_stage_context"] || "n/a", tags: %w[strong]) %></p>
+      <h2 class="project-show__card-heading"><%= overview["market_stage_pill"] || "n/a" %></h2>
+      <p class="project-show__card-context"><strong><%= overview["market_stage_label"] %></strong> — <%= sanitize(overview["market_stage_context"] || "n/a", tags: %w[strong]) %></p>
     </div>
 
     <!-- Card 2: Competitivity -->

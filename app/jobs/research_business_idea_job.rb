@@ -19,7 +19,8 @@ class ResearchBusinessIdeaJob < ApplicationJob
       market_size: parsed["market"].to_json,
       competitors: parsed["competitors"].to_json,
       business: parsed["business"].to_json,
-      execution: parsed["execution"].to_json
+      execution: parsed["execution"].to_json,
+      launch_plan: parsed["launch_plan"].to_json
     )
   rescue JSON::ParserError => e
     Rails.logger.error("ResearchBusinessIdeaJob JSON parse error: #{e.message}")

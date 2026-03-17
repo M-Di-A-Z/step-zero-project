@@ -59,13 +59,46 @@ class ClaudeService
         "scalability": ""
       },
       "execution": {
-        "time_to_mvp": "",
+        "tech_challenge": "",
         "tech_feasibility_label": "",
         "tech_feasibility_context": "",
         "regulatory_risk_level": "",
         "regulatory_risk_context": "",
         "key_risk": "",
         "key_risk_highlight": ""
+      },
+      "launch_plan": {
+        "sprint1_duration": "",
+        "mvp_horizon": "",
+        "full_launch": "",
+        "phases": [
+          {
+            "number": 1,
+            "label": "",
+            "timeline": "",
+            "horizon": "now",
+            "steps": ["", ""]
+          },
+          {
+            "number": 2,
+            "label": "",
+            "timeline": "",
+            "horizon": "build",
+            "steps": ["", ""]
+          },
+          {
+            "number": 3,
+            "label": "",
+            "timeline": "",
+            "horizon": "launch",
+            "columns": {
+              "Operations": [""],
+              "Growth": [""],
+              "Metrics": [""]
+            }
+          }
+        ],
+        "critical_decision": ""
       }
     }
 
@@ -78,13 +111,13 @@ class ClaudeService
 
     ### Overview
     - market_stage_pill: MUST be exactly one of: "Emerging", "Growing", "Mature", "Declining". Displayed as a colored pill badge.
-    - market_stage_label: A descriptive label like "Early Growth Phase" or "Pre-mainstream Adoption".
-    - market_stage_context: One sentence explaining WHY this market is at that stage, citing a specific trend or data point. Wrap the 1-2 most important data points (numbers, percentages, dollar amounts) in <strong> tags.
+    - market_stage_label: A short descriptive label (3-6 words) like "Early Growth Phase" or "Pre-mainstream Adoption". This will be bolded and prepended to market_stage_context in the UI — write it as a compact noun phrase, not a full sentence.
+    - market_stage_context: One sentence explaining WHY this market is at that stage, citing a specific trend or data point. Wrap the 1-2 most important data points (numbers, percentages, dollar amounts) in <strong> tags. HARD LIMIT: the plain text content (excluding any HTML tags like <strong></strong>) must be ≤ 300 characters with spaces. Count before writing, shorten if needed.
     - competitive_intensity_dots: Integer 1-5. Displayed as filled/empty dots (3 = ●●●○○). 1 = blue ocean, 5 = hypercompetitive.
     - competitive_intensity_label: MUST be exactly one of: "Low", "Moderate", "High", "Very High".
-    - competitive_intensity_context: One sentence about the competitive landscape — how many players, how entrenched, any moats. Wrap the 1-2 most important data points (numbers, player counts, key names) in <strong> tags.
+    - competitive_intensity_context: One sentence about the competitive landscape — how many players, how entrenched, any moats. Wrap the 1-2 most important data points (numbers, player counts, key names) in <strong> tags. HARD LIMIT: the plain text content (excluding any HTML tags like <strong></strong>) must be ≤ 300 characters with spaces. Count before writing, shorten if needed.
     - project_feasibility: MUST be exactly one of: "Low", "Medium", "High".
-    - project_feasibility_context: One sentence on whether this can realistically be built and launched — consider tech stack, team size, capital needed. Wrap the 1-2 most important data points (costs, timelines, team sizes) in <strong> tags.
+    - project_feasibility_context: One sentence on whether this can realistically be built and launched — consider tech stack, team size, capital needed. Wrap the 1-2 most important data points (costs, timelines, team sizes) in <strong> tags. HARD LIMIT: the plain text content (excluding any HTML tags like <strong></strong>) must be ≤ 300 characters with spaces. Count before writing, shorten if needed.
     - positioning_sentence: How this idea differentiates from existing solutions. What is the unique angle or underserved niche.
 
     ### Market Size
@@ -112,13 +145,30 @@ class ClaudeService
     - scalability: One sentence on how well this business scales — consider unit economics, marginal costs, network effects, geographic expansion.
 
     ### Execution
-    - time_to_mvp: Realistic estimate for a small team (2-4 people). Format: "X-Y months".
+    - tech_challenge: The single hardest engineering or product problem to solve internally — not an external dependency, not a business risk. One short phrase describing the core technical difficulty specific to this product. Examples: "Real-time sync without triggering API rate limits", "Sub-100ms latency on distributed graph queries", "Identity verification for anonymous peer transactions".
     - tech_feasibility_label: MUST be exactly one of: "Low", "Medium", "High". Can this be built with existing, accessible technology?
     - tech_feasibility_context: One sentence on what core tech is needed, whether it's off-the-shelf or requires R&D, and key technical challenges.
     - regulatory_risk_level: MUST be exactly one of: "Low", "Medium", "High".
     - regulatory_risk_context: One sentence on relevant regulations, licensing requirements, compliance hurdles, or data privacy concerns.
     - key_risk: The single biggest threat to this business succeeding. Must be one sentence that naturally contains a short phrase worth highlighting.
     - key_risk_highlight: The exact substring (3-6 words) from key_risk that captures the core risk. This will be visually emphasized on the dashboard.
+
+    ### Launch Plan
+    - phases: Always exactly 3 phase objects.
+
+      STRICT BREVITY RULE FOR PHASES 1 AND 2: Every single step must be ≤ 30 words. No exceptions. Write the step, count the words, if it exceeds 30 words rewrite it shorter. A good step is a tight 15–25 word sentence. Example of a correct step (20 words): "Interview 20 target users to confirm the core pain point and identify the one riskiest assumption before building." Example of a WRONG step (too long): "Interview 30 sales leaders at mid-market SaaS firms ($10M–$100M ARR) to confirm their top 3 CRM pain points and map which competitors they use and why they'd switch." — this is 32 words, not allowed.
+
+      - Phase 1 (horizon: "now"): PRODUCT DEFINITION steps only — not customer acquisition.
+        Exactly 2 steps. Each step: one tight sentence, ≤ 30 words, specific to the product domain and user type.
+        Focus on: validating the core problem, identifying the key user conflict, and the one riskiest assumption to test before building.
+      - Phase 2 (horizon: "build"): BUILD sequence only — ordered by dependency.
+        Exactly 2 steps. Each step: one tight sentence, ≤ 30 words, in the order they must be built.
+        No marketing or growth steps. Start with infrastructure or supply-side if marketplace.
+      - Phase 3 (horizon: "launch"): Must have exactly 3 columns. Each column value is a single string (array of 1 element), ≤ 30 words.
+        - "Operations": How the product runs without the founder — quality, moderation, support.
+        - "Growth": ONE channel only. Geographic or segment focus.
+        - "Metrics": The single KPI at launch + the number that triggers a pivot.
+        All items specific to this idea's domain.
 
     ## Critical rules
     - Return ONLY valid JSON. No text before or after.
