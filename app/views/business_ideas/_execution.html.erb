@@ -15,31 +15,32 @@
     <p class="execution__subtitle">Feasibility and risk assessment for <strong><%= idea.title %></strong></p>
   </div>
 
-  <!-- Top metrics -->
+  <!-- Row 1: Tech Feasibility + Regulatory Risk -->
   <div class="execution__metrics">
-
-    <div class="execution__card">
-      <p class="execution__card-label">Time to MVP</p>
-      <h2 class="execution__card-heading"><%= execution["time_to_mvp"] || "n/a" %></h2>
-    </div>
 
     <div class="execution__card">
       <p class="execution__card-label">Tech Feasibility</p>
       <h2 class="execution__card-heading"><%= execution["tech_feasibility_label"] || "n/a" %></h2>
-      <p class="execution__card-context"><%= execution["tech_feasibility_context"] || "n/a" %></p>
+      <p class="execution__card-context"><%= (execution["tech_feasibility_context"] || "n/a").gsub(/<[^>]+>/, "").truncate(320) %></p>
     </div>
 
     <div class="execution__card">
       <p class="execution__card-label">Regulatory Risk</p>
       <div class="execution__card-visual">
-        <span class="execution__pill execution__pill--<%= risk_color %>"><%= execution["regulatory_risk_level"] || "n/a" %></span>
+        <span class="<%= "execution__pill execution__pill--#{risk_color}" %>"><%= execution["regulatory_risk_level"] || "n/a" %></span>
       </div>
-      <p class="execution__card-context"><%= execution["regulatory_risk_context"] || "n/a" %></p>
+      <p class="execution__card-context"><%= (execution["regulatory_risk_context"] || "n/a").gsub(/<[^>]+>/, "").truncate(320) %></p>
     </div>
 
   </div>
 
-  <!-- Key risk -->
+  <!-- Row 2: Tech Challenge (full-width) -->
+  <div class="execution__card execution__card--full">
+    <p class="execution__card-label">Tech Challenge</p>
+    <p class="execution__challenge-value"><%= execution["tech_challenge"] || "n/a" %></p>
+  </div>
+
+  <!-- Row 3: Key Risk -->
   <div class="execution__risk">
     <p class="execution__risk-label">Key Risk</p>
     <p class="execution__risk-text">
