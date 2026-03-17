@@ -6,8 +6,9 @@ class ProfilesController < ApplicationController
     @business_ideas = @user.business_ideas.where(status: "complete").order(created_at: :desc)
     @total_projects = @user.business_ideas.count
     @completed_projects = @user.business_ideas.where(status: "complete").count
-    @shared_projects = @user.business_ideas.where(shared: true).count
+    @favourites_count = @user.likes.count
     @average_score = @user.business_ideas.where(status: "complete").where.not(idea_score: nil).average(:idea_score)&.round || 0
+    @favourites = @user.liked_business_ideas.order("likes.created_at DESC")
   end
 
   def edit

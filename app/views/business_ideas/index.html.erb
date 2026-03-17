@@ -19,21 +19,29 @@
     <div class="projects-grid">
       <% @business_ideas.each do |idea| %>
         <div class="project-card-wrapper">
+          <% if idea.status == "complete" %>
+            <button
+              type="button"
+              class="social-card__publish-pill social-card__publish-pill--<%= idea.shared? ? 'published' : 'unpublished' %> project-card__pill"
+              data-controller="share-pill"
+              data-action="click->share-pill#toggle"
+              data-share-url="<%= share_business_idea_path(idea) %>">
+              <span class="social-card__status-dot"></span>
+              <span class="pill-label"><%= idea.shared? ? "Published" : "Unpublished" %></span>
+            </button>
+          <% end %>
           <%= link_to idea.status == "complete" ? business_idea_path(idea) : "#", class: "project-card" do %>
-            <div class="project-card__top">
-              <span class="project-card__status project-card__status--<%= idea.status %>">
-                <%= idea.status.capitalize %>
-              </span>
-              <% if idea.idea_score.present? %>
-                <span class="project-card__score"><%= idea.idea_score %><span class="project-card__score-max">/100</span></span>
-              <% end %>
-            </div>
+            <div class="project-card__top"></div>
 
             <div class="project-card__title-row">
               <h2 class="project-card__title">
                 <%= idea.title.present? ? idea.title : idea.content.truncate(60) %>
               </h2>
-              <span class="project-card__arrow">→</span>
+              <% if idea.idea_score.present? %>
+                <span class="project-card__score"><%= idea.idea_score %><span class="project-card__score-max">/100</span></span>
+              <% else %>
+                <span class="project-card__arrow">→</span>
+              <% end %>
             </div>
 
             <% if idea.summary.present? %>
