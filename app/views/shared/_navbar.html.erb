@@ -1,4 +1,9 @@
 <nav class="navbar-home">
+  <div class="navbar-home-logo">
+    <%= link_to root_path do %>
+      <%= image_tag "Fichier 2@3x.png", alt: "IdeaProof", class: "navbar-home-logo__img" %>
+    <% end %>
+  </div>
   <ul class="navbar-home-links">
     <li><%= link_to "Home", root_path, class: "navbar-home-link #{'navbar-home-link--active' if current_page?(root_path)}" %></li>
     <li><%= link_to "My Ideas", user_signed_in? ? business_ideas_path : new_user_session_path, class: "navbar-home-link #{'navbar-home-link--active' if user_signed_in? && current_page?(business_ideas_path)}" %></li>

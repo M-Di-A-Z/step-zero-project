@@ -1,6 +1,42 @@
-.alert {
+.flash-alert {
   position: fixed;
   bottom: 16px;
   right: 16px;
   z-index: 1000;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #3a3530;
+  background: #fff8ec;
+  border: 1px solid #f5a623;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  animation: flash-in-out 4s ease forwards;
+  pointer-events: none;
+
+  &--warning {
+    background: #FFF3F3;
+    border-color: #f5c6c6;
+    color: #8B2500;
+  }
+}
+
+@keyframes flash-in-out {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  8% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }

@@ -16,5 +16,4 @@ class SocialsController < ApplicationController
                          .includes(:user, :likes, comments: :user)
                          .order(created_at: :desc)
   end
-
 end
