@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   resource :profile, only: [:show, :edit, :update]
 
   get "socials", to: "socials#index", as: :socials
-  get "socials/share", to: "socials#share", as: :share_socials
 
   get "up" => "rails/health#show", as: :rails_health_check
   get "report", to: "business_ideas#report"

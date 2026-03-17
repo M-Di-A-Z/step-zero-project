@@ -25,17 +25,10 @@ export default class extends Controller {
         return r.json()
       })
       .then(({ shared }) => {
-        console.log("Share toggled, shared:", shared)
-        if (shared) {
-          btn.classList.remove("social-card__publish-pill--unpublished")
-          btn.classList.add("social-card__publish-pill--published")
-          btn.closest(".social-card").classList.add("social-card--shared")
-        } else {
-          btn.classList.remove("social-card__publish-pill--published")
-          btn.classList.add("social-card__publish-pill--unpublished")
-          btn.closest(".social-card").classList.remove("social-card--shared")
-        }
+        btn.classList.toggle("social-card__publish-pill--published", shared)
+        btn.classList.toggle("social-card__publish-pill--unpublished", !shared)
         btn.querySelector(".pill-label").textContent = shared ? "Published" : "Unpublished"
+        btn.querySelector(".social-card__status-dot").style.background = shared ? "#1EDD88" : "#bbb"
       })
       .catch(err => console.error("Share toggle failed:", err))
       .finally(() => { btn.disabled = false })

@@ -1,12 +1,12 @@
 <div class="socials-page">
   <div class="socials-header">
     <div class="socials-header__left">
-      <h1 class="socials-header__title">Discover ideas from the <span style="color: #f5a623;">community</span></h1>
+      <h1 class="socials-header__title">Discover</h1>
     </div>
     <% if user_signed_in? %>
       <div class="socials-header__actions">
-        <%= link_to share_socials_path, class: "socials-share-btn" do %>
-          <span>Share a project</span>
+        <%= link_to business_ideas_path, class: "socials-share-btn" do %>
+          <span>Share an idea</span>
           <svg width="13px" height="10px" viewBox="0 0 13 10">
             <path d="M1,5 L11,5"></path>
             <polyline points="8 1 12 5 8 9"></polyline>
@@ -16,14 +16,28 @@
     <% end %>
   </div>
 
-  <% if @posts.empty? %>
+  <% if @trending_posts.any? %>
+    <div class="trending-section">
+      <div class="trending-section__header">
+        <span class="trending-section__label">🔥 Trending today</span>
+      </div>
+      <div class="trending-grid">
+        <% @trending_posts.each do |post| %>
+          <%= render "social_card", post: post, trending: true %>
+        <% end %>
+      </div>
+    </div>
+    <div class="trending-divider"></div>
+  <% end %>
+
+  <% if @posts.empty? && @trending_posts.empty? %>
     <div class="socials-empty">
       <p class="socials-empty__text">No projects shared yet. Be the first to share yours.</p>
       <% if user_signed_in? %>
         <%= link_to "Go to my projects →", business_ideas_path, class: "socials-empty__link" %>
       <% end %>
     </div>
-  <% else %>
+  <% elsif @posts.any? %>
     <div class="socials-list">
       <% @posts.each do |post| %>
         <%= render "social_card", post: post %>

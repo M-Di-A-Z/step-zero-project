@@ -37,8 +37,8 @@
       <span class="profile-stats__label">Projects</span>
     </div>
     <div class="profile-stats__card">
-      <span class="profile-stats__number"><%= @shared_projects %></span>
-      <span class="profile-stats__label">Shared</span>
+      <span class="profile-stats__number"><%= @favourites_count %></span>
+      <span class="profile-stats__label">Favourites</span>
     </div>
     <div class="profile-stats__card">
       <span class="profile-stats__number"><%= @average_score %><span class="profile-stats__max">/100</span></span>
@@ -67,13 +67,60 @@
               <p class="profile-project-row__summary"><%= idea.summary.present? ? idea.summary.truncate(80) : "—" %></p>
             </div>
             <div class="profile-project-row__right">
-              <span class="profile-project-row__status profile-project-row__status--<%= idea.status %>">
-                <%= idea.status.capitalize %>
+              <span class="profile-project-row__status profile-project-row__status--<%= idea.shared? ? 'published' : 'unpublished' %>">
+                <span class="profile-project-row__status-dot"></span>
+                <%= idea.shared? ? 'Published' : 'Unpublished' %>
               </span>
               <% if idea.idea_score.present? %>
                 <span class="profile-project-row__score"><%= idea.idea_score %></span>
               <% end %>
               <span class="profile-project-row__arrow">→</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Favourites -->
+  <div class="profile-projects profile-projects--favourites">
+    <div class="profile-projects__header">
+      <h2 class="profile-projects__title">Favourites</h2>
+      <span class="profile-projects__count"><%= @favourites.count %> idea<%= @favourites.count == 1 ? "" : "s" %></span>
+    </div>
+
+    <% if @favourites.empty? %>
+      <div class="profile-projects__empty">
+        <p>No favourites yet.</p>
+        <%= link_to "Explore ideas →", socials_path, class: "profile-projects__empty-link" %>
+      </div>
+    <% else %>
+      <div class="profile-projects__list">
+        <% @favourites.each do |idea| %>
+          <%= link_to (idea.status == "complete" ? business_idea_path(idea) : "#"), class: "profile-project-row" do %>
+            <div class="profile-project-row__left">
+              <h3 class="profile-project-row__name"><%= idea.title.present? ? idea.title : idea.content.truncate(40) %></h3>
+              <p class="profile-project-row__summary"><%= idea.summary.present? ? idea.summary.truncate(80) : "—" %></p>
+            </div>
+            <div class="profile-project-row__right">
+              <div class="profile-project-row__creator">
+                <div class="profile-project-row__creator-avatar">
+                  <% if idea.user.avatar.attached? %>
+                    <%= image_tag idea.user.avatar, class: "profile-project-row__creator-img" %>
+                  <% else %>
+                    <span class="profile-project-row__creator-initials">
+                      <%= idea.user.first_name.present? ? idea.user.first_name[0].upcase : idea.user.email[0].upcase %>
+                    </span>
+                  <% end %>
+                </div>
+                <span class="profile-project-row__creator-name">
+                  <% if idea.user.first_name.present? || idea.user.last_name.present? %>
+                    <%= [idea.user.first_name, idea.user.last_name].compact.join(" ") %>
+                  <% else %>
+                    <%= idea.user.email.split("@").first.capitalize %>
+                  <% end %>
+                </span>
+              </div>
             </div>
           <% end %>
         <% end %>
