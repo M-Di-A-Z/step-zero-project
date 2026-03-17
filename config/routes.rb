@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
 
-  resource :profile, only: [:show, :edit, :update]
+  resource :profile, only: [:show, :update]
 
   get "socials", to: "socials#index", as: :socials
 
