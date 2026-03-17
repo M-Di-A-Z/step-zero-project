@@ -3,6 +3,7 @@
 turbo-frame#idea-flow {
   display: block;
   height: calc(100vh - 50px);
+  overflow: hidden;
 }
 
 .chat-page {
@@ -11,6 +12,7 @@ turbo-frame#idea-flow {
   flex-direction: column;
   align-items: center;
   background: transparent;
+  overflow: hidden;
 }
 
 // ── Centered column ────────────────────────────────────────────────────
@@ -22,6 +24,7 @@ turbo-frame#idea-flow {
   display: flex;
   flex-direction: column;
   padding: 0 24px;
+  overflow: hidden;
 }
 
 // ── Header ─────────────────────────────────────────────────────────────
@@ -37,7 +40,7 @@ turbo-frame#idea-flow {
   font-size: 2.8rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin: 100px 0 0;
+  margin: 40px 0 0;
   font-family: sans-serif;
 
   &--highlight {
@@ -54,9 +57,23 @@ turbo-frame#idea-flow {
   flex-direction: column;
   gap: 20px;
   padding-bottom: 16px;
+  padding-right: 12px;
 
   scrollbar-width: thin;
   scrollbar-color: #d0ccc4 transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #d0ccc4;
+    border-radius: 3px;
+  }
 }
 
 .message-row {
@@ -103,7 +120,8 @@ turbo-frame#idea-flow {
 
 .chat-input-area {
   flex-shrink: 0;
-  padding: 16px 0 28px;
+  padding: 16px 0 24px;
+  margin-bottom: 40px;
 }
 
 .chat-generate-research {
