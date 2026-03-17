@@ -302,7 +302,7 @@
   &__score-value {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #f5a623;
     font-family: sans-serif;
   }
 
@@ -689,6 +689,27 @@
     overflow: hidden;
     position: relative;
   }
+}
+
+// ── Preview modal overrides ───────────────────────────────────
+
+.project-modal {
+  .project-show {
+    padding-top: 72px;
+  }
+
+  .project-show__title {
+    margin-top: 60px;
+  }
+
+  .project-show__rating {
+    margin-top: 60px;
+  }
+
+  .project-show__header {
+    margin-bottom: 12px;
+  }
+
 }
 
 // ── Tab layout inside modal ───────────────────────────────────
