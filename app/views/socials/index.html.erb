@@ -16,6 +16,33 @@
     <% end %>
   </div>
 
+  <div class="socials-filters" id="socialsFilters">
+    <div class="socials-filters__group">
+      <button class="socials-filters__pill socials-filters__pill--active" data-filter="all" onclick="applyFilter('all', this)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        All
+      </button>
+      <% if user_signed_in? %>
+        <button class="socials-filters__pill" data-filter="favorites" onclick="applyFilter('favorites', this)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          Favorites
+        </button>
+      <% end %>
+    </div>
+    <div class="socials-filters__group">
+      <span class="socials-filters__label">Sort by</span>
+      <button class="socials-filters__pill socials-filters__pill--active" data-sort="recent" onclick="applySort('recent', this)">
+        Recent
+      </button>
+      <button class="socials-filters__pill" data-sort="most_liked" onclick="applySort('most_liked', this)">
+        Most liked
+      </button>
+      <button class="socials-filters__pill" data-sort="best_rated" onclick="applySort('best_rated', this)">
+        Best rated
+      </button>
+    </div>
+  </div>
+
   <% if @trending_posts.any? %>
     <div class="trending-section">
       <div class="trending-section__header">
@@ -30,17 +57,19 @@
     <div class="trending-divider"></div>
   <% end %>
 
+  <div class="socials-list" id="socialsList" style="<%= 'display:none;' if @posts.empty? && @trending_posts.empty? %>">
+    <% @posts.each do |post| %>
+      <%= render "social_card", post: post %>
+    <% end %>
+  </div>
+  <div class="socials-empty" id="socialsFilterEmpty" style="display: none;">
+    <p class="socials-empty__text">You haven't favorited any ideas yet. Star the ones you like!</p>
+  </div>
   <% if @posts.empty? && @trending_posts.empty? %>
-    <div class="socials-empty">
+    <div class="socials-empty" id="socialsGlobalEmpty">
       <p class="socials-empty__text">No projects shared yet. Be the first to share yours.</p>
       <% if user_signed_in? %>
         <%= link_to "Go to my projects →", business_ideas_path, class: "socials-empty__link" %>
-      <% end %>
-    </div>
-  <% elsif @posts.any? %>
-    <div class="socials-list">
-      <% @posts.each do |post| %>
-        <%= render "social_card", post: post %>
       <% end %>
     </div>
   <% end %>
@@ -93,6 +122,125 @@
 </div>
 
 <script>
+// ── Client-side filter & sort ────────────────────────────────
+(function() {
+  var currentFilter = "all";
+  var currentSort = "recent";
+  var list = document.getElementById("socialsList");
+  var emptyEl = document.getElementById("socialsFilterEmpty");
+  var trendingSection = document.querySelector(".trending-section");
+  var trendingDivider = document.querySelector(".trending-divider");
+
+  // Collect ALL cards on the page (trending + regular)
+  var allCards = Array.from(document.querySelectorAll(".socials-page .social-card"));
+  // Remember which cards are originally in the trending section
+  var trendingCards = trendingSection
+    ? Array.from(trendingSection.querySelectorAll(".social-card"))
+    : [];
+  var trendingGrid = trendingSection ? trendingSection.querySelector(".trending-grid") : null;
+
+  var isDefault = function() {
+    return currentFilter === "all" && currentSort === "recent";
+  };
+
+  function activatePill(btn) {
+    var group = btn.parentElement;
+    group.querySelectorAll(".socials-filters__pill").forEach(function(p) {
+      p.classList.remove("socials-filters__pill--active");
+    });
+    btn.classList.add("socials-filters__pill--active");
+  }
+
+  window.applyFilter = function(filter, btn) {
+    currentFilter = filter;
+    activatePill(btn);
+    var favSvg = btn.parentElement.querySelector('[data-filter="favorites"] svg');
+    if (favSvg) favSvg.setAttribute("fill", filter === "favorites" ? "currentColor" : "none");
+    refresh();
+  };
+
+  window.applySort = function(sort, btn) {
+    currentSort = sort;
+    activatePill(btn);
+    refresh();
+  };
+
+  function refresh() {
+    if (!list) return;
+
+    // Default state: restore trending section + regular list
+    if (isDefault()) {
+      // Move trending cards back to their grid
+      if (trendingGrid) {
+        trendingCards.forEach(function(c) {
+          c.style.display = "";
+          c.classList.add("social-card--trending");
+          trendingGrid.appendChild(c);
+        });
+      }
+      if (trendingSection) trendingSection.style.display = "";
+      if (trendingDivider) trendingDivider.style.display = "";
+
+      // Show all regular cards sorted by recent
+      var regularCards = allCards.filter(function(c) { return trendingCards.indexOf(c) === -1; });
+      regularCards.sort(function(a, b) { return parseInt(b.dataset.created) - parseInt(a.dataset.created); });
+      var frag = document.createDocumentFragment();
+      regularCards.forEach(function(c) { c.style.display = ""; frag.appendChild(c); });
+      list.appendChild(frag);
+
+      list.style.display = "";
+      if (emptyEl) emptyEl.style.display = "none";
+      return;
+    }
+
+    // Non-default: hide trending section, merge all cards into the main list
+    if (trendingSection) trendingSection.style.display = "none";
+    if (trendingDivider) trendingDivider.style.display = "none";
+
+    // Move trending cards into the main list (strip trending style)
+    trendingCards.forEach(function(c) {
+      c.classList.remove("social-card--trending");
+      list.appendChild(c);
+    });
+
+    // Filter
+    var visibleCount = 0;
+    allCards.forEach(function(card) {
+      var show = true;
+      if (currentFilter === "favorites") {
+        show = card.dataset.favorited === "true";
+      }
+      card.style.display = show ? "" : "none";
+      if (show) visibleCount++;
+    });
+
+    // Empty state
+    if (emptyEl) {
+      emptyEl.style.display = visibleCount === 0 ? "" : "none";
+      list.style.display = visibleCount === 0 ? "none" : "";
+    }
+
+    // Sort visible cards
+    var sorted = allCards.filter(function(c) { return c.style.display !== "none"; });
+    switch (currentSort) {
+      case "most_liked":
+        sorted.sort(function(a, b) { return parseInt(b.dataset.likes) - parseInt(a.dataset.likes); });
+        break;
+      case "best_rated":
+        sorted.sort(function(a, b) { return parseInt(b.dataset.score) - parseInt(a.dataset.score); });
+        break;
+      default:
+        sorted.sort(function(a, b) { return parseInt(b.dataset.created) - parseInt(a.dataset.created); });
+    }
+
+    // Re-append: hidden first, then sorted visible (batched)
+    var frag = document.createDocumentFragment();
+    allCards.forEach(function(c) { if (c.style.display === "none") frag.appendChild(c); });
+    sorted.forEach(function(c) { frag.appendChild(c); });
+    list.appendChild(frag);
+  }
+})();
+
 // Move modals to body so position:fixed works despite .page-content transform
 document.body.appendChild(document.getElementById("commentsModal"));
 document.body.appendChild(document.getElementById("projectModal"));
@@ -351,6 +499,12 @@ window.toggleLike = function(btn) {
     svg.setAttribute("fill", data.liked ? "currentColor" : "none");
     var span = btn.querySelector("span");
     if (span) span.textContent = data.count;
+    // Sync card data for client-side sorting and filtering
+    var card = btn.closest(".social-card");
+    if (card) {
+      card.dataset.likes = data.count;
+      card.dataset.favorited = data.liked.toString();
+    }
   });
 };
 </script>
