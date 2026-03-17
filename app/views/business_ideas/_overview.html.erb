@@ -8,7 +8,6 @@
    end %>
 
 <div class="project-show">
-
   <!-- Header: title + summary left, rating right -->
   <div class="project-show__header">
     <div class="project-show__header-left">
@@ -43,8 +42,19 @@
     </div>
   </div>
 
+  <!-- link to report  -->
+  <div class="project-report_link">
+    <%= link_to report_business_idea_path(idea), class: "project-report_link__btn" do %>
+      <span>View Business Plan</span>
+      <svg width="13px" height="10px" viewBox="0 0 13 10">
+        <path d="M1,5 L11,5"></path>
+        <polyline points="8 1 12 5 8 9"></polyline>
+      </svg>
+    <% end %>
+  </div>
   <!-- 3 data cards -->
   <div class="project-show__cards">
+
 
     <!-- Card 1: Market Stage -->
     <div class="project-show__card">
