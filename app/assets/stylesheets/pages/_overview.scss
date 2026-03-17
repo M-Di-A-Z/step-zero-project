@@ -280,6 +280,41 @@
   }
 }
 
+// ── Report link ───────────────────────────────────────────────────────
+
+.project-report_link {
+  margin-bottom: 24px;
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-decoration: none;
+    border: 1.5px solid #1a1a1a;
+    border-radius: 999px;
+    padding: 8px 20px;
+    transition: background 0.2s, color 0.2s;
+
+    svg {
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      background: #1a1a1a;
+      color: #F5F0E8;
+    }
+  }
+}
+
 // ── Generate button ───────────────────────────────────────────────────
 
 .project-show__generate {
