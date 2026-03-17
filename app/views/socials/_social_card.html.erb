@@ -1,7 +1,11 @@
-<div class="social-card social-card--selectable"
+<div class="social-card social-card--selectable <%= 'social-card--trending' if local_assigns[:trending] %>"
      data-preview-url="<%= preview_business_idea_path(post) %>"
      role="button"
      tabindex="0">
+
+  <% if local_assigns[:trending] %>
+    <div class="social-card__trending-badge">🔥 Trending</div>
+  <% end %>
 
   <%# Title %>
   <h2 class="social-card__title">

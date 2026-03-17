@@ -12,7 +12,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   padding-bottom: 24px;
   border-bottom: 1px solid #E0D9CE;
 
@@ -544,6 +544,74 @@
     box-shadow: 0 2px 10px rgba(245, 166, 35, 0.15), 0 0 0 1.5px rgba(245, 166, 35, 0.4);
   }
 
+}
+
+// ── Trending section ──────────────────────────────────────────
+
+.trending-section {
+  margin-bottom: 32px;
+
+  &__header {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__label {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    font-family: sans-serif;
+    margin-bottom: 16px;
+  }
+}
+
+.trending-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 420px));
+  gap: 20px;
+  justify-content: center;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trending-divider {
+  height: 1px;
+  background: #E0D9CE;
+  margin-bottom: 32px;
+}
+
+.social-card--trending {
+  position: relative;
+  box-shadow:
+    0 0 0 1.5px #f5a623,
+    0 8px 28px rgba(245, 166, 35, 0.18);
+
+  &:hover {
+    box-shadow:
+      0 0 0 2px #f5a623,
+      0 16px 40px rgba(245, 166, 35, 0.28);
+  }
+}
+
+.social-card__trending-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: sans-serif;
+  letter-spacing: 0.04em;
+  background: #fff8ec;
+  color: #b36b00;
 }
 
 // ── Project preview modal ─────────────────────────────────────
