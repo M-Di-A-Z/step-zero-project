@@ -1,5 +1,11 @@
+<% likes_count = post.likes.size %>
+<% liked = user_signed_in? && post.likes.any? { |l| l.user_id == current_user.id } %>
 <div class="social-card social-card--selectable <%= 'social-card--trending' if local_assigns[:trending] %>"
      data-preview-url="<%= preview_business_idea_path(post) %>"
+     data-likes="<%= likes_count %>"
+     data-score="<%= post.idea_score || 0 %>"
+     data-favorited="<%= liked %>"
+     data-created="<%= post.created_at.to_i %>"
      role="button"
      tabindex="0">
 
@@ -47,7 +53,6 @@
       <div></div>
     <% end %>
     <div class="social-card__actions">
-      <% liked = user_signed_in? && post.likes.any? { |l| l.user_id == current_user.id } %>
       <button class="social-card__like-btn <%= 'social-card__like-btn--liked' if liked %>"
               data-like-url="<%= business_idea_like_path(post) %>"
               data-liked="<%= liked %>"
@@ -55,7 +60,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="<%= liked ? 'currentColor' : 'none' %>" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
         </svg>
-        <span><%= post.likes.size %></span>
+        <span><%= likes_count %></span>
       </button>
       <button class="social-card__comment-btn"
               data-comments-url="<%= business_idea_comments_path(post) %>"
