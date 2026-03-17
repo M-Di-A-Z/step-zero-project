@@ -10,6 +10,20 @@
   pointer-events: auto;
 }
 
+.navbar-home-logo {
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  a { display: flex; align-items: center; }
+
+  &__img {
+    height: 28px;
+    width: auto;
+  }
+}
+
 .navbar-home-right {
   position: absolute;
   right: 32px;
