@@ -12,28 +12,28 @@
   <!-- Top metrics -->
   <div class="competitors__metrics">
 
-    <div class="competitors__card">
-      <p class="competitors__card-label">Competitive Intensity</p>
-      <div class="competitors__card-visual">
-        <div class="competitors__dash-bar">
-          <% 5.times do |i| %>
-            <span class="competitors__dash <%= i < competitors["intensity_dots"].to_i ? 'competitors__dash--filled' : 'competitors__dash--empty' %>"></span>
-          <% end %>
+    <div class="competitors__pair">
+      <div class="competitors__card">
+        <p class="competitors__card-label">Competitive Intensity</p>
+        <div class="competitors__card-visual">
+          <div class="competitors__dash-bar">
+            <% 5.times do |i| %>
+              <span class="competitors__dash <%= i < competitors["intensity_dots"].to_i ? 'competitors__dash--filled' : 'competitors__dash--empty' %>"></span>
+            <% end %>
+          </div>
         </div>
+        <h2 class="competitors__card-heading"><%= competitors["intensity"] || "n/a" %></h2>
       </div>
-      <h2 class="competitors__card-heading"><%= competitors["intensity"] || "n/a" %></h2>
-    </div>
 
-    <div class="competitors__card">
-      <p class="competitors__card-label">Competitor Count</p>
-      <div class="competitors__card-visual">
-        <h2 class="competitors__card-value"><%= competitors["competitor_count"] || "n/a" %></h2>
+      <div class="competitors__card competitors__card--spaced">
+        <p class="competitors__card-label">Competitor Count</p>
+        <h2 class="competitors__card-heading competitors__card-heading--count"><%= competitors["competitor_count"] %>+</h2>
       </div>
     </div>
 
-    <div class="competitors__card">
+    <div class="competitors__card competitors__card--wide">
       <p class="competitors__card-label">Market Gap</p>
-      <p class="competitors__card-context"><%= competitors["market_gap"] || "n/a" %></p>
+      <p class="competitors__card-context"><%= sanitize(competitors["market_gap"] || "n/a", tags: %w[strong]) %></p>
     </div>
 
   </div>
@@ -54,7 +54,7 @@
           <tr class="competitors__tr">
             <td class="competitors__td competitors__td--name"><%= comp["name"] || "n/a" %></td>
             <td class="competitors__td competitors__td--value-prop"><%= comp["value_prop"] || "n/a" %></td>
-            <td class="competitors__td competitors__td--funding"><%= comp["revenue_or_funding"] || "n/a" %></td>
+            <td class="competitors__td competitors__td--funding"><%= sanitize(comp["revenue_or_funding"] || "n/a", tags: %w[strong]) %></td>
           </tr>
         <% end %>
       </tbody>

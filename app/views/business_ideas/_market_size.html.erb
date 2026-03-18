@@ -1,6 +1,14 @@
 <% market = data.market_size.is_a?(String) ? JSON.parse(data.market_size) : (data.market_size || {}) %>
 <% geo = market["geo"] || [] %>
 
+<% market_stage_color = case market["market_stage"]&.downcase
+   when /emerging/ then "blue"
+   when /growing/, /growth/ then "green"
+   when /mature/ then "yellow"
+   when /saturated/ then "orange"
+   when /declining/ then "red"
+   end %>
+
 <%
   # Pie chart math — SVG circle with stroke-dasharray segments
   pie_radius = 80
@@ -32,7 +40,7 @@
 
     <div class="market-size__card">
       <p class="market-size__card-label">Market Stage</p>
-      <h2 class="market-size__card-heading"><%= market["market_stage"] || "n/a" %></h2>
+      <span class="<%= "project-show__pill project-show__pill--#{market_stage_color} market-size__stage-pill" %>"><%= market["market_stage"] || "n/a" %></span>
     </div>
 
   </div>
@@ -77,7 +85,7 @@
     <!-- Key driver -->
     <div class="market-size__driver">
       <p class="market-size__driver-label">Key Market Driver</p>
-      <p class="market-size__driver-text"><%= market["key_driver"] || "n/a" %></p>
+      <p class="market-size__driver-text"><%= sanitize(market["key_driver"] || "n/a", tags: %w[strong]) %></p>
     </div>
 
   </div>

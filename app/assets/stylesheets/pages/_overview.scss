@@ -166,6 +166,57 @@
   letter-spacing: 0.05em;
 }
 
+// ── Sub-scores ───────────────────────────────────────────────────────
+
+.project-show__subscores {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 160px;
+}
+
+.project-show__subscore-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-show__subscore-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #aaa;
+  font-family: "Poppins", sans-serif;
+  width: 82px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.project-show__subscore-bar {
+  flex: 1;
+  height: 4px;
+  background: #e0ddd6;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.project-show__subscore-fill {
+  height: 100%;
+  background: #1a1a1a;
+  border-radius: 2px;
+}
+
+.project-show__subscore-value {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-family: "Poppins", sans-serif;
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 // ── Cards row ────────────────────────────────────────────────────────
 
 .project-show__cards {
@@ -189,22 +240,25 @@
 }
 
 .project-show__card-label {
-  font-size: 0.8rem;
+  font-size: 0.84rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   color: #aaa;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   font-family: "Poppins", sans-serif;
   height: 16px;
   line-height: 16px;
 }
 
 .project-show__card-visual {
-  height: 36px;
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 14px;
+
+  .project-show__pill {
+    margin: 12px 0;
+  }
 }
 
 .project-show__card-heading {
@@ -214,9 +268,6 @@
   margin: 0 0 12px;
   line-height: 1.1;
   font-family: "Poppins", sans-serif;
-  min-height: 58px;
-  display: flex;
-  align-items: flex-end;
 }
 
 .project-show__card-context {
@@ -237,9 +288,9 @@
 
 .project-show__pill {
   display: inline-block;
-  padding: 4px 14px;
-  border-radius: 14px;
-  font-size: 0.8rem;
+  padding: 12px 26px;
+  border-radius: 24px;
+  font-size: 1.32rem;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
 
@@ -262,6 +313,12 @@
     background: #feecd0;
     color: #7a4000;
   }
+
+  &--blue {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+
 }
 
 // ── Dash bar (competitivity) ──────────────────────────────────────────

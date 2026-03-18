@@ -54,7 +54,7 @@
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
-  padding: 40px 36px;
+  padding: 22px 36px;
   display: flex;
   flex-direction: column;
 }
@@ -93,6 +93,10 @@
   margin: 0;
   line-height: 1.1;
   font-family: "Poppins", sans-serif;
+}
+
+.market-size__stage-pill {
+  align-self: flex-start;
 }
 
 // ── Bottom row: Geo + Key driver ─────────────────────────────────────
@@ -161,7 +165,7 @@
 }
 
 .market-size__legend-region {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #444;
   font-weight: 400;
   font-family: "Poppins", sans-serif;
@@ -169,7 +173,7 @@
 }
 
 .market-size__legend-pct {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #1a1a1a;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
@@ -195,10 +199,15 @@
 }
 
 .market-size__driver-text {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #444;
   line-height: 1.7;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   margin: 0;
+
+  strong {
+    color: #1a1a1a;
+    font-weight: 600;
+  }
 }

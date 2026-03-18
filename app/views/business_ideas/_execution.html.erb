@@ -1,10 +1,15 @@
 <% execution = data.execution.is_a?(String) ? JSON.parse(data.execution) : (data.execution || {}) %>
 
+<% tech_color = case execution["tech_feasibility_label"]&.downcase
+   when "high" then "green"
+   when "medium" then "yellow"
+   when "low" then "red"
+   end %>
+
 <% risk_color = case execution["regulatory_risk_level"]&.downcase
    when "low" then "green"
-   when "medium" then "orange"
+   when "medium" then "yellow"
    when "high" then "red"
-   else "orange"
    end %>
 
 <div class="execution">
@@ -20,16 +25,14 @@
 
     <div class="execution__card">
       <p class="execution__card-label">Tech Feasibility</p>
-      <h2 class="execution__card-heading"><%= execution["tech_feasibility_label"] || "n/a" %></h2>
-      <p class="execution__card-context"><%= (execution["tech_feasibility_context"] || "n/a").gsub(/<[^>]+>/, "").truncate(320) %></p>
+      <span class="<%= "project-show__pill project-show__pill--#{tech_color} execution__key-pill" %>"><%= execution["tech_feasibility_label"] || "n/a" %></span>
+      <p class="execution__card-context"><%= sanitize(execution["tech_feasibility_context"] || "n/a", tags: %w[strong]) %></p>
     </div>
 
     <div class="execution__card">
       <p class="execution__card-label">Regulatory Risk</p>
-      <div class="execution__card-visual">
-        <span class="<%= "execution__pill execution__pill--#{risk_color}" %>"><%= execution["regulatory_risk_level"] || "n/a" %></span>
-      </div>
-      <p class="execution__card-context"><%= (execution["regulatory_risk_context"] || "n/a").gsub(/<[^>]+>/, "").truncate(320) %></p>
+      <span class="<%= "project-show__pill project-show__pill--#{risk_color} execution__key-pill" %>"><%= execution["regulatory_risk_level"] || "n/a" %></span>
+      <p class="execution__card-context"><%= sanitize(execution["regulatory_risk_context"] || "n/a", tags: %w[strong]) %></p>
     </div>
 
   </div>
@@ -44,11 +47,7 @@
   <div class="execution__risk">
     <p class="execution__risk-label">Key Risk</p>
     <p class="execution__risk-text">
-      <% if execution["key_risk"].present? && execution["key_risk_highlight"].present? %>
-        <%= execution["key_risk"].gsub(execution["key_risk_highlight"], "<strong>#{execution["key_risk_highlight"]}</strong>").html_safe %>
-      <% else %>
-        <%= execution["key_risk"] || "n/a" %>
-      <% end %>
+      <%= sanitize(execution["key_risk"] || "n/a", tags: %w[strong]) %>
     </p>
   </div>
 

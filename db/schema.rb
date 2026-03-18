@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_17_154717) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_18_112534) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -61,6 +61,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_154717) do
     t.text "details"
     t.integer "idea_score"
     t.boolean "report_generated", default: false, null: false
+    t.integer "score_competition"
+    t.integer "score_execution"
+    t.integer "score_feasibility"
+    t.integer "score_market"
     t.boolean "shared", default: false, null: false
     t.integer "status", default: 0
     t.text "summary"
