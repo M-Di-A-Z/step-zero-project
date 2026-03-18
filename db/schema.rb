@@ -42,17 +42,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_154717) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "buisness_ideas", force: :cascade do |t|
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.string "report"
-    t.string "status"
-    t.string "title"
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_buisness_ideas_on_user_id"
-  end
-
   create_table "business_data", force: :cascade do |t|
     t.jsonb "business"
     t.bigint "business_idea_id", null: false
@@ -265,7 +254,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_17_154717) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "buisness_ideas", "users"
   add_foreign_key "business_data", "business_ideas"
   add_foreign_key "business_ideas", "users"
   add_foreign_key "chats", "business_ideas"
