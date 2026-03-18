@@ -67,7 +67,8 @@
     </div>
   </div>
 
-  <!-- link to launch plan -->
+  <!-- link to launch plan (creator only) -->
+  <% if user_signed_in? && current_user == idea.user %>
   <div class="project-report_link">
     <%= link_to business_idea_path(idea, tab: 5), class: "home-submit" do %>
       <span>View Launch Plan</span>
@@ -77,6 +78,7 @@
       </svg>
     <% end %>
   </div>
+  <% end %>
   <!-- 3 data cards -->
   <div class="project-show__cards">
 
