@@ -6,7 +6,7 @@
   padding: 20px 40px;
   margin: 0;
   background: #ffffff;
-  border-bottom: 1px solid #E0D9CE;
+  border-bottom: none;
   pointer-events: auto;
 }
 
@@ -75,7 +75,7 @@
   &--outline {
     color: #3a3530;
     background: #ffffff;
-    border: 1px solid #E0D9CE;
+    border: 1px solid #c4baa8;
 
     &:hover {
       border-color: #3a3530;
@@ -153,7 +153,7 @@
   font-family: $body-font;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  border: 1px solid #E0D9CE;
+  border: 1px solid #c4baa8;
   transition: all 0.1s ease-in-out;
   z-index: 100;
 

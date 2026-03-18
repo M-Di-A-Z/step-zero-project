@@ -224,7 +224,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   margin-bottom: 24px;
-  border-top: 1px solid #e0ddd6;
+  border-top: 1px solid #c4baa8;
 }
 
 .project-show__card {
@@ -235,7 +235,7 @@
   min-width: 0;
 
   & + & {
-    border-left: 1px solid #e0ddd6;
+    border-left: 1px solid #c4baa8;
   }
 }
 
@@ -289,7 +289,7 @@
 .project-show__pill {
   display: inline-block;
   padding: 12px 26px;
-  border-radius: 24px;
+  border-radius: 50px;
   font-size: 1.32rem;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
@@ -297,26 +297,31 @@
   &--green {
     background: #d6f5e3;
     color: #2a7a4a;
+    border: 1px solid #2a7a4a;
   }
 
   &--yellow {
     background: #fff3cd;
     color: #7a5a00;
+    border: 1px solid #7a5a00;
   }
 
   &--red {
     background: #fde8e8;
     color: #8b2500;
+    border: 1px solid #8b2500;
   }
 
   &--orange {
     background: #feecd0;
     color: #7a4000;
+    border: 1px solid #7a4000;
   }
 
   &--blue {
     background: #dbeafe;
     color: #1d4ed8;
+    border: 1px solid #1d4ed8;
   }
 
 }

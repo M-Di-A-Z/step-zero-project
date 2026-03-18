@@ -55,6 +55,7 @@ IDEAS = [
     content: "An app that scans food labels with your phone camera and instantly tells you if the product matches your dietary goals and health restrictions.",
     summary: "NutriScan turns any smartphone into a personal nutrition advisor — just scan, and know exactly what you're eating.",
     idea_score: 74, status: "complete",
+    score_market: 80, score_competition: 55, score_feasibility: 85, score_execution: 72,
     details: "Target users are health-conscious millennials and people managing chronic conditions like diabetes or food allergies."
   },
   {
@@ -62,6 +63,7 @@ IDEAS = [
     content: "A platform connecting urban dwellers with verified local hosts who rent out quiet co-working spots inside their homes.",
     summary: "UrbanNest transforms underused home spaces into on-demand co-working spots for remote workers who need a quiet place to focus.",
     idea_score: 61, status: "complete",
+    score_market: 65, score_competition: 50, score_feasibility: 70, score_execution: 55,
     details: "Target users are remote workers and freelancers in dense cities."
   },
   {
@@ -69,6 +71,7 @@ IDEAS = [
     content: "A neighborhood-based app that connects pet owners for shared walks, pet-sitting exchanges, and emergency vet recommendations.",
     summary: "PetLoop builds a trusted local network so pet owners never face a pet emergency or vacation alone.",
     idea_score: 58, status: "complete",
+    score_market: 55, score_competition: 45, score_feasibility: 75, score_execution: 52,
     details: "Focused on dog and cat owners in urban and suburban neighborhoods."
   },
   {
@@ -76,6 +79,7 @@ IDEAS = [
     content: "A navigation app that prioritizes the most eco-friendly route — lowest emissions, most bike lanes, best public transit combos.",
     summary: "GreenRoute helps you get anywhere with the smallest carbon footprint possible.",
     idea_score: 82, status: "complete",
+    score_market: 90, score_competition: 70, score_feasibility: 80, score_execution: 85,
     details: "Combines public transit APIs, bike infrastructure data, and carbon calculators."
   },
   {
@@ -83,6 +87,7 @@ IDEAS = [
     content: "A platform where freelancers trade skills instead of money — a designer does your branding in exchange for accounting help.",
     summary: "SkillSwap lets freelancers barter expertise, eliminating cash barriers for early-stage solopreneurs.",
     idea_score: 45, status: "complete",
+    score_market: 40, score_competition: 35, score_feasibility: 65, score_execution: 38,
     details: "Uses a time-credit system to keep exchanges fair."
   },
   {
@@ -90,6 +95,7 @@ IDEAS = [
     content: "An app that generates weekly meal plans based on what's already in your fridge, reducing food waste and grocery bills.",
     summary: "MealMate turns your leftovers into a full week of recipes — no waste, no stress.",
     idea_score: 69, status: "complete",
+    score_market: 75, score_competition: 55, score_feasibility: 72, score_execution: 68,
     details: "Computer vision identifies fridge contents; recipe engine adapts to dietary preferences."
   },
   {
@@ -97,6 +103,7 @@ IDEAS = [
     content: "A focus-timer app that silences notifications, blocks distracting apps, and tracks deep-work streaks over time.",
     summary: "QuietHour protects your focus time and gamifies deep work with streaks and stats.",
     idea_score: 53, status: "complete",
+    score_market: 50, score_competition: 30, score_feasibility: 80, score_execution: 55,
     details: "Integrates with calendar apps to auto-schedule focus blocks."
   },
   {
@@ -104,6 +111,7 @@ IDEAS = [
     content: "A discovery platform for independent coffee roasters, letting users subscribe to monthly curated beans from local micro-roasteries.",
     summary: "LocalBrew connects coffee lovers directly with small-batch roasters in their city.",
     idea_score: 66, status: "complete",
+    score_market: 60, score_competition: 55, score_feasibility: 80, score_execution: 65,
     details: "Subscription model with rotating selections and tasting notes."
   },
   {
@@ -111,6 +119,7 @@ IDEAS = [
     content: "An on-demand marketplace for small home repairs — leaky faucets, broken shelves, stuck doors — with vetted local handypeople.",
     summary: "FixItNow gets small home repairs done in hours, not weeks, with trusted local pros.",
     idea_score: 71, status: "complete",
+    score_market: 75, score_competition: 60, score_feasibility: 70, score_execution: 72,
     details: "Flat-rate pricing for common repairs; background-checked providers."
   },
   {
@@ -118,6 +127,7 @@ IDEAS = [
     content: "A platform that matches university students into small accountability study groups based on courses, schedules, and learning styles.",
     summary: "StudyPod fights academic isolation by building smart, compatible study groups automatically.",
     idea_score: 48, status: "complete",
+    score_market: 45, score_competition: 40, score_feasibility: 60, score_execution: 42,
     details: "Integrates with university course catalogs and calendar systems."
   },
   {
@@ -125,6 +135,7 @@ IDEAS = [
     content: "A travel planning app where locals curate secret itineraries — hidden restaurants, viewpoints, and experiences tourists never find.",
     summary: "WanderList gives travelers access to insider itineraries curated by real locals.",
     idea_score: 77, status: "complete",
+    score_market: 85, score_competition: 65, score_feasibility: 78, score_execution: 75,
     details: "Locals earn commissions on bookings made through their curated lists."
   },
   {
@@ -132,6 +143,7 @@ IDEAS = [
     content: "A same-day delivery service connecting small organic farms directly to urban consumers, cutting out supermarket middlemen.",
     summary: "FreshDrop brings farm-fresh organic produce to your door within hours of harvest.",
     idea_score: 63, status: "complete",
+    score_market: 70, score_competition: 50, score_feasibility: 55, score_execution: 68,
     details: "Partners with farms within 100km radius; optimized delivery routes."
   },
   {
@@ -139,6 +151,7 @@ IDEAS = [
     content: "A platform for independent musicians to sell stems, loops, and beats directly to producers and content creators.",
     summary: "SoundNest is a marketplace where indie musicians monetize their raw sounds and loops.",
     idea_score: 55, status: "complete",
+    score_market: 50, score_competition: 40, score_feasibility: 75, score_execution: 52,
     details: "Built-in audio preview, licensing tiers, and royalty tracking."
   },
   {
@@ -146,6 +159,7 @@ IDEAS = [
     content: "A coordination app for families managing elderly care — shared calendars, medication reminders, and caregiver task assignments.",
     summary: "CareCircle helps families organize elderly care without the chaos of group chats and spreadsheets.",
     idea_score: 84, status: "complete",
+    score_market: 90, score_competition: 75, score_feasibility: 80, score_execution: 88,
     details: "HIPAA-aware design; integrates with pharmacy and doctor appointment systems."
   },
   {
@@ -153,6 +167,7 @@ IDEAS = [
     content: "A second-hand fashion app focused on curated bundles — users sell outfit sets, not individual pieces, for a styled thrift experience.",
     summary: "ReStyled makes second-hand shopping feel like getting a personal stylist, not digging through bins.",
     idea_score: 70, status: "complete",
+    score_market: 75, score_competition: 55, score_feasibility: 78, score_execution: 68,
     details: "AI-powered style matching based on user preferences and body type."
   },
 ]
@@ -204,12 +219,54 @@ def build_business_data(idea)
     },
     execution: {
       time_to_mvp: "#{rand(2..6)} months",
+      tech_challenge: "Building a reliable real-time data pipeline that scales with user growth for #{idea.title}.",
       tech_feasibility_label: ["High", "Medium"].sample,
       tech_feasibility_context: "The core technology stack is well-established with available open-source components.",
       regulatory_risk_level: ["Low", "Medium", "High"].sample,
       regulatory_risk_context: "Regulatory considerations are manageable with proper legal guidance in target markets.",
       key_risk: "User acquisition and retention in a competitive landscape remain the primary execution risks.",
       key_risk_highlight: "user acquisition in competitive market"
+    },
+    launch_plan: {
+      sprint1_duration: "2 weeks",
+      mvp_horizon: "#{rand(2..4)} months",
+      full_launch: "#{rand(5..8)} months",
+      phases: [
+        {
+          number: 1,
+          label: "Define & validate",
+          timeline: "Weeks 1–3",
+          horizon: "now",
+          steps: [
+            "Interview 20 target users to confirm the core pain point and identify the riskiest assumption.",
+            "Map the competitive landscape and pinpoint the key gap #{idea.title} will own.",
+            "Define the MVP scope: one core feature that solves the #1 user problem."
+          ]
+        },
+        {
+          number: 2,
+          label: "Build the simplest version",
+          timeline: "Weeks 4–10",
+          horizon: "build",
+          steps: [
+            "Set up the backend infrastructure and core data model for the primary workflow.",
+            "Build the main user-facing feature end-to-end with a minimal but polished UI.",
+            "Integrate key third-party APIs and run a closed beta with 10 early users."
+          ]
+        },
+        {
+          number: 3,
+          label: "Launch & grow",
+          timeline: "Weeks 11–16",
+          horizon: "launch",
+          columns: {
+            "Operations" => ["Set up customer support, monitoring, and quality checks to run without founder intervention."],
+            "Growth" => ["Focus on one acquisition channel — target the top city or segment with highest intent."],
+            "Metrics" => ["Track weekly active users as the north star KPI; pivot if retention drops below 20% at week 4."]
+          }
+        }
+      ],
+      critical_decision: "Decide whether to expand features or double down on retention after the first 100 active users."
     }
   )
 end
@@ -224,6 +281,10 @@ ideas = IDEAS.each_with_index.map do |attrs, i|
     summary: attrs[:summary],
     idea_score: attrs[:idea_score],
     status: attrs[:status],
+    score_market: attrs[:score_market],
+    score_competition: attrs[:score_competition],
+    score_feasibility: attrs[:score_feasibility],
+    score_execution: attrs[:score_execution],
     details: attrs[:details],
     shared: true,
     report_generated: true

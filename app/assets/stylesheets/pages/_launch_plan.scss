@@ -83,11 +83,12 @@
 .launch-plan__columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 48px;
   align-items: stretch;
 }
 
 .launch-plan__phase-card {
+  position: relative;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
@@ -98,22 +99,26 @@
 
 .launch-plan__phase-header {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  flex-direction: column;
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid #f0ede8;
 }
 
 .launch-plan__phase-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
+  position: absolute;
+  left: -30px;
+  top: 24px;
+  z-index: -1;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  padding: 12px 7px;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.85rem;
   font-weight: 700;
   font-family: "Poppins", sans-serif;
-  flex-shrink: 0;
-  margin-top: 2px;
+  letter-spacing: 0.05em;
 
   &--black {
     background: #1a1a1a;
@@ -123,11 +128,15 @@
   &--orange {
     background: #feecd0;
     color: #7a4000;
+    border: 1px solid #7a4000;
+    border-left: none;
   }
 
   &--green {
     background: #d6f5e3;
     color: #2D7D4F;
+    border: 1px solid #2D7D4F;
+    border-left: none;
   }
 }
 
