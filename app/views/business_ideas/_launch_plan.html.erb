@@ -13,16 +13,14 @@
     <p class="launch-plan__subtitle">The key steps to start building <strong><%= idea.title %></strong></p>
   </div>
 
-  <!-- Phase 1 + Phase 2 side by side -->
-  <div class="launch-plan__phases-grid">
+  <!-- 3 phases as equal columns -->
+  <div class="launch-plan__columns">
 
     <!-- Phase 1 -->
     <div class="launch-plan__phase-card">
       <div class="launch-plan__phase-header">
         <span class="launch-plan__phase-badge launch-plan__phase-badge--orange">Phase <%= phase1["number"] || 1 %></span>
-        <div>
-          <h3 class="launch-plan__phase-label"><%= phase1["label"] || "Define &amp; validate" %></h3>
-        </div>
+        <h3 class="launch-plan__phase-label"><%= phase1["label"] || "Define & validate" %></h3>
       </div>
       <ul class="launch-plan__steps">
         <% (phase1["steps"] || []).each do |step| %>
@@ -39,9 +37,7 @@
     <div class="launch-plan__phase-card">
       <div class="launch-plan__phase-header">
         <span class="launch-plan__phase-badge launch-plan__phase-badge--orange">Phase <%= phase2["number"] || 2 %></span>
-        <div>
-          <h3 class="launch-plan__phase-label"><%= phase2["label"] || "Build the simplest version" %></h3>
-        </div>
+        <h3 class="launch-plan__phase-label"><%= phase2["label"] || "Build the simplest version" %></h3>
       </div>
       <ul class="launch-plan__steps">
         <% (phase2["steps"] || []).each do |step| %>
@@ -54,33 +50,33 @@
       </ul>
     </div>
 
-  </div>
-
-  <!-- Phase 3 full-width -->
-  <div class="launch-plan__phase-card">
-    <div class="launch-plan__phase-header">
-      <span class="launch-plan__phase-badge launch-plan__phase-badge--orange">Phase <%= phase3["number"] || 3 %></span>
-      <div>
+    <!-- Phase 3 -->
+    <div class="launch-plan__phase-card">
+      <div class="launch-plan__phase-header">
+        <span class="launch-plan__phase-badge launch-plan__phase-badge--orange">Phase <%= phase3["number"] || 3 %></span>
         <h3 class="launch-plan__phase-label"><%= phase3["label"] || "Launch" %></h3>
       </div>
+      <% columns = phase3["columns"] || {} %>
+      <div class="launch-plan__phase3-groups">
+        <% ["Operations", "Growth", "Metrics"].each do |col_name| %>
+          <% steps = columns[col_name] || [] %>
+          <% next if steps.empty? %>
+          <div class="launch-plan__step-group">
+            <p class="launch-plan__step-group-label"><%= col_name %></p>
+            <ul class="launch-plan__steps">
+              <% steps.each do |step| %>
+                <% step_counter[0] += 1 %>
+                <li class="launch-plan__step">
+                  <span class="launch-plan__dot launch-plan__dot--orange"><%= step_counter[0] %></span>
+                  <span class="launch-plan__step-text"><%= step %></span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
     </div>
-    <% columns = phase3["columns"] || {} %>
-    <div class="launch-plan__phase3-columns">
-      <% ["Operations", "Growth", "Metrics"].each do |col_name| %>
-        <div class="launch-plan__phase3-col">
-          <p class="launch-plan__phase3-col-title"><%= col_name %></p>
-          <ul class="launch-plan__steps">
-            <% (columns[col_name] || []).each do |step| %>
-              <% step_counter[0] += 1 %>
-              <li class="launch-plan__step">
-                <span class="launch-plan__dot launch-plan__dot--orange"><%= step_counter[0] %></span>
-                <span class="launch-plan__step-text"><%= step %></span>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-    </div>
+
   </div>
 
 </div>

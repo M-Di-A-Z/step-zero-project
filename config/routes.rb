@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :create, :destroy]
     resource :like, only: [:create, :destroy]
     member do
-        get :report
         get :status
         get :research
         post :research
@@ -24,7 +23,6 @@ Rails.application.routes.draw do
   get "socials", to: "socials#index", as: :socials
 
   get "up" => "rails/health#show", as: :rails_health_check
-  get "report", to: "business_ideas#report"
 
 
 end

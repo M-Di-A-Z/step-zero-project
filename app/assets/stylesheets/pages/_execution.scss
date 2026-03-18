@@ -66,7 +66,7 @@
 }
 
 .execution__challenge-value {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 400;
   color: #666;
   margin: 0;
@@ -98,46 +98,35 @@
 }
 
 .execution__card-context {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #666;
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   margin: 0;
+
+  strong {
+    color: #1a1a1a;
+    font-weight: 600;
+  }
 }
 
-// ── Pill ─────────────────────────────────────────────────────────────
+// ── Key pill (tech feasibility + regulatory risk) ─────────────────────
 
-.execution__pill {
-  display: inline-block;
-  padding: 4px 14px;
-  border-radius: 14px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-family: "Poppins", sans-serif;
-
-  &--green {
-    background: #d6f5e3;
-    color: #2a7a4a;
-  }
-
-  &--orange {
-    background: #feecd0;
-    color: #7a4000;
-  }
-
-  &--red {
-    background: #fde8e8;
-    color: #8b2500;
-  }
+.execution__key-pill {
+  align-self: flex-start;
+  margin: 8px 0 20px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 // ── Key risk ─────────────────────────────────────────────────────────
 
 .execution__risk {
-  background: #ffffff;
+  background: #fff8f0;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+  border-left: 3px solid #f5a623;
   padding: 20px 24px;
 }
 
@@ -152,7 +141,7 @@
 }
 
 .execution__risk-text {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #444;
   line-height: 1.6;
   font-family: "Poppins", sans-serif;

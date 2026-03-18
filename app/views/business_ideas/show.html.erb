@@ -128,6 +128,12 @@
       });
     });
 
+    // Activate tab from URL param (e.g. ?tab=5)
+    var initialTab = parseInt(new URLSearchParams(window.location.search).get("tab"), 10);
+    if (!isNaN(initialTab) && initialTab > 0 && initialTab < panels.length) {
+      switchTab(initialTab);
+    }
+
     // Scroll (wheel) navigation between tabs
     var scrollCooldown = false;
     document.addEventListener("wheel", function(e) {

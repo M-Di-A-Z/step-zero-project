@@ -78,26 +78,31 @@
   font-family: "Poppins", sans-serif;
 }
 
-// ── Phase cards ───────────────────────────────────────────────────────
+// ── Phase columns ─────────────────────────────────────────────────────
 
-.launch-plan__phases-grid {
+.launch-plan__columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  align-items: stretch;
 }
 
 .launch-plan__phase-card {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
-  padding: 24px 28px;
+  padding: 36px 28px 40px;
+  display: flex;
+  flex-direction: column;
 }
 
 .launch-plan__phase-header {
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  padding-bottom: 20px;
   margin-bottom: 20px;
+  border-bottom: 1px solid #f0ede8;
 }
 
 .launch-plan__phase-badge {
@@ -150,13 +155,23 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .launch-plan__step {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0ede8;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
 }
 
 .launch-plan__dot {
@@ -189,28 +204,41 @@
 }
 
 .launch-plan__step-text {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #444;
-  line-height: 1.5;
+  line-height: 1.65;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
 }
 
-// ── Phase 3 columns ───────────────────────────────────────────────────
+// ── Phase 3 step groups ────────────────────────────────────────────────
 
-.launch-plan__phase3-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 24px;
+.launch-plan__phase3-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.launch-plan__phase3-col-title {
-  font-size: 0.84rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: #aaa;
+.launch-plan__step-group {
+  padding: 16px 0 0;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:not(:last-child) {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0ede8;
+  }
+}
+
+.launch-plan__step-group-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #bbb;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-family: "Poppins", sans-serif;
 }
 
@@ -235,7 +263,7 @@
 }
 
 .launch-plan__critical-text {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #444;
   line-height: 1.6;
   font-family: "Poppins", sans-serif;

@@ -32,7 +32,7 @@
 
     <div class="business-tab__card">
       <p class="business-tab__card-label">Customer Profile</p>
-      <p class="business-tab__card-context"><%= business["customer_profile"] || "n/a" %></p>
+      <p class="business-tab__card-context"><%= sanitize(business["customer_profile"] || "n/a", tags: %w[strong]) %></p>
     </div>
 
   </div>
@@ -47,7 +47,7 @@
 
     <div class="business-tab__card">
       <p class="business-tab__card-label">Scalability</p>
-      <p class="business-tab__card-context"><%= business["scalability"] || "n/a" %></p>
+      <p class="business-tab__card-context"><%= sanitize(business["scalability"] || "n/a", tags: %w[strong]) %></p>
     </div>
 
   </div>

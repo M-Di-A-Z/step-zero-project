@@ -7,6 +7,14 @@
    else 3
    end %>
 
+<% market_stage_color = case overview["market_stage_pill"]&.downcase
+   when /emerging/ then "blue"
+   when /growing/, /growth/ then "green"
+   when /mature/ then "yellow"
+   when /saturated/ then "orange"
+   when /declining/ then "red"
+   end %>
+
 <div class="project-show">
   <!-- Header: title + summary left, rating right -->
   <div class="project-show__header">
@@ -38,12 +46,30 @@
         </svg>
         <div class="project-show__gauge-value"><%= idea.idea_score %>%</div>
       </div>
+      <% if idea.score_market.present? %>
+        <div class="project-show__subscores">
+          <% [
+            ["Market", idea.score_market],
+            ["Competition", idea.score_competition],
+            ["Feasibility", idea.score_feasibility],
+            ["Execution", idea.score_execution]
+          ].each do |label, val| %>
+            <div class="project-show__subscore-row">
+              <span class="project-show__subscore-label"><%= label %></span>
+              <div class="project-show__subscore-bar">
+                <div class="project-show__subscore-fill" style="width: <%= val.to_i %>%"></div>
+              </div>
+              <span class="project-show__subscore-value"><%= val.to_i %></span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 
   <!-- link to launch plan -->
   <div class="project-report_link">
-    <%= link_to report_business_idea_path(idea), class: "home-submit" do %>
+    <%= link_to business_idea_path(idea, tab: 5), class: "home-submit" do %>
       <span>View Launch Plan</span>
       <svg width="15px" height="10px" viewBox="0 0 13 10">
         <path d="M1,5 L11,5"></path>
@@ -58,8 +84,10 @@
     <!-- Card 1: Market Stage -->
     <div class="project-show__card">
       <p class="project-show__card-label">Market Stage</p>
-      <h2 class="project-show__card-heading"><%= overview["market_stage_pill"] || "n/a" %></h2>
-      <p class="project-show__card-context"><strong><%= overview["market_stage_label"] %></strong> — <%= sanitize(overview["market_stage_context"] || "n/a", tags: %w[strong]) %></p>
+      <div class="project-show__card-visual">
+        <span class="<%= "project-show__pill project-show__pill--#{market_stage_color}" %>"><%= overview["market_stage_pill"] || "n/a" %></span>
+      </div>
+      <p class="project-show__card-context"><%= sanitize(overview["market_stage_context"] || "n/a", tags: %w[strong]) %></p>
     </div>
 
     <!-- Card 2: Competitivity -->
