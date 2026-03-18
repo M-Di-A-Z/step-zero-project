@@ -2,6 +2,22 @@
   <div class="socials-header">
     <div class="socials-header__left">
       <h1 class="socials-header__title">Discover</h1>
+      <div class="socials-filter-dropdown" id="filterDropdown">
+        <button class="socials-filter-dropdown__btn" id="filterDropdownBtn" onclick="toggleFilterDropdown()">
+          <span id="filterDropdownLabel">Recent</span>
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="socials-filter-dropdown__menu" id="filterDropdownMenu">
+          <button class="socials-filter-dropdown__item socials-filter-dropdown__item--active" onclick="selectDropdownOption('recent', 'all', 'Recent', this)">Recent</button>
+          <button class="socials-filter-dropdown__item" onclick="selectDropdownOption('most_liked', 'all', 'Most liked', this)">Most liked</button>
+          <button class="socials-filter-dropdown__item" onclick="selectDropdownOption('best_rated', 'all', 'Best rated', this)">Best rated</button>
+          <% if user_signed_in? %>
+            <button class="socials-filter-dropdown__item" onclick="selectDropdownOption('recent', 'favorites', 'Favorites', this)">Favorites</button>
+          <% end %>
+        </div>
+      </div>
     </div>
     <% if user_signed_in? %>
       <div class="socials-header__actions">
@@ -14,33 +30,6 @@
         <% end %>
       </div>
     <% end %>
-  </div>
-
-  <div class="socials-filters" id="socialsFilters">
-    <div class="socials-filters__group">
-      <button class="socials-filters__pill socials-filters__pill--active" data-filter="all" onclick="applyFilter('all', this)">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-        All
-      </button>
-      <% if user_signed_in? %>
-        <button class="socials-filters__pill" data-filter="favorites" onclick="applyFilter('favorites', this)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-          Favorites
-        </button>
-      <% end %>
-    </div>
-    <div class="socials-filters__group">
-      <span class="socials-filters__label">Sort by</span>
-      <button class="socials-filters__pill socials-filters__pill--active" data-sort="recent" onclick="applySort('recent', this)">
-        Recent
-      </button>
-      <button class="socials-filters__pill" data-sort="most_liked" onclick="applySort('most_liked', this)">
-        Most liked
-      </button>
-      <button class="socials-filters__pill" data-sort="best_rated" onclick="applySort('best_rated', this)">
-        Best rated
-      </button>
-    </div>
   </div>
 
   <% if @trending_posts.any? %>
@@ -122,10 +111,41 @@
 </div>
 
 <script>
+// ── Filter dropdown ───────────────────────────────────────────
+window.toggleFilterDropdown = function() {
+  var menu = document.getElementById("filterDropdownMenu");
+  var btn = document.getElementById("filterDropdownBtn");
+  var isOpen = menu.classList.contains("open");
+  menu.classList.toggle("open", !isOpen);
+  btn.classList.toggle("open", !isOpen);
+};
+
+document.addEventListener("click", function(e) {
+  var dropdown = document.getElementById("filterDropdown");
+  if (dropdown && !dropdown.contains(e.target)) {
+    document.getElementById("filterDropdownMenu").classList.remove("open");
+    document.getElementById("filterDropdownBtn").classList.remove("open");
+  }
+});
+
 // ── Client-side filter & sort ────────────────────────────────
+var currentFilter = "all";
+var currentSort = "recent";
+
+window.selectDropdownOption = function(sort, filter, label, item) {
+  document.querySelectorAll(".socials-filter-dropdown__item").forEach(function(i) {
+    i.classList.remove("socials-filter-dropdown__item--active");
+  });
+  item.classList.add("socials-filter-dropdown__item--active");
+  document.getElementById("filterDropdownLabel").textContent = label;
+  document.getElementById("filterDropdownMenu").classList.remove("open");
+  document.getElementById("filterDropdownBtn").classList.remove("open");
+  currentSort = sort;
+  currentFilter = filter;
+  refresh();
+};
+
 (function() {
-  var currentFilter = "all";
-  var currentSort = "recent";
   var list = document.getElementById("socialsList");
   var emptyEl = document.getElementById("socialsFilterEmpty");
   var trendingSection = document.querySelector(".trending-section");
@@ -143,29 +163,7 @@
     return currentFilter === "all" && currentSort === "recent";
   };
 
-  function activatePill(btn) {
-    var group = btn.parentElement;
-    group.querySelectorAll(".socials-filters__pill").forEach(function(p) {
-      p.classList.remove("socials-filters__pill--active");
-    });
-    btn.classList.add("socials-filters__pill--active");
-  }
-
-  window.applyFilter = function(filter, btn) {
-    currentFilter = filter;
-    activatePill(btn);
-    var favSvg = btn.parentElement.querySelector('[data-filter="favorites"] svg');
-    if (favSvg) favSvg.setAttribute("fill", filter === "favorites" ? "currentColor" : "none");
-    refresh();
-  };
-
-  window.applySort = function(sort, btn) {
-    currentSort = sort;
-    activatePill(btn);
-    refresh();
-  };
-
-  function refresh() {
+  window.refresh = function() {
     if (!list) return;
 
     // Default state: restore trending section + regular list

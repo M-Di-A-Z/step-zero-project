@@ -18,8 +18,15 @@
 
   &__left {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   &__title {
@@ -546,65 +553,82 @@
 
 }
 
-// ── Filters bar ──────────────────────────────────────────────
+// ── Filter dropdown ──────────────────────────────────────────
 
-.socials-filters {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
+.socials-filter-dropdown {
+  position: relative;
 
-  &__group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  &__label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #aaa;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-right: 4px;
-  }
-
-  &__pill {
+  &__btn {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
+    gap: 8px;
+    padding: 10px 16px;
     border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    font-family: sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
     background: #f5f3ee;
-    color: #888;
-    border: 1.5px solid transparent;
-    text-decoration: none;
+    color: #555;
+    border: none;
     cursor: pointer;
     transition: all 0.18s ease;
 
-    svg { flex-shrink: 0; }
+    svg {
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
 
     &:hover {
       background: #ebe8e0;
-      color: #555;
-      text-decoration: none;
+      color: #333;
+    }
+
+    &.open svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: #fff;
+    border: 1px solid #e0d9ce;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    min-width: 140px;
+    z-index: 100;
+    overflow: hidden;
+
+    &.open {
+      display: block;
+    }
+  }
+
+  &__item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    color: #555;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: #f5f3ee;
+      color: #333;
     }
 
     &--active {
-      background: #fff8ec;
+      font-weight: 600;
       color: #b36b00;
-      border-color: #f5a623;
-
-      &:hover {
-        background: #fff3d9;
-        color: #b36b00;
-      }
+      background: #fff8ec;
     }
   }
 }
