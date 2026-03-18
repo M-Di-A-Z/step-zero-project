@@ -76,12 +76,17 @@
 }
 
 .business-tab__card-context {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #666;
   line-height: 1.6;
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   margin: 0;
+
+  strong {
+    color: #1a1a1a;
+    font-weight: 600;
+  }
 }
 
 // ── Revenue split bar ────────────────────────────────────────────────
@@ -114,7 +119,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: #666;
   font-family: "Poppins", sans-serif;
   font-weight: 400;

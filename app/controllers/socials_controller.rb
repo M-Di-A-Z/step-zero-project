@@ -1,7 +1,6 @@
 class SocialsController < ApplicationController
   def index
     trending_ids = Like
-      .where(created_at: 24.hours.ago..)
       .joins(:business_idea)
       .where(business_ideas: { shared: true })
       .group(:business_idea_id)

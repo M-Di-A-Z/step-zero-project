@@ -10,6 +10,10 @@ class ResearchBusinessIdeaJob < ApplicationJob
       title: parsed["project_name"],
       summary: parsed["summary"],
       idea_score: parsed["idea_score"],
+      score_market: parsed["score_market"],
+      score_competition: parsed["score_competition"],
+      score_feasibility: parsed["score_feasibility"],
+      score_execution: parsed["score_execution"],
       status: "complete"
     )
 
