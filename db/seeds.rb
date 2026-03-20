@@ -271,6 +271,105 @@ def build_business_data(idea)
   )
 end
 
+# ── CareCircle-specific business data ─────────────────────────
+def build_care_circle_data(idea)
+  BusinessData.create!(
+    business_idea: idea,
+    overview: {
+      market_stage_pill: "Growing",
+      market_stage_label: "Early Growth Stage",
+      market_stage_context: "The family caregiving coordination market is expanding rapidly as the aging population drives demand for digital tools that reduce caregiver burden.",
+      competitive_intensity_dots: 3,
+      competitive_intensity_label: "Moderate Competition",
+      competitive_intensity_context: "Existing solutions are fragmented — some focus on medication, others on scheduling — leaving room for an integrated coordination platform.",
+      project_feasibility: "High",
+      project_feasibility_context: "Core features (shared calendar, reminders, task assignment) rely on well-established technologies with available APIs and SDKs.",
+      positioning_sentence: "CareCircle replaces the chaos of group chats and spreadsheets with a single, purpose-built hub for family caregiving coordination."
+    },
+    market_size: {
+      tam: "$90B",
+      sam: "$12B",
+      market_stage: "Early Growth",
+      key_driver: "**10,000 Baby Boomers turn 65 every day** through 2030, creating an unprecedented wave of elderly care demand. **53 million Americans** currently serve as unpaid family caregivers, spending an average of **20 hours per week** on care coordination tasks — most of which are still managed through group chats, sticky notes, and spreadsheets. Digital adoption among caregivers is accelerating, driven by smartphone penetration and growing awareness of caregiver burnout.",
+      geo: [
+        { region: "North America", pct: 42 },
+        { region: "Europe", pct: 28 },
+        { region: "Asia-Pacific", pct: 20 },
+        { region: "Rest of World", pct: 10 }
+      ]
+    },
+    competitors: {
+      intensity: "Moderate",
+      intensity_dots: 3,
+      competitor_count: 12,
+      market_gap: "No existing solution combines shared family calendars, medication reminders, and caregiver task assignment in a single HIPAA-aware mobile app accessible to non-technical users.",
+      top_3: [
+        { name: "CareZone", value_prop: "Medication management with direct pharmacy integration and prescription delivery — strong on health records, weak on multi-member family coordination", revenue_or_funding: "$30M (acquired by Amazon)" },
+        { name: "Lotsa Helping Hands", value_prop: "Community care network for organizing volunteer helpers around a care recipient — good for task lists, lacks medication tracking and real-time caregiver scheduling", revenue_or_funding: "$8M funding" },
+        { name: "Wellthy", value_prop: "Employer-sponsored care navigation with dedicated human coordinators — premium concierge service, inaccessible for families without employer subsidy", revenue_or_funding: "$45M funding" }
+      ]
+    },
+    business: {
+      revenue_models: "**Freemium family plan** with up to 3 caregivers free; premium tier at **$9.99/month** unlocks unlimited caregivers, pharmacy API integration, and priority support. B2B channel through **employer wellness programs** and **senior care facilities** targeting facility-wide licensing.",
+      recurring_pct: 72,
+      onetime_pct: 28,
+      customer_profile: "Adults aged **35–55** managing care for an aging parent, coordinating with **2–5 family members** across different cities. Typically time-poor, tech-comfortable, and currently relying on WhatsApp groups and shared Google Docs.",
+      scalability: "High scalability potential — the digital-first architecture enables geographic expansion with minimal marginal cost, and the B2B channel (employer and facility licensing) provides a high-leverage growth path."
+    },
+    execution: {
+      time_to_mvp: "3 months",
+      tech_challenge: "Building a reliable real-time sync engine for shared calendars and task assignments that works across iOS, Android, and web while maintaining HIPAA-compliant data handling.",
+      tech_feasibility_label: "High",
+      tech_feasibility_context: "Core technology stack is well-established — real-time sync via Firebase or ActionCable, push notifications, and calendar APIs are mature and widely documented.",
+      regulatory_risk_level: "Medium",
+      regulatory_risk_context: "HIPAA compliance is required for handling health data. Manageable with proper infrastructure choices (signed BAAs with cloud providers) and does not require FDA approval.",
+      key_risk: "Caregiver adoption is high-intent but episodic — families often seek a tool during a care crisis and may churn once the acute period passes. Retention strategy must address ongoing utility beyond emergencies.",
+      key_risk_highlight: "post-crisis churn and long-term retention"
+    },
+    launch_plan: {
+      sprint1_duration: "2 weeks",
+      mvp_horizon: "3 months",
+      full_launch: "7 months",
+      phases: [
+        {
+          number: 1,
+          label: "Define & validate",
+          timeline: "Weeks 1–3",
+          horizon: "now",
+          steps: [
+            "Interview 20 family caregivers to map the exact coordination breakdown — where do group chats fail, what gets missed?",
+            "Identify the single highest-friction moment (missed medication vs. scheduling conflict) to anchor the MVP.",
+            "Validate willingness to pay: run a landing page with a $9.99/month paywall before writing a single line of code."
+          ]
+        },
+        {
+          number: 2,
+          label: "Build the simplest version",
+          timeline: "Weeks 4–10",
+          horizon: "build",
+          steps: [
+            "Build shared family calendar + task assignment with real-time sync and push notification alerts.",
+            "Add medication reminder module with recurring schedules and caregiver confirmation tracking.",
+            "Run a closed beta with 10 families; measure daily active use and missed reminder rate."
+          ]
+        },
+        {
+          number: 3,
+          label: "Launch & grow",
+          timeline: "Weeks 11–16",
+          horizon: "launch",
+          columns: {
+            "Operations" => ["Establish HIPAA-compliant infrastructure with signed BAAs; set up caregiver support chat with sub-4h response SLA."],
+            "Growth" => ["Partner with 2–3 senior care facilities for a pilot; target caregiver Facebook groups and eldercare forums for organic acquisition."],
+            "Metrics" => ["Track **weekly active families** as the north star KPI; flag churn risk if a family goes 7 days without a check-in or task update."]
+          }
+        }
+      ],
+      critical_decision: "After 100 active families: double down on the B2C freemium funnel or pivot to B2B facility licensing — retention data will show which channel has stronger long-term engagement."
+    }
+  )
+end
+
 # Create all ideas, share them, and build data
 ideas = IDEAS.each_with_index.map do |attrs, i|
   owner = users[i % users.size]
@@ -289,7 +388,11 @@ ideas = IDEAS.each_with_index.map do |attrs, i|
     shared: true,
     report_generated: true
   )
-  build_business_data(idea)
+  if attrs[:title] == "CareCircle"
+    build_care_circle_data(idea)
+  else
+    build_business_data(idea)
+  end
   idea
 end
 
