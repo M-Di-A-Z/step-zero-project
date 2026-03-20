@@ -34,7 +34,10 @@
     <script>
       (function() {
         const canvas = document.getElementById("gradientCanvas");
-        if (!canvas) return;
+        if (!canvas || !document.body.classList.contains("home-body")) {
+          if (canvas) canvas.style.display = "none";
+          return;
+        }
         const ctx = canvas.getContext("2d");
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;

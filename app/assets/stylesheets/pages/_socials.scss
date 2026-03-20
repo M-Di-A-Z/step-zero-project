@@ -14,7 +14,7 @@
   justify-content: space-between;
   margin-bottom: 28px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #E0D9CE;
+  border-bottom: 1px solid #c4baa8;
 
   &__left {
     display: flex;
@@ -388,7 +388,7 @@
     font-family: sans-serif;
     background: #f5f3ee;
     color: #888;
-    border: none;
+    border: 1px solid #c4baa8;
     cursor: pointer;
     transition: background 0.15s, color 0.15s;
 
@@ -416,7 +416,7 @@
     font-family: sans-serif;
     background: #f5f3ee;
     color: #888;
-    border: none;
+    border: 1px solid #c4baa8;
     cursor: pointer;
     transition: background 0.15s, color 0.15s;
 
@@ -490,12 +490,14 @@
     &--published {
       background: #E8F5EC;
       color: #1a7a3c;
+      border: 1px solid #1a7a3c;
       .social-card__status-dot { background: #1EDD88; }
     }
 
     &--unpublished {
       background: #F0EDE4;
       color: #999;
+      border: 1px solid #999;
       .social-card__status-dot { background: #bbb; }
     }
   }
@@ -569,7 +571,7 @@
     font-family: "Poppins", sans-serif;
     background: #f5f3ee;
     color: #555;
-    border: none;
+    border: 1px solid #c4baa8;
     cursor: pointer;
     transition: all 0.18s ease;
 
@@ -594,7 +596,7 @@
     top: calc(100% + 6px);
     left: 0;
     background: #fff;
-    border: 1px solid #e0d9ce;
+    border: 1px solid #c4baa8;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     min-width: 140px;
@@ -735,7 +737,10 @@
   width: 92vw;
   height: 88vh;
   max-width: 1400px;
-  background: #faf8f3;
+  background: #e9e5de;
+  background-image: url(asset-path("trame.svg"));
+  background-repeat: repeat;
+  background-size: auto;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 32px 80px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.08);

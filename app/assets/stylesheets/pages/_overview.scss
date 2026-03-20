@@ -131,12 +131,14 @@
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
+  align-self: stretch;
+  justify-content: space-between;
 }
 
 .project-show__gauge {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
 }
 
 .project-show__gauge-svg {
@@ -150,7 +152,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.8rem;
+  font-size: 2.4rem;
   font-weight: 800;
   color: #1a1a1a;
   white-space: nowrap;
@@ -169,11 +171,11 @@
 // ── Sub-scores ───────────────────────────────────────────────────────
 
 .project-show__subscores {
-  margin-top: 16px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  width: 160px;
+  gap: 9px;
+  width: 180px;
 }
 
 .project-show__subscore-row {
@@ -183,11 +185,11 @@
 }
 
 .project-show__subscore-label {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: #aaa;
   font-family: "Poppins", sans-serif;
-  width: 82px;
+  width: 90px;
   flex-shrink: 0;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -208,11 +210,11 @@
 }
 
 .project-show__subscore-value {
-  font-size: 0.7rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #1a1a1a;
   font-family: "Poppins", sans-serif;
-  width: 20px;
+  width: 24px;
   text-align: right;
   flex-shrink: 0;
 }
@@ -224,7 +226,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   margin-bottom: 24px;
-  border-top: 1px solid #e0ddd6;
+  border-top: 1px solid #c4baa8;
 }
 
 .project-show__card {
@@ -235,7 +237,7 @@
   min-width: 0;
 
   & + & {
-    border-left: 1px solid #e0ddd6;
+    border-left: 1px solid #c4baa8;
   }
 }
 
@@ -289,7 +291,7 @@
 .project-show__pill {
   display: inline-block;
   padding: 12px 26px;
-  border-radius: 24px;
+  border-radius: 50px;
   font-size: 1.32rem;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
@@ -297,26 +299,31 @@
   &--green {
     background: #d6f5e3;
     color: #2a7a4a;
+    border: 1px solid #2a7a4a;
   }
 
   &--yellow {
     background: #fff3cd;
     color: #7a5a00;
+    border: 1px solid #7a5a00;
   }
 
   &--red {
     background: #fde8e8;
     color: #8b2500;
+    border: 1px solid #8b2500;
   }
 
   &--orange {
     background: #feecd0;
     color: #7a4000;
+    border: 1px solid #7a4000;
   }
 
   &--blue {
     background: #dbeafe;
     color: #1d4ed8;
+    border: 1px solid #1d4ed8;
   }
 
 }
